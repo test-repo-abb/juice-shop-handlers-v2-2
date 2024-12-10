@@ -1,0 +1,142 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Bookstore API",
+      "description": "A simple API to manage a list of books.",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://api.bookstore.com/v1",
+        "description": "Production server"
+      },
+      {
+        "url": "https://staging.api.bookstore.com/v1",
+        "description": "Staging server"
+      }
+    ],
+    "paths": {
+      "/books": {
+        "get": {
+          "summary": "Get all books",
+          "description": "Retrieve a list of all books.",
+          "responses": {
+            "200": {
+              "description": "A list of books.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Book"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Add a new book",
+          "description": "Create a new book entry.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Book created successfully."
+            }
+          }
+        }
+      },
+      "/books/{bookId}": {
+        "get": {
+          "summary": "Get a single book",
+          "description": "Retrieve details of a specific book by its ID.",
+          "parameters": [
+            {
+              "name": "bookId",
+              "in": "path",
+              "required": true,
+              "description": "ID of the book to retrieve",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Book details.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Book"
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "Book not found."
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a book",
+          "description": "Delete a book by its ID.",
+          "parameters": [
+            {
+              "name": "bookId",
+              "in": "path",
+              "required": true,
+              "description": "ID of the book to delete",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "Book deleted successfully."
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Book": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "1"
+            },
+            "title": {
+              "type": "string",
+              "example": "The Great Gatsby"
+            },
+            "author": {
+              "type": "string",
+              "example": "F. Scott Fitzgerald"
+            },
+            "publishedDate": {
+              "type": "string",
+              "format": "date",
+              "example": "1925-04-10"
+            },
+            "genre": {
+              "type": "string",
+              "example": "Fiction"
+            }
+          }
+        }
+      }
+    }
+  }
