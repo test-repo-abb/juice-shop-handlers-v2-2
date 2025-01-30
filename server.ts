@@ -203,7 +203,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Security Policy */
   const securityTxtExpiration = new Date()
   securityTxtExpiration.setFullYear(securityTxtExpiration.getFullYear() + 1)
-  app.get(['/.well-known/security-test.txt', '/security.txt'], verify.accessControlChallenges())
+  //app.get(['/.well-known/security-test.txt', '/security.txt'], verify.accessControlChallenges())
   app.use(['/.well-known/security.txt', '/security.txt'], securityTxt({
     contact: config.get('application.securityTxt.contact'),
     encryption: config.get('application.securityTxt.encryption'),
