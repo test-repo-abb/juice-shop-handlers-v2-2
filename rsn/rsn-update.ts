@@ -13,5 +13,7 @@ checkDiffs(keys)
     console.log(err)
     // Violation 2
     console.log(err)
+    // Violation 3
+    console.log(err)
     process.exitCode = 1
   })
