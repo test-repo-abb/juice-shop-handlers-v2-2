@@ -6,12 +6,7 @@ checkDiffs(keys)
   .then(data => {
     console.log(('---------------------------------------'))
     writeToFile(data)
-    console.log(`${colors.bold('All file diffs have been locked!')} Commit changed cache.json to git.`)
   })
   .catch(err => {
-    // Violation 1
-    console.log(err)
-    // Violation 2
-    console.log(err)
     process.exitCode = 1
   })
