@@ -19,7 +19,7 @@ library.add(faFacebook, faTwitter, faSlack, faReddit, faNewspaper, faStar, fasSt
   selector: 'app-about',
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.scss']
-})/**/
+})
 export class AboutComponent implements OnInit {
   public twitterUrl?: string
   public facebookUrl?: string
@@ -73,19 +73,19 @@ export class AboutComponent implements OnInit {
           this.nftUrl = config.application.social.nftUrl
         }
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   populateSlideshowFromFeedbacks () {
     this.feedbackService.find().subscribe((feedbacks) => {
       for (let i = 0; i < feedbacks.length; i++) {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        feedbacks[i].comment = `<span style="width: 90%; display:block;">${feedbacks[i].comment}<br/> (${this.stars[feedbacks[i].rating]})/**/</span>`
+        feedbacks[i].comment = `<span style="width: 90%; display:block;">${feedbacks[i].comment}<br/> (${this.stars[feedbacks[i].rating]})</span>`
         feedbacks[i].comment = this.sanitizer.bypassSecurityTrustHtml(feedbacks[i].comment)
-        this.slideshowDataSource.push({ url: this.images[i % this.images.length], caption: feedbacks[i].comment })/**/
+        this.slideshowDataSource.push({ url: this.images[i % this.images.length], caption: feedbacks[i].comment })
       }
     }, (err) => {
       console.log(err)
-    })/**/
+    })
   }
 }

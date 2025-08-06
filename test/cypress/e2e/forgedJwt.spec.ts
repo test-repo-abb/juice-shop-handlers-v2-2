@@ -6,11 +6,11 @@ describe('/', () => {
           'token',
           'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJkYXRhIjp7ImVtYWlsIjoiand0bjNkQGp1aWNlLXNoLm9wIn0sImlhdCI6MTUwODYzOTYxMiwiZXhwIjo5OTk5OTk5OTk5fQ.'
         )
-      })/**/
+      })
       cy.visit('/')
-      cy.expectChallengeSolved({ challenge: 'Unsigned JWT' })/**/
-    })/**/
-  })/**/
+      cy.expectChallengeSolved({ challenge: 'Unsigned JWT' })
+    })
+  })
 
   describe('challenge "jwtForged"', () => {
     it('should accept a token HMAC-signed with public RSA key with email rsa_lord@juice-sh.op in the payload ', () => {
@@ -21,13 +21,13 @@ describe('/', () => {
               'token',
               'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImVtYWlsIjoicnNhX2xvcmRAanVpY2Utc2gub3AifSwiaWF0IjoxNTgzMDM3NzExfQ.gShXDT5TrE5736mpIbfVDEcQbLfteJaQUG7Z0PH8Xc8'
             )
-          })/**/
+          })
           cy.visit('/#/')
 
-          cy.expectChallengeSolved({ challenge: 'Forged Signed JWT' })/**/
+          cy.expectChallengeSolved({ challenge: 'Forged Signed JWT' })
         }
-      })/**/
-    })/**/
-  })/**/
-})/**/
+      })
+    })
+  })
+})
 //

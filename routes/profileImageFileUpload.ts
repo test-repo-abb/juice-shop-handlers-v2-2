@@ -30,16 +30,16 @@ module.exports = function fileUpload () {
             // @ts-expect-error FIXME buffer has unexpected type
             fs.write(fd, buffer, 0, buffer.length, null, function (err) {
               if (err != null) logger.warn('Error writing file: ' + err.message)
-              fs.close(fd, function () { })/**/
-            })/**/
-          })/**/
+              fs.close(fd, function () { })
+            })
+          })
           UserModel.findByPk(loggedInUser.data.id).then(async (user: UserModel | null) => {
             if (user != null) {
-              return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })/**/
+              return await user.update({ profileImage: `assets/public/images/uploads/${loggedInUser.data.id}.${uploadedFileType.ext}` })
             }
-          })/**/.catch((error: Error) => {
+          }).catch((error: Error) => {
             next(error)
-          })/**/
+          })
           res.location(process.env.BASE_PATH + '/profile')
           res.redirect(process.env.BASE_PATH + '/profile')
         } else {

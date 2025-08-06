@@ -14,12 +14,12 @@ checkDiffs(keys)
       console.log(`Be aware that diffs for the ${filesWithDiff.length} affected files below contain ${colors.bold('all changes')} including locked & cached ones! Compare carefully!`)
       console.log('---------------------------------------')
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      filesWithDiff.forEach(async file => { await seePatch(file) })/**/
+      filesWithDiff.forEach(async file => { await seePatch(file) })
       process.exitCode = 1
     }
-  })/**/
+  })
   .catch(err => {
     console.log(err)
     process.exitCode = 1
-  })/**/
+  })
   //

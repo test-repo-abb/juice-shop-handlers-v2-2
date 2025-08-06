@@ -10,7 +10,7 @@ import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class CaptchaService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/captcha'
@@ -18,6 +18,6 @@ export class CaptchaService {
   constructor (private readonly http: HttpClient) { }
 
   getCaptcha () {
-    return this.http.get(this.host + '/').pipe(catchError((err) => { throw err })/**/)
+    return this.http.get(this.host + '/').pipe(catchError((err) => { throw err }))
   }
 }

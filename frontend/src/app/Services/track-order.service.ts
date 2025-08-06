@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class TrackOrderService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/track-order'
@@ -19,6 +19,6 @@ export class TrackOrderService {
 
   find (params: string) {
     params = encodeURIComponent(params)
-    return this.http.get(`${this.host}/${params}`).pipe(map((response: any) => response), catchError((error) => { throw error })/**/)
+    return this.http.get(`${this.host}/${params}`).pipe(map((response: any) => response), catchError((error) => { throw error }))
   }
 }

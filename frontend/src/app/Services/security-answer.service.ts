@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class SecurityAnswerService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/SecurityAnswers'
@@ -20,7 +20,7 @@ export class SecurityAnswerService {
   save (params: any) {
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
-      catchError((err) => { throw err })/**/
+      catchError((err) => { throw err })
     )
   }
 }

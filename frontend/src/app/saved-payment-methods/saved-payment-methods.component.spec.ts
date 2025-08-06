@@ -31,7 +31,7 @@ describe('SavedPaymentMethodsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -58,17 +58,17 @@ describe('SavedPaymentMethodsComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SavedPaymentMethodsComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
-})/**/
+  })
+})

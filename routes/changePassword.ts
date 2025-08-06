@@ -30,16 +30,16 @@ module.exports = function changePassword () {
         } else {
           UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
             if (user != null) {
-              user.update({ password: newPasswordInString })/**/.then((user: UserModel) => {
-                challengeUtils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })/**/
-                res.json({ user })/**/
-              })/**/.catch((error: Error) => {
+              user.update({ password: newPasswordInString }).then((user: UserModel) => {
+                challengeUtils.solveIf(challenges.changePasswordBenderChallenge, () => { return user.id === 3 && !currentPassword && user.password === security.hash('slurmCl4ssic') })
+                res.json({ user })
+              }).catch((error: Error) => {
                 next(error)
-              })/**/
+              })
             }
-          })/**/.catch((error: Error) => {
+          }).catch((error: Error) => {
             next(error)
-          })/**/
+          })
         }
       } else {
         next(new Error('Blocked illegal activity by ' + connection.remoteAddress))

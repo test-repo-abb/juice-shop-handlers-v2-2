@@ -13,12 +13,12 @@ describe('CaptchaService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [CaptchaService]
-    })/**/
-  })/**/
+    })
+  })
 
   it('should be created', inject([CaptchaService], (service: CaptchaService) => {
     expect(service).toBeTruthy()
-  })/**/)
+  }))
 
   it('should get captcha directly from the rest api', inject([CaptchaService, HttpTestingController],
     fakeAsync((service: CaptchaService, httpMock: HttpTestingController) => {
@@ -31,6 +31,6 @@ describe('CaptchaService', () => {
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })/**/
+    })
   ))
-})/**/
+})

@@ -9,7 +9,7 @@ import { io, type Socket } from 'socket.io-client'
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class SocketIoService {
   private _socket: Socket
 
@@ -18,11 +18,11 @@ export class SocketIoService {
       if (environment.hostServer === '.') {
         this._socket = io(window.location.origin, {
           path: (window.location.pathname.endsWith('/') ? window.location.pathname : window.location.pathname + '/') + 'socket.io'
-        })/**/
+        })
       } else {
         this._socket = io(environment.hostServer)
       }
-    })/**/
+    })
   }
 
   socket () {

@@ -65,7 +65,7 @@ import { DifficultySelectionSummaryPipe } from './components/filter-settings/pip
     TranslateModule,
     MatProgressSpinnerModule
   ]
-})/**/
+})
 class ScoreBoardModule {}
 
 export { ScoreBoardModule }

@@ -13,12 +13,12 @@ ngAfterViewInit () {
           id: product.id,
           image: product.image,
           description: product.description
-        })/**/
+        })
       }
       for (const quantity of quantities) {
         const entry = dataTable.find((dataTableEntry) => {
           return dataTableEntry.id === quantity.ProductId
-        })/**/
+        })
         if (entry === undefined) {
           continue
         }
@@ -35,7 +35,7 @@ ngAfterViewInit () {
       this.filterTable()
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
-      })/**/
+      })
       if (window.innerWidth < 2600) {
         this.breakpoint = 4
         if (window.innerWidth < 1740) {
@@ -51,7 +51,7 @@ ngAfterViewInit () {
         this.breakpoint = 6
       }
       this.cdRef.detectChanges()
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   trustProductDescription (tableData: any[]) {

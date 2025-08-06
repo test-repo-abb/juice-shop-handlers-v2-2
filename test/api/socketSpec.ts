@@ -12,18 +12,18 @@ describe('WebSocket', () => {
     socket = io('http://localhost:3000', {
       reconnectionDelay: 0,
       forceNew: true
-    })/**/
+    })
     socket.on('connect', () => {
       done()
-    })/**/
-  })/**/
+    })
+  })
 
   afterEach(done => {
     if (socket.connected) {
       socket.disconnect()
     }
     done()
-  })/**/
+  })
 
   it('server handles confirmation messages for emitted challenge resolutions', done => {
     socket.emit('notification received', 'Find the carefully hidden \'Score Board\' page.')
@@ -38,15 +38,15 @@ describe('WebSocket', () => {
     socket.emit('notification received', 'Change Bender\'s password into slurmCl4ssic.')
     socket.emit('notification received', 'Apply some advanced cryptanalysis to find the real easter egg.')
     done()
-  })/**/
+  })
 //
   it('server handles confirmation message for a non-existent challenge', done => {
     socket.emit('notification received', 'Emit a confirmation for a challenge that was never emitted!')
     done()
-  })/**/
+  })
 
   it('server handles empty confirmation message', done => {
     socket.emit('notification received', undefined)
     done()
-  })/**/
-})/**/
+  })
+})

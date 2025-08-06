@@ -58,12 +58,12 @@ export const serveCodeFixes = () => (req: Request<FixesRequestParams, Record<str
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
-    })/**/
+    })
     return
   }
   res.status(200).json({
     fixes: fixData.fixes
-  })/**/
+  })
 }
 
 export const checkCorrectFix = () => async (req: Request<Record<string, unknown>, Record<string, unknown>, VerdictRequestBody>, res: Response, next: NextFunction) => {
@@ -73,12 +73,12 @@ export const checkCorrectFix = () => async (req: Request<Record<string, unknown>
   if (fixData.fixes.length === 0) {
     res.status(404).json({
       error: 'No fixes found for the snippet!'
-    })/**/
+    })
   } else {
     let explanation
     if (fs.existsSync('./data/static/codefixes/' + key + '.info.yml')) {
       const codingChallengeInfos = yaml.load(fs.readFileSync('./data/static/codefixes/' + key + '.info.yml', 'utf8'))
-      const selectedFixInfo = codingChallengeInfos?.fixes.find(({ id }: { id: number })/**/ => id === selectedFix + 1)
+      const selectedFixInfo = codingChallengeInfos?.fixes.find(({ id }: { id: number }) => id === selectedFix + 1)
       if (selectedFixInfo?.explanation) explanation = res.__(selectedFixInfo.explanation)
     }
     if (selectedFix === fixData.correct) {
@@ -86,13 +86,13 @@ export const checkCorrectFix = () => async (req: Request<Record<string, unknown>
       res.status(200).json({
         verdict: true,
         explanation
-      })/**/
+      })
     } else {
       accuracy.storeFixItVerdict(key, false)
       res.status(200).json({
         verdict: false,
         explanation
-      })/**/
+      })
     }
   }
 }

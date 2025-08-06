@@ -1,5 +1,5 @@
 /* Generated API endpoints */
-  finale.initialize({ app, sequelize })/**/
+  finale.initialize({ app, sequelize })
 
   const autoModels = [
     { name: 'Product', exclude: [], model: ProductModel },
@@ -22,4 +22,4 @@
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude,
       pagination: false
-    })/**/
+    })

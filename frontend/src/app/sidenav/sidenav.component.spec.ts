@@ -46,15 +46,15 @@ describe('SidenavComponent', () => {
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {} }, hackingInstructor: {} })/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { welcomeBanner: {} }, hackingInstructor: {} }))
     challengeService = jasmine.createSpyObj('ChallengeService', ['find'])
     challengeService.find.and.returnValue(of([{ solved: false }]))
     userService = jasmine.createSpyObj('UserService', ['whoAmI', 'getLoggedInState', 'saveLastLoginIp'])
-    userService.whoAmI.and.returnValue(of({})/**/)
+    userService.whoAmI.and.returnValue(of({}))
     userService.getLoggedInState.and.returnValue(of(true))
-    userService.saveLastLoginIp.and.returnValue(of({})/**/)
+    userService.saveLastLoginIp.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
-    userService.isLoggedIn.next.and.returnValue({})/**/
+    userService.isLoggedIn.next.and.returnValue({})
     administractionService = jasmine.createSpyObj('AdministrationService', ['getApplicationVersion'])
     administractionService.getApplicationVersion.and.returnValue(of(null))
     cookieService = jasmine.createSpyObj('CookieService', ['remove', 'get', 'put'])
@@ -62,7 +62,7 @@ describe('SidenavComponent', () => {
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
     loginGuard = jasmine.createSpyObj('LoginGuard', ['tokenDecode'])
-    loginGuard.tokenDecode.and.returnValue({})/**/
+    loginGuard.tokenDecode.and.returnValue({})
 
     TestBed.configureTestingModule({
       declarations: [SidenavComponent],
@@ -88,91 +88,91 @@ describe('SidenavComponent', () => {
         { provide: LoginGuard, useValue: loginGuard },
         TranslateService
       ]
-    })/**/
+    })
       .compileComponents()
     location = TestBed.inject(Location)
     TestBed.inject(TranslateService)
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SidenavComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should show accounting functionality when user has according role', () => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: roles.accounting } })/**/
+    loginGuard.tokenDecode.and.returnValue({ data: { role: roles.accounting } })
 
     expect(component.isAccounting()).toBe(true)
-  })/**/
+  })
 
   it('should set version number as retrieved with "v" prefix', () => {
-    loginGuard.tokenDecode.and.returnValue({ data: { role: roles.accounting } })/**/
+    loginGuard.tokenDecode.and.returnValue({ data: { role: roles.accounting } })
 
     expect(component.isAccounting()).toBe(true)
-  })/**/
+  })
 
   it('should not show accounting functionality when user lacks according role', () => {
     administractionService.getApplicationVersion.and.returnValue(of('1.2.3'))
     component.ngOnInit()
 
     expect(component.version).toBe('v1.2.3')
-  })/**/
+  })
 
   it('should hide Score Board link when Score Board was not discovered yet', () => {
     challengeService.find.and.returnValue(of([{ name: 'Score Board', solved: false }]))
     component.getScoreBoardStatus()
 
     expect(component.scoreBoardVisible).toBe(false)
-  })/**/
+  })
 
   it('should show Score Board link when Score Board was already discovered', () => {
     challengeService.find.and.returnValue(of([{ name: 'Score Board', solved: true }]))
     component.getScoreBoardStatus()
 
     expect(component.scoreBoardVisible).toBe(true)
-  })/**/
+  })
 
   it('should remove authentication token from localStorage', () => {
     spyOn(localStorage, 'removeItem')
     component.logout()
     expect(localStorage.removeItem).toHaveBeenCalledWith('token')
-  })/**/
+  })
 
   it('should remove authentication token from cookies', () => {
     component.logout()
     expect(cookieService.remove).toHaveBeenCalledWith('token')
-  })/**/
+  })
 
   it('should remove basket id from session storage', () => {
     spyOn(sessionStorage, 'removeItem')
     component.logout()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('bid')
-  })/**/
+  })
 
   it('should remove basket item total from session storage', () => {
     spyOn(sessionStorage, 'removeItem')
     component.logout()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('itemTotal')
-  })/**/
+  })
 
   it('should set the login status to be false via UserService', () => {
     component.logout()
     expect(userService.isLoggedIn.next).toHaveBeenCalledWith(false)
-  })/**/
+  })
 
   it('should save the last login IP address', () => {
     component.logout()
     expect(userService.saveLastLoginIp).toHaveBeenCalled()
-  })/**/
+  })
 
   it('should forward to main page', fakeAsync(() => {
     component.logout()
     tick()
     expect(location.path()).toBe('/')
-  })/**/)
-})/**/
+  }))
+})

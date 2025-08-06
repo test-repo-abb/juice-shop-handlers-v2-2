@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class ProductReviewService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/products'
@@ -21,21 +21,21 @@ export class ProductReviewService {
     return this.http.get(`${this.host}/${id}/reviews`).pipe(
       map((response: any) => response.data), catchError((err: Error) => {
         throw err
-      })/**/
+      })
     )
   }
 
-  create (id: number, review: { message: string, author: string })/**/ {
+  create (id: number, review: { message: string, author: string }) {
     return this.http.put(`${this.host}/${id}/reviews`, review).pipe(map((response: any) => response.data),
-      catchError((err) => { throw err })/**/
+      catchError((err) => { throw err })
     )
   }
 
-  patch (review: { id: string, message: string })/**/ {
-    return this.http.patch(this.host + '/reviews', review).pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
+  patch (review: { id: string, message: string }) {
+    return this.http.patch(this.host + '/reviews', review).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   like (_id?: string) {
-    return this.http.post(this.host + '/reviews', { id: _id })/**/.pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
+    return this.http.post(this.host + '/reviews', { id: _id }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

@@ -6,8 +6,8 @@ checkDiffs(keys)
   .then(data => {
     console.log(('---------------------------------------'))
     writeToFile(data)
-  })/**/
+  })
   .catch(err => {
     process.exitCode = 1
-  })/**/
+  })
   //

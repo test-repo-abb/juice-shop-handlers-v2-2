@@ -19,7 +19,7 @@ describe('PrivacyPolicyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({})/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
 
     TestBed.configureTestingModule({
       declarations: [PrivacyPolicyComponent],
@@ -31,16 +31,16 @@ describe('PrivacyPolicyComponent', () => {
       providers: [
         { provide: ConfigurationService, useValue: configurationService }
       ]
-    })/**/.compileComponents()
-  })/**/)
+    }).compileComponents()
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PrivacyPolicyComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should compile', () => {
     expect(component).toBeTruthy()
-  })/**/
-})/**/
+  })
+})

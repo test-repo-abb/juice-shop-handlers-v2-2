@@ -37,7 +37,7 @@ describe('AccountingComponent', () => {
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
     productService = jasmine.createSpyObj('ProductService', ['get'])
-    productService.get.and.returnValue(of({})/**/)
+    productService.get.and.returnValue(of({}))
     orderHistoryService = jasmine.createSpyObj('OrderHistoryService', ['get'])
     orderHistoryService.get.and.returnValue(of([]))
 
@@ -64,33 +64,33 @@ describe('AccountingComponent', () => {
         { provide: OrderHistoryService, useValue: orderHistoryService },
         { provide: MatDialog, useValue: dialog }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OrderHistoryComponent)
     component = fixture.componentInstance
     component.ngOnInit()
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should make emptyState true and hold no orders when get Order History gives empty response', () => {
     orderHistoryService.get.and.returnValue(of([]))
     component.ngOnInit()
     expect(component.emptyState).toBe(true)
     expect(component.orders).toEqual([])
-  })/**/
+  })
 
   it('should make emptyState false when get Order History gives non empty response', () => {
     orderHistoryService.get.and.returnValue(of([{ orderId: 'a', totalPrice: 1, bonus: 0, products: [{}], delivered: true }]))
     component.ngOnInit()
     expect(component.emptyState).toBe(false)
-  })/**/
+  })
 
   it('should log error from get order history API call directly to browser console', fakeAsync(() => {
     orderHistoryService.get.and.returnValue(throwError('Error'))
@@ -98,7 +98,7 @@ describe('AccountingComponent', () => {
     component.ngOnInit()
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should log error from get product API call directly to browser console', fakeAsync(() => {
     productService.get.and.returnValue(throwError('Error'))
@@ -106,7 +106,7 @@ describe('AccountingComponent', () => {
     component.showDetail(1)
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should open a modal dialog when showDetail is called', () => {
     productService.get.and.returnValue(of({ id: 42, name: 'A', description: 'B', image: 'C', price: 10 } as Product))
@@ -118,6 +118,6 @@ describe('AccountingComponent', () => {
       data: {
         productData: { id: 42, name: 'A', description: 'B', image: 'C', price: 10, points: 1 }
       }
-    })/**/
-  })/**/
-})/**/
+    })
+  })
+})

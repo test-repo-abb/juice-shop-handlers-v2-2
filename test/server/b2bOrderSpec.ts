@@ -23,18 +23,18 @@ describe('b2bOrder', () => {
     next = sinon.spy()
     save = () => ({
       then () { }
-    })/**/
-  })/**/
+    })
+  })
 
   xit('infinite loop payload does not succeed but solves "rceChallenge"', () => { // FIXME Started failing on Linux regularly
     challenges.rceChallenge = { solved: false, save }
 
-    req.body.orderLinesData = '(function dos() { while(true); })/**/()'
+    req.body.orderLinesData = '(function dos() { while(true); })()'
 
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(true)
-  })/**/
+  })
 
   // FIXME Disabled as test started failing on Linux regularly
   xit('timeout after 2 seconds solves "rceOccupyChallenge"', () => {
@@ -55,7 +55,7 @@ describe('b2bOrder', () => {
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
-  })/**/
+  })
 
   it('deserializing arbitrary JSON should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save }
@@ -64,7 +64,7 @@ describe('b2bOrder', () => {
 
     createB2bOrder()(req, res, next)
     expect(challenges.rceChallenge.solved).to.equal(false)
-  })/**/
+  })
 
   it('deserializing broken JSON should not solve "rceChallenge"', () => {
     challenges.rceChallenge = { solved: false, save }
@@ -74,5 +74,5 @@ describe('b2bOrder', () => {
     createB2bOrder()(req, res, next)
 
     expect(challenges.rceChallenge.solved).to.equal(false)
-  })/**/
-})/**/
+  })
+})

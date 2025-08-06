@@ -54,28 +54,28 @@ describe('PaymentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({})/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     basketService = jasmine.createSpyObj('BasketService', ['applyCoupon'])
-    basketService.applyCoupon.and.returnValue(of({})/**/)
+    basketService.applyCoupon.and.returnValue(of({}))
     dialog = jasmine.createSpyObj('MatDialog', ['open'])
     dialog.open.and.returnValue(null)
     cookieService = jasmine.createSpyObj('CookieService', ['remove', 'put'])
     walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
-    walletService.get.and.returnValue(of({})/**/)
-    walletService.put.and.returnValue(of({})/**/)
+    walletService.get.and.returnValue(of({}))
+    walletService.put.and.returnValue(of({}))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
-    deliveryService.getById.and.returnValue(of({ price: 10 })/**/)
+    deliveryService.getById.and.returnValue(of({ price: 10 }))
     userService = jasmine.createSpyObj('UserService', ['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
-    userService.deluxeStatus.and.returnValue(of({})/**/)
-    userService.upgradeToDeluxe.and.returnValue(of({})/**/)
+    userService.deluxeStatus.and.returnValue(of({}))
+    userService.upgradeToDeluxe.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
-    userService.isLoggedIn.next.and.returnValue({})/**/
-    userService.saveLastLoginIp.and.returnValue(of({})/**/)
+    userService.isLoggedIn.next.and.returnValue({})
+    userService.saveLastLoginIp.and.returnValue(of({}))
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
 
     TestBed.configureTestingModule({
@@ -115,50 +115,50 @@ describe('PaymentComponent', () => {
         { provide: MatSnackBar, useValue: snackBar }
 
       ]
-    })/**/
+    })
       .compileComponents()
     TestBed.inject(Location)
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PaymentComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should not hold twitter or facebook URL if not defined in configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({})/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
     expect(component.twitterUrl).toBeNull()
     expect(component.facebookUrl).toBeNull()
-  })/**/
+  })
 
   it('should hold the default applicationName if not defined in configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({})/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({}))
     expect(component.applicationName).toBe('OWASP Juice Shop')
-  })/**/
+  })
 
   it('should use custom twitter URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } })/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { twitterUrl: 'twitter' } } }))
     component.ngOnInit()
     expect(component.twitterUrl).toBe('twitter')
-  })/**/
+  })
 
   it('should use custom facebook URL if configured', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } })/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { social: { facebookUrl: 'facebook' } } }))
     component.ngOnInit()
     expect(component.facebookUrl).toBe('facebook')
-  })/**/
+  })
 
   it('should log error while getting application configuration from backend API directly to browser console', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should reinitizalise coupon code form by calling resetCouponForm', () => {
     component.couponControl.setValue('1234567890')
@@ -166,7 +166,7 @@ describe('PaymentComponent', () => {
     expect(component.couponControl.value).toBe('')
     expect(component.couponControl.pristine).toBe(true)
     expect(component.couponControl.untouched).toBe(true)
-  })/**/
+  })
 
   it('should reject an invalid coupon code', fakeAsync(() => {
     basketService.applyCoupon.and.returnValue(throwError('Error'))
@@ -180,7 +180,7 @@ describe('PaymentComponent', () => {
 
     expect(component.couponConfirmation).toBeUndefined()
     expect(component.couponError).toBe('Error')
-  })/**/)
+  }))
 
   it('should accept a valid coupon code', () => {
     basketService.applyCoupon.and.returnValue(of(42))
@@ -193,9 +193,9 @@ describe('PaymentComponent', () => {
     component.couponControl.setValue('valid_base85')
     component.applyCoupon()
 
-    expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED', { discount: 42 })/**/
+    expect(translateService.get).toHaveBeenCalledWith('DISCOUNT_APPLIED', { discount: 42 })
     expect(component.couponError).toBeUndefined()
-  })/**/
+  })
 
   it('should translate DISCOUNT_APPLIED message', () => {
     basketService.applyCoupon.and.returnValue(of(42))
@@ -209,20 +209,20 @@ describe('PaymentComponent', () => {
 
     expect(component.couponConfirmation).toBe('Translation of DISCOUNT_APPLIED')
     expect(component.couponError).toBeUndefined()
-  })/**/
+  })
 
   it('should store discount percent in session storage', () => {
     translateService.get.and.returnValue(of('Translation of DISCOUNT_APPLIED'))
     spyOn(sessionStorage, 'setItem')
     component.showConfirmation(70)
     expect(sessionStorage.setItem).toHaveBeenCalledWith('couponDiscount', 70 as any)
-  })/**/
+  })
 
   it('should store payment id on calling getMessage', () => {
     component.getMessage(1)
     expect(component.paymentId).toBe(1)
     expect(component.paymentMode).toEqual('card')
-  })/**/
+  })
 
   it('should open QrCodeComponent for Bitcoin', () => {
     component.showBitcoinQrCode()
@@ -235,7 +235,7 @@ describe('PaymentComponent', () => {
       }
     }
     expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent, data)
-  })/**/
+  })
 
   it('should open QrCodeComponent for Dash', () => {
     component.showDashQrCode()
@@ -248,7 +248,7 @@ describe('PaymentComponent', () => {
       }
     }
     expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent, data)
-  })/**/
+  })
 
   it('should open QrCodeComponent for Ether', () => {
     component.showEtherQrCode()
@@ -261,24 +261,24 @@ describe('PaymentComponent', () => {
       }
     }
     expect(dialog.open).toHaveBeenCalledWith(QrCodeComponent, data)
-  })/**/
+  })
 
   it('should call initTotal on calling ngOnInit', () => {
     spyOn(component, 'initTotal')
     component.ngOnInit()
     expect(component.initTotal).toHaveBeenCalled()
-  })/**/
+  })
 
   it('should call initTotal on calling showConfirmation', () => {
     spyOn(component, 'initTotal')
     component.showConfirmation(10)
     expect(component.initTotal).toHaveBeenCalled()
-  })/**/
+  })
 
   it('should make paymentMode wallet on calling useWallet', () => {
     component.useWallet()
     expect(component.paymentMode).toEqual('wallet')
-  })/**/
+  })
 
   it('should store paymentId in session storage on calling choosePayment in shop mode', () => {
     component.mode = 'shop'
@@ -287,7 +287,7 @@ describe('PaymentComponent', () => {
     spyOn(sessionStorage, 'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 1 as any)
-  })/**/
+  })
 
   it('should store wallet as paymentId in session storage on calling choosePayment while paymentMode is equal to wallet', () => {
     component.mode = 'shop'
@@ -295,7 +295,7 @@ describe('PaymentComponent', () => {
     spyOn(sessionStorage, 'setItem')
     component.choosePayment()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('paymentId', 'wallet')
-  })/**/
+  })
 
   it('should log error from upgrade to deluxe API call directly to browser console', fakeAsync(() => {
     component.mode = 'deluxe'
@@ -304,22 +304,22 @@ describe('PaymentComponent', () => {
     component.choosePayment()
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should remove walletTotal from session storage on calling choosePayment in wallet mode', () => {
     component.mode = 'wallet'
-    walletService.put.and.returnValue(of({})/**/)
+    walletService.put.and.returnValue(of({}))
     spyOn(sessionStorage, 'removeItem')
     component.choosePayment()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('walletTotal')
-  })/**/
+  })
 
   it('should add token to local storage and cookie on calling choosePayment in deluxe mode', () => {
     component.mode = 'deluxe'
-    userService.upgradeToDeluxe.and.returnValue(of({ token: 'tokenValue' })/**/)
+    userService.upgradeToDeluxe.and.returnValue(of({ token: 'tokenValue' }))
     spyOn(localStorage, 'setItem')
     component.choosePayment()
     expect(localStorage.setItem).toHaveBeenCalledWith('token', 'tokenValue')
     expect(cookieService.put).toHaveBeenCalledWith('token', 'tokenValue')
-  })/**/
-})/**/
+  })
+})

@@ -16,9 +16,9 @@ describe('/rest/admin/application-version', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('json', {
         version: utils.version()
-      })/**/
-  })/**/
-})/**/
+      })
+  })
+})
 
 describe('/rest/admin/application-configuration', () => {
   it('GET application configuration', () => {
@@ -27,8 +27,8 @@ describe('/rest/admin/application-configuration', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
         config: Joi.object()
-      })/**/
-  })/**/
-})/**/
+      })
+  })
+})
 
 //

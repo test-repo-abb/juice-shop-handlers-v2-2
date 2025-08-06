@@ -49,7 +49,7 @@ library.add(faLanguage, faSearch, faSignInAlt, faSignOutAlt, faComment, faBomb, 
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
-})/**/
+})
 export class NavbarComponent implements OnInit {
   public userEmail: string = ''
   public languages: any = []
@@ -78,7 +78,7 @@ export class NavbarComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
 
     this.configurationService.getApplicationConfiguration().subscribe((config: any) => {
       if (config?.application?.name) {
@@ -96,7 +96,7 @@ export class NavbarComponent implements OnInit {
         }
         this.logoSrc = 'assets/public/images/' + logo
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
 
     if (localStorage.getItem('token')) {
       this.getUserDetails()
@@ -110,7 +110,7 @@ export class NavbarComponent implements OnInit {
       } else {
         this.userEmail = ''
       }
-    })/**/
+    })
 
     this.getScoreBoardStatus()
 
@@ -119,20 +119,20 @@ export class NavbarComponent implements OnInit {
         if (challenge.key === 'scoreBoardChallenge') {
           this.scoreBoardVisible = true
         }
-      })/**/
-    })/**/
+      })
+    })
   }
 
   checkLanguage () {
     if (this.cookieService.get('language')) {
       const langKey = this.cookieService.get('language')
       this.translate.use(langKey)
-      this.selectedLanguage = this.languages.find((y: { key: string })/**/ => y.key === langKey)
-      this.shortKeyLang = this.languages.find((y: { key: string })/**/ => y.key === langKey).shortKey
+      this.selectedLanguage = this.languages.find((y: { key: string }) => y.key === langKey)
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === langKey).shortKey
     } else {
       this.changeLanguage('en')
-      this.selectedLanguage = this.languages.find((y: { key: string })/**/ => y.key === 'en')
-      this.shortKeyLang = this.languages.find((y: { key: string })/**/ => y.key === 'en').shortKey
+      this.selectedLanguage = this.languages.find((y: { key: string }) => y.key === 'en')
+      this.shortKeyLang = this.languages.find((y: { key: string }) => y.key === 'en').shortKey
     }
   }
 
@@ -148,7 +148,7 @@ export class NavbarComponent implements OnInit {
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   isLoggedIn () {
@@ -156,7 +156,7 @@ export class NavbarComponent implements OnInit {
   }
 
   logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })/**/
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
@@ -169,26 +169,26 @@ export class NavbarComponent implements OnInit {
     this.translate.use(langKey)
     const expires = new Date()
     expires.setFullYear(expires.getFullYear() + 1)
-    this.cookieService.put('language', langKey, { expires })/**/
-    if (this.languages.find((y: { key: string })/**/ => y.key === langKey)) {
-      const language = this.languages.find((y: { key: string })/**/ => y.key === langKey)
+    this.cookieService.put('language', langKey, { expires })
+    if (this.languages.find((y: { key: string }) => y.key === langKey)) {
+      const language = this.languages.find((y: { key: string }) => y.key === langKey)
       this.shortKeyLang = language.shortKey
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       const snackBarRef = this.snackBar.open(`Language has been changed to ${language.lang}`, 'Force page reload', {
         duration: 5000
-      })/**/
+      })
       snackBarRef.onAction().subscribe(() => {
         location.reload()
-      })/**/
+      })
     }
   }
 
   getScoreBoardStatus () {
-    this.challengeService.find({ name: 'Score Board' })/**/.subscribe((challenges: any) => {
+    this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
-      })/**/
-    }, (err) => { console.log(err) })/**/
+      })
+    }, (err) => { console.log(err) })
   }
 
   goToProfilePage () {
@@ -210,7 +210,7 @@ export class NavbarComponent implements OnInit {
     this.langService.getLanguages().subscribe((res) => {
       this.languages = res
       this.checkLanguage()
-    })/**/
+    })
   }
 
   isAccounting () {

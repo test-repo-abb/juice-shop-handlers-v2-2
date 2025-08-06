@@ -31,4 +31,4 @@ export const DEFAULT_FILTER_SETTING: Readonly<FilterSetting> = Object.freeze({
   searchQuery: null,
   showDisabledChallenges: true,
   restrictToTutorialChallengesFirst: false
-})/**/
+})

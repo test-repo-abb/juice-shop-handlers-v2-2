@@ -13,12 +13,12 @@ describe('CountryMappingService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [CountryMappingService]
-    })/**/
-  })/**/
+    })
+  })
 
   it('should be created', inject([CountryMappingService], (service: CountryMappingService) => {
     expect(service).toBeTruthy()
-  })/**/)
+  }))
 
   it('should get the country mapping directly through the rest API', inject([CountryMappingService, HttpTestingController],
     fakeAsync((service: CountryMappingService, httpMock: HttpTestingController) => {
@@ -34,6 +34,6 @@ describe('CountryMappingService', () => {
       expect(res).toBe('apiResponse')
 
       httpMock.verify()
-    })/**/
+    })
   ))
-})/**/
+})

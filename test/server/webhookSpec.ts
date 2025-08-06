@@ -19,14 +19,14 @@ describe('webhook', () => {
   describe('notify', () => {
     it('fails when no webhook URL is provided via environment variable', () => {
       void expect(webhook.notify(challenge)).to.eventually.throw('options.uri is a required argument')
-    })/**/
+    })
 
     it('fails when supplied webhook is not a valid URL', () => {
       void expect(webhook.notify(challenge, 0, 'localhorst')).to.eventually.throw('Invalid URI "localhorst"')
-    })/**/
+    })
 
     it('submits POST with payload to existing URL', () => {
       void expect(webhook.notify(challenge, 0, 'https://enlm7zwniuyah.x.pipedream.net/')).to.eventually.not.throw()
-    })/**/
-  })/**/
-})/**/
+    })
+  })
+})

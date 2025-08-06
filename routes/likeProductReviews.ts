@@ -15,9 +15,9 @@ module.exports = function productReviews () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.body.id
     const user = security.authenticatedUsers.from(req)
-    db.reviewsCollection.findOne({ _id: id })/**/.then((review: Review) => {
+    db.reviewsCollection.findOne({ _id: id }).then((review: Review) => {
       if (!review) {
-        res.status(404).json({ error: 'Not found' })/**/
+        res.status(404).json({ error: 'Not found' })
       } else {
         const likedBy = review.likedBy
         if (!likedBy.includes(user.data.email)) {
@@ -28,7 +28,7 @@ module.exports = function productReviews () {
             () => {
               // Artificial wait for timing attack challenge
               setTimeout(function () {
-                db.reviewsCollection.findOne({ _id: id })/**/.then((review: Review) => {
+                db.reviewsCollection.findOne({ _id: id }).then((review: Review) => {
                   const likedBy = review.likedBy
                   likedBy.push(user.data.email)
                   let count = 0
@@ -37,7 +37,7 @@ module.exports = function productReviews () {
                       count++
                     }
                   }
-                  challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })/**/
+                  challengeUtils.solveIf(challenges.timingAttackChallenge, () => { return count > 2 })
                   db.reviewsCollection.update(
                     { _id: id },
                     { $set: { likedBy } }
@@ -46,20 +46,20 @@ module.exports = function productReviews () {
                       res.json(result)
                     }, (err: unknown) => {
                       res.status(500).json(err)
-                    })/**/
+                    })
                 }, () => {
-                  res.status(400).json({ error: 'Wrong Params' })/**/
-                })/**/
+                  res.status(400).json({ error: 'Wrong Params' })
+                })
               }, 150)
             }, (err: unknown) => {
               res.status(500).json(err)
-            })/**/
+            })
         } else {
-          res.status(403).json({ error: 'Not allowed' })/**/
+          res.status(403).json({ error: 'Not allowed' })
         }
       }
     }, () => {
-      res.status(400).json({ error: 'Wrong Params' })/**/
-    })/**/
+      res.status(400).json({ error: 'Wrong Params' })
+    })
   }
 }

@@ -20,7 +20,7 @@ library.add(faPaperPlane, faArrowCircleLeft)
   selector: 'app-product-review-edit',
   templateUrl: './product-review-edit.component.html',
   styleUrls: ['./product-review-edit.component.scss']
-})/**/
+})
 export class ProductReviewEditComponent implements OnInit {
   public editReviewControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(160)])
   public error: string | null = null
@@ -33,12 +33,12 @@ export class ProductReviewEditComponent implements OnInit {
   }
 
   editReview () {
-    this.productReviewService.patch({ id: this.data.reviewData._id, message: this.editReviewControl.value })/**/.subscribe(() => {
+    this.productReviewService.patch({ id: this.data.reviewData._id, message: this.editReviewControl.value }).subscribe(() => {
       this.dialogRef.close()
     }, (err) => {
       console.log(err)
       this.error = err
-    })/**/
+    })
     this.snackBarHelperService.open('CONFIRM_CHANGES_SAVED')
   }
 }

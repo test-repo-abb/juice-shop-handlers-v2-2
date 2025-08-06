@@ -30,17 +30,17 @@ describe('FeedbackDetailsComponent', () => {
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FeedbackDetailsComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
-})/**/
+  })
+})

@@ -15,18 +15,18 @@ describe('DifficultyOverviewScoreCardComponent', () => {
         DifficultyOverviewScoreCardComponent
       ],
       imports: [TranslateModule.forRoot()]
-    })/**/
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(DifficultyOverviewScoreCardComponent)
     component = fixture.componentInstance
     component.allChallenges = []
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   describe('difficultySummaries', () => {
     it('should calculate difficulty summaries correctly for empty list of challenges', () => {
@@ -38,7 +38,7 @@ describe('DifficultyOverviewScoreCardComponent', () => {
         { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
         { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 }
       ])
-    })/**/
+    })
     it('should calculate difficulty summaries', () => {
       expect(DifficultyOverviewScoreCardComponent.calculateDifficultySummaries([
         { difficulty: 1, solved: true, hasCodingChallenge: false } as any,
@@ -51,7 +51,7 @@ describe('DifficultyOverviewScoreCardComponent', () => {
         { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
         { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 }
       ])
-    })/**/
+    })
     it('should calculate difficulty summaries for multiple difficulties', () => {
       expect(DifficultyOverviewScoreCardComponent.calculateDifficultySummaries([
         { difficulty: 1, solved: true, hasCodingChallenge: true, codingChallengeStatus: 0 } as any,
@@ -69,6 +69,6 @@ describe('DifficultyOverviewScoreCardComponent', () => {
         { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
         { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 }
       ])
-    })/**/
-  })/**/
-})/**/
+    })
+  })
+})

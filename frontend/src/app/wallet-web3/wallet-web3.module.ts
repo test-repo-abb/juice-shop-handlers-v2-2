@@ -33,7 +33,7 @@ const routes: Routes = [
     MatSnackBarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})/**/
+})
 export class WalletWeb3Module {
   constructor (
     public configurationService: ConfigurationService,
@@ -43,6 +43,6 @@ export class WalletWeb3Module {
       overlayContainer
         .getContainerElement()
         .classList.add(conf.application.theme + '-theme')
-    })/**/
+    })
   }
 }

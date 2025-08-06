@@ -38,9 +38,9 @@ module.exports = function searchProducts () {
                 challengeUtils.solve(challenges.unionSqlInjectionChallenge)
               }
             }
-          })/**/.catch((error: Error) => {
+          }).catch((error: Error) => {
             next(error)
-          })/**/
+          })
         }
         if (challengeUtils.notSolved(challenges.dbSchemaChallenge)) {
           let solved = true
@@ -59,16 +59,16 @@ module.exports = function searchProducts () {
                 challengeUtils.solve(challenges.dbSchemaChallenge)
               }
             }
-          })/**/
+          })
         } // vuln-code-snippet hide-end
         for (let i = 0; i < products.length; i++) {
           products[i].name = req.__(products[i].name)
           products[i].description = req.__(products[i].description)
         }
         res.json(utils.queryResultToJson(products))
-      })/**/.catch((error: ErrorWithParent) => {
+      }).catch((error: ErrorWithParent) => {
         next(error.parent)
-      })/**/
+      })
   }
 }
 // vuln-code-snippet end unionSqlInjectionChallenge dbSchemaChallenge

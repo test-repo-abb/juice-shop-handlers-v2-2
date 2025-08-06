@@ -11,10 +11,10 @@ module.exports = function productReviews () {
       { _id: req.body.id },
       { $set: { message: req.body.message } }
     ).then(
-      (result: { modified: number, original: Array<{ author: any }> })/**/ => {
+      (result: { modified: number, original: Array<{ author: any }> }) => {
         res.json(result)
       }, (err: unknown) => {
         res.status(500).json(err)
-      })/**/
+      })
   }
 }

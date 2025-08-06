@@ -22,7 +22,7 @@ library.add(faPaperPlane, faArrowCircleLeft, faUserEdit, faThumbsUp, faCrown)
   selector: 'app-product-details',
   templateUrl: './product-details.component.html',
   styleUrls: ['./product-details.component.scss']
-})/**/
+})
 export class ProductDetailsComponent implements OnInit, OnDestroy {
   public author: string = 'Anonymous'
   public reviews$: any
@@ -41,7 +41,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       } else {
         this.author = 'Anonymous'
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   ngOnDestroy () {
@@ -56,7 +56,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
     textPut.value = ''
     this.productReviewService.create(this.data.productData.id, review).subscribe(() => {
       this.reviews$ = this.productReviewService.get(this.data.productData.id)
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
     this.snackBarHelperService.open('CONFIRM_REVIEW_SAVED')
   }
 
@@ -67,13 +67,13 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       data: {
         reviewData: review
       }
-    })/**/.afterClosed().subscribe(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)))
+    }).afterClosed().subscribe(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)))
   }
 
   likeReview (review: Review) {
     this.productReviewService.like(review._id).subscribe(() => {
       console.log('Liked ' + review._id)
-    })/**/
+    })
     setTimeout(() => (this.reviews$ = this.productReviewService.get(this.data.productData.id)), 200)
   }
 

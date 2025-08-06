@@ -39,13 +39,13 @@ describe('DeluxeUserComponent', () => {
 
   beforeEach(waitForAsync(() => {
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } })/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { } }))
     userService = jasmine.createSpyObj('UserService', ['deluxeStatus', 'upgradeToDeluxe', 'saveLastLoginIp'])
-    userService.deluxeStatus.and.returnValue(of({})/**/)
-    userService.upgradeToDeluxe.and.returnValue(of({})/**/)
+    userService.deluxeStatus.and.returnValue(of({}))
+    userService.upgradeToDeluxe.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
-    userService.isLoggedIn.next.and.returnValue({})/**/
-    userService.saveLastLoginIp.and.returnValue(of({})/**/)
+    userService.isLoggedIn.next.and.returnValue({})
+    userService.saveLastLoginIp.and.returnValue(of({}))
     cookieService = jasmine.createSpyObj('CookieService', ['remove'])
 
     TestBed.configureTestingModule({
@@ -76,46 +76,46 @@ describe('DeluxeUserComponent', () => {
         { provide: ConfigurationService, useValue: configurationService },
         { provide: CookieService, useValue: cookieService }
       ]
-    })/**/
+    })
       .compileComponents()
     TestBed.inject(Location)
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeluxeUserComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should hold membership cost on ngOnInit', () => {
-    userService.deluxeStatus.and.returnValue(of({ membershipCost: 30 })/**/)
+    userService.deluxeStatus.and.returnValue(of({ membershipCost: 30 }))
     component.ngOnInit()
     expect(component.membershipCost).toEqual(30)
-  })/**/
+  })
 
   it('should set application name and logo as obtained from configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Name', logo: 'Logo' } })/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { name: 'Name', logo: 'Logo' } }))
     component.ngOnInit()
 
     expect(component.applicationName).toBe('Name')
     expect(component.logoSrc).toBe('assets/public/images/Logo')
-  })/**/
+  })
 
   it('should assemble internal logo location from image base path and URL obtained from configuration', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { logo: 'http://test.com/logo.jpg' } })/**/)
+    configurationService.getApplicationConfiguration.and.returnValue(of({ application: { logo: 'http://test.com/logo.jpg' } }))
     component.ngOnInit()
 
     expect(component.logoSrc).toBe('assets/public/images/logo.jpg')
-  })/**/
+  })
 
   it('should log error on failure in retrieving configuration from backend', fakeAsync(() => {
     configurationService.getApplicationConfiguration.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
-})/**/
+  }))
+})

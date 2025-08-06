@@ -17,7 +17,7 @@ interface Passwords {
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class UserService {
   public isLoggedIn = new Subject<any>()
   private readonly hostServer = environment.hostServer
@@ -26,24 +26,24 @@ export class UserService {
   constructor (private readonly http: HttpClient) { }
 
   find (params?: any) {
-    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params })/**/.pipe(map((response: any) =>
-      response.data), catchError((err) => { throw err })/**/)
+    return this.http.get(this.hostServer + '/rest/user/authentication-details/', { params }).pipe(map((response: any) =>
+      response.data), catchError((err) => { throw err }))
   }
 
   get (id: number) {
-    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
+    return this.http.get(`${this.host}/${id}`).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   save (params: any) {
     return this.http.post(this.host + '/', params).pipe(
       map((response: any) => response.data),
-      catchError((err) => { throw err })/**/
+      catchError((err) => { throw err })
     )
   }
 
   login (params: any) {
     this.isLoggedIn.next(true)
-    return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication), catchError((err) => { throw err })/**/)
+    return this.http.post(this.hostServer + '/rest/user/login', params).pipe(map((response: any) => response.authentication), catchError((err) => { throw err }))
   }
 
   getLoggedInState () {
@@ -52,15 +52,15 @@ export class UserService {
 
   changePassword (passwords: Passwords) {
     return this.http.get(this.hostServer + '/rest/user/change-password?current=' + passwords.current + '&new=' +
-    passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error })/**/)
+    passwords.new + '&repeat=' + passwords.repeat).pipe(map((response: any) => response.user), catchError((err) => { throw err.error }))
   }
 
   resetPassword (params: any) {
-    return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err })/**/)
+    return this.http.post(this.hostServer + '/rest/user/reset-password', params).pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   whoAmI () {
-    return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err })/**/)
+    return this.http.get(this.hostServer + '/rest/user/whoami').pipe(map((response: any) => response.user), catchError((err) => { throw err }))
   }
 
   oauthLogin (accessToken: string) {
@@ -68,14 +68,14 @@ export class UserService {
   }
 
   saveLastLoginIp () {
-    return this.http.get(this.hostServer + '/rest/saveLoginIp').pipe(map((response: any) => response), catchError((err) => { throw err })/**/)
+    return this.http.get(this.hostServer + '/rest/saveLoginIp').pipe(map((response: any) => response), catchError((err) => { throw err }))
   }
 
   deluxeStatus () {
-    return this.http.get(this.hostServer + '/rest/deluxe-membership').pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
+    return this.http.get(this.hostServer + '/rest/deluxe-membership').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 
   upgradeToDeluxe (paymentMode: string, paymentId: any) {
-    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode, paymentId })/**/.pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
+    return this.http.post(this.hostServer + '/rest/deluxe-membership', { paymentMode, paymentId }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
   }
 }

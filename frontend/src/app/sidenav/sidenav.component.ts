@@ -19,7 +19,7 @@ import { roles } from '../roles'
   selector: 'sidenav',
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
-})/**/
+})
 export class SidenavComponent implements OnInit {
   public applicationName = 'OWASP Juice Shop'
   public showGitHubLink = true
@@ -42,7 +42,7 @@ export class SidenavComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.version = `v${version}`
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
     this.getApplicationDetails()
     this.getScoreBoardStatus()
 
@@ -58,14 +58,14 @@ export class SidenavComponent implements OnInit {
       } else {
         this.userEmail = ''
       }
-    })/**/
+    })
     this.ngZone.runOutsideAngular(() => {
       this.io.socket().on('challenge solved', (challenge) => {
         if (challenge.key === 'scoreBoardChallenge') {
           this.scoreBoardVisible = true
         }
-      })/**/
-    })/**/
+      })
+    })
   }
 
   isLoggedIn () {
@@ -73,7 +73,7 @@ export class SidenavComponent implements OnInit {
   }
 
   logout () {
-    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })/**/
+    this.userService.saveLastLoginIp().subscribe((user: any) => { this.noop() }, (err) => { console.log(err) })
     localStorage.removeItem('token')
     this.cookieService.remove('token')
     sessionStorage.removeItem('bid')
@@ -94,17 +94,17 @@ export class SidenavComponent implements OnInit {
   noop () { }
 
   getScoreBoardStatus () {
-    this.challengeService.find({ name: 'Score Board' })/**/.subscribe((challenges: any) => {
+    this.challengeService.find({ name: 'Score Board' }).subscribe((challenges: any) => {
       this.ngZone.run(() => {
         this.scoreBoardVisible = challenges[0].solved
-      })/**/
-    }, (err) => { console.log(err) })/**/
+      })
+    }, (err) => { console.log(err) })
   }
 
   getUserDetails () {
     this.userService.whoAmI().subscribe((user: any) => {
       this.userEmail = user.email
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   onToggleSidenav = () => {
@@ -122,7 +122,7 @@ export class SidenavComponent implements OnInit {
       if (config?.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled) {
         this.offerScoreBoardTutorial = config.application.welcomeBanner.showOnFirstStart && config.hackingInstructor.isEnabled
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   isAccounting () {
@@ -135,6 +135,6 @@ export class SidenavComponent implements OnInit {
     console.log('Starting instructions for challenge "Score Board"')
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor('Score Board')
-    })/**/
+    })
   }
 }

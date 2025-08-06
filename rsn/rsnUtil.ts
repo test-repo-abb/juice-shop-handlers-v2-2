@@ -39,7 +39,7 @@ const checkDiffs = async (keys: string[]) => {
         removed: []
       }
     }
-  }, {})/**/
+  }, {})
   for (const val of keys) {
     await retrieveCodeSnippet(val.split('_')[0])
       .then(snippet => {
@@ -91,10 +91,10 @@ const checkDiffs = async (keys: string[]) => {
           norm = temp
         }
         process.stdout.write('\n')
-      })/**/
+      })
       .catch(err => {
         console.log(err)
-      })/**/
+      })
   }
   return data
 }

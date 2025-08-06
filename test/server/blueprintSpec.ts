@@ -22,8 +22,8 @@ async function parseExifData (path: string): Promise<any> {
         reject(error)
       }
       resolve(exifData)
-    })/**/
-  })/**/
+    })
+  })
 }
 
 describe('blueprint', () => {
@@ -57,6 +57,6 @@ describe('blueprint', () => {
           }
         }
       }
-    })/**/
-  })/**/
-})/**/
+    })
+  })
+})

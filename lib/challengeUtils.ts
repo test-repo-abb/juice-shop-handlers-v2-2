@@ -26,18 +26,18 @@ export const solveIf = function (challenge: any, criteria: () => any, isRestore:
 
 export const solve = function (challenge: any, isRestore = false) {
   challenge.solved = true
-  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string })/**/ => {
-    logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})/**/`)
+  challenge.save().then((solvedChallenge: { difficulty: number, key: string, name: string }) => {
+    logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} ${solvedChallenge.difficulty}-star ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
     sendNotification(solvedChallenge, isRestore)
     if (!isRestore) {
       const cheatScore = calculateCheatScore(challenge)
       if (process.env.SOLUTIONS_WEBHOOK) {
         webhook.notify(solvedChallenge, cheatScore).catch((error: unknown) => {
           logger.error('Webhook notification failed: ' + colors.red(utils.getErrorMessage(error)))
-        })/**/
+        })
       }
     }
-  })/**/
+  })
 }
 
 export const sendNotification = function (challenge: { difficulty?: number, key: any, name: any, description?: any }, isRestore: boolean) {
@@ -46,12 +46,12 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
     const notification = {
       key: challenge.key,
       name: challenge.name,
-      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })/**/) + ')',
+      challenge: challenge.name + ' (' + entities.decode(sanitizeHtml(challenge.description, { allowedTags: [], allowedAttributes: {} })) + ')',
       flag,
       hidden: !config.get('challenges.showSolvedNotifications'),
       isRestore
     }
-    const wasPreviouslyShown = notifications.some(({ key })/**/ => key === challenge.key)
+    const wasPreviouslyShown = notifications.some(({ key }) => key === challenge.key)
     notifications.push(notification)
 
     if (globalWithSocketIO.io && (isRestore || !wasPreviouslyShown)) {
@@ -60,7 +60,7 @@ export const sendNotification = function (challenge: { difficulty?: number, key:
   }
 }
 
-export const sendCodingChallengeNotification = function (challenge: { key: string, codingChallengeStatus: 0 | 1 | 2 })/**/ {
+export const sendCodingChallengeNotification = function (challenge: { key: string, codingChallengeStatus: 0 | 1 | 2 }) {
   if (challenge.codingChallengeStatus > 0) {
     const notification = {
       key: challenge.key,
@@ -98,24 +98,24 @@ export const findChallengeById = (challengeId: number) => {
 
 export const solveFindIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
-  await ChallengeModel.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })/**/
-  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})/**/`)
+  await ChallengeModel.update({ codingChallengeStatus: 1 }, { where: { key, codingChallengeStatus: { [Op.lt]: 2 } } })
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Find It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
   if (!isRestore) {
     accuracy.storeFindItVerdict(solvedChallenge.key, true)
     accuracy.calculateFindItAccuracy(solvedChallenge.key)
     await calculateFindItCheatScore(solvedChallenge)
-    sendCodingChallengeNotification({ key, codingChallengeStatus: 1 })/**/
+    sendCodingChallengeNotification({ key, codingChallengeStatus: 1 })
   }
 }
 
 export const solveFixIt = async function (key: string, isRestore: boolean) {
   const solvedChallenge = challenges[key]
-  await ChallengeModel.update({ codingChallengeStatus: 2 }, { where: { key } })/**/
-  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})/**/`)
+  await ChallengeModel.update({ codingChallengeStatus: 2 }, { where: { key } })
+  logger.info(`${isRestore ? colors.grey('Restored') : colors.green('Solved')} 'Fix It' phase of coding challenge ${colors.cyan(solvedChallenge.key)} (${solvedChallenge.name})`)
   if (!isRestore) {
     accuracy.storeFixItVerdict(solvedChallenge.key, true)
     accuracy.calculateFixItAccuracy(solvedChallenge.key)
     await calculateFixItCheatScore(solvedChallenge)
-    sendCodingChallengeNotification({ key, codingChallengeStatus: 2 })/**/
+    sendCodingChallengeNotification({ key, codingChallengeStatus: 2 })
   }
 }

@@ -9,15 +9,15 @@ describe('ScoreCardComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ScoreCardComponent]
-    })/**/
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(ScoreCardComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
-})/**/
+  })
+})

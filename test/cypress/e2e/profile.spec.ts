@@ -1,7 +1,7 @@
 describe('/profile', () => {
   beforeEach(() => {
-    cy.login({ email: 'admin', password: 'admin123' })/**/
-  })/**/
+    cy.login({ email: 'admin', password: 'admin123' })
+  })
   describe('challenge "ssrf"', () => {
     it('should be possible to request internal resources using image upload URL', () => {
       cy.visit('/profile')
@@ -11,9 +11,9 @@ describe('/profile', () => {
       )
       cy.get('#submitUrl').click()
       cy.visit('/')
-      cy.expectChallengeSolved({ challenge: 'SSRF' })/**/
-    })/**/
-  })/**/
+      cy.expectChallengeSolved({ challenge: 'SSRF' })
+    })
+  })
 
   describe('challenge "usernameXss"', () => {
     it('Username field should be susceptible to XSS attacks after disarming CSP via profile image URL', () => {
@@ -29,7 +29,7 @@ describe('/profile', () => {
 
           cy.on('window:alert', (t) => {
             expect(t).to.equal('xss')
-          })/**/
+          })
 
           cy.get('#username').clear()
           cy.get('#username').type('αδмιη')
@@ -40,11 +40,11 @@ describe('/profile', () => {
           )
           cy.get('#submitUrl').click()
           cy.visit('/#/')
-          cy.expectChallengeSolved({ challenge: 'CSP Bypass' })/**/
+          cy.expectChallengeSolved({ challenge: 'CSP Bypass' })
         }
-      })/**/
-    })/**/
-  })/**/
+      })
+    })
+  })
 
   describe('challenge "ssti"', () => {
     it('should be possible to inject arbitrary nodeJs commands in username', () => {
@@ -62,11 +62,11 @@ describe('/profile', () => {
           cy.visit('/')
           // void browser.driver.sleep(10000);
           // void browser.waitForAngularEnabled(true);
-          cy.expectChallengeSolved({ challenge: 'SSTi' })/**/
+          cy.expectChallengeSolved({ challenge: 'SSTi' })
         }
-      })/**/
-    })/**/
-  })/**/
+      })
+    })
+  })
 
   describe('challenge "csrf"', () => {
     // FIXME Only works on Chrome <80 but Protractor uses latest Chrome version. Test can probably never be turned on again.
@@ -88,9 +88,9 @@ describe('/profile', () => {
         <script>document.forms[0].submit();
         </script>
         `
-      })/**/
-      // cy.expectChallengeSolved({ challenge: 'CSRF' })/**/
-    })/**/
+      })
+      // cy.expectChallengeSolved({ challenge: 'CSRF' })
+    })
 
     xit('should be possible to fake a CSRF attack against the user profile page', () => {
       cy.visit('/')
@@ -108,12 +108,12 @@ describe('/profile', () => {
             Cookie: `token=${localStorage.getItem('token')}` // FIXME Not allowed by browser due to "unsafe header not permitted"
           },
           body: formData
-        })/**/
+        })
         if (response.status === 200) {
           console.log('Success')
         }
-      })/**/
-      // cy.expectChallengeSolved({ challenge: 'CSRF' })/**/
-    })/**/
-  })/**/
-})/**/
+      })
+      // cy.expectChallengeSolved({ challenge: 'CSRF' })
+    })
+  })
+})

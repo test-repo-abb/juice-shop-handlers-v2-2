@@ -21,15 +21,15 @@ describe('/api/Recycles', () => {
         isPickup: true,
         date: '2017-05-31'
       }
-    })/**/
+    })
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         id: Joi.number(),
         createdAt: Joi.string(),
         updatedAt: Joi.string()
-      })/**/
-  })/**/
+      })
+  })
 
   it('Will prevent GET all recycles from this endpoint', () => {
     return frisby.get(`${API_URL}/Recycles`)
@@ -37,8 +37,8 @@ describe('/api/Recycles', () => {
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', 'data', {
         err: 'Sorry, this endpoint is not supported.'
-      })/**/
-  })/**/
+      })
+  })
 
   it('Will GET existing recycle from this endpoint', () => {
     return frisby.get(`${API_URL}/Recycles/1`)
@@ -53,8 +53,8 @@ describe('/api/Recycles', () => {
         date: Joi.date(),
         createdAt: Joi.string(),
         updatedAt: Joi.string()
-      })/**///
-  })/**/
+      })//
+  })
 
   it('PUT update existing recycle is forbidden', () => {
     return frisby.put(`${API_URL}/Recycles/1`, {
@@ -62,12 +62,12 @@ describe('/api/Recycles', () => {
       body: {
         quantity: 100000
       }
-    })/**/
+    })
       .expect('status', 401)
-  })/**/
+  })
 
   it('DELETE existing recycle is forbidden', () => {
-    return frisby.del(`${API_URL}/Recycles/1`, { headers: authHeader })/**/
+    return frisby.del(`${API_URL}/Recycles/1`, { headers: authHeader })
       .expect('status', 401)
-  })/**/
-})/**/
+  })
+})

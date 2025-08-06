@@ -14,9 +14,9 @@ checkDiffs(keys)
       console.log('---------------------------------------')
       process.exitCode = 1
     }
-  })/**/
+  })
   .catch(err => {
     console.log(err)
     process.exitCode = 1
-  })/**/
+  })
   //

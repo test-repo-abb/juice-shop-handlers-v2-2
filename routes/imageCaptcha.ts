@@ -12,7 +12,7 @@ const security = require('../lib/insecurity')
 
 function imageCaptchas () {
   return (req: Request, res: Response) => {
-    const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })/**/
+    const captcha = svgCaptcha.create({ size: 5, noise: 2, color: true })
 
     const imageCaptcha = {
       image: captcha.data,
@@ -22,9 +22,9 @@ function imageCaptchas () {
     const imageCaptchaInstance = ImageCaptchaModel.build(imageCaptcha)
     imageCaptchaInstance.save().then(() => {
       res.json(imageCaptcha)
-    })/**/.catch(() => {
+    }).catch(() => {
       res.status(400).send(res.__('Unable to create CAPTCHA. Please try again.'))
-    })/**/
+    })
   }
 }
 
@@ -40,15 +40,15 @@ imageCaptchas.verifyCaptcha = () => (req: Request, res: Response, next: NextFunc
       }
     },
     order: [['createdAt', 'DESC']]
-  })/**/.then(captchas => {
+  }).then(captchas => {
     if (!captchas[0] || req.body.answer === captchas[0].answer) {
       next()
     } else {
       res.status(401).send(res.__('Wrong answer to CAPTCHA. Please try again.'))
     }
-  })/**/.catch(() => {
+  }).catch(() => {
     res.status(401).send(res.__('Something went wrong while submitting CAPTCHA. Please try again.'))
-  })/**/
+  })
 }
 
 module.exports = imageCaptchas

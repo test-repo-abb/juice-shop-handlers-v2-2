@@ -16,13 +16,13 @@ const BankAddress = '0x413744D59d31AFDC2889aeE602636177805Bd7b0'
 const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
-})/**/
+})
 
 @Component({
   selector: 'app-wallet-web3',
   templateUrl: './wallet-web3.component.html',
   styleUrls: ['./wallet-web3.component.scss']
-})/**/
+})
 export class WalletWeb3Component {
   constructor (
     private readonly keysService: KeysService,
@@ -58,7 +58,7 @@ export class WalletWeb3Component {
       const depositAmount = this.inputAmount.toString()
       const transaction = await contract.ethdeposit(this.metamaskAddress, {
         value: ethers.utils.parseEther(depositAmount)
-      })/**/
+      })
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const txConfirmation = await transaction.wait()
       this.getUserEthBalance()
@@ -110,7 +110,7 @@ export class WalletWeb3Component {
         return
       }
 
-      const provider = await connect({ connector: new InjectedConnector() })/**/
+      const provider = await connect({ connector: new InjectedConnector() })
       this.metamaskAddress = provider.account
       this.keysService.walletAddressSend(this.metamaskAddress).subscribe(
         (response) => {
@@ -143,7 +143,7 @@ export class WalletWeb3Component {
             blockExplorerUrls: ['https://sepolia.etherscan.io/']
           }
         ]
-      })/**/
+      })
       const targetChainId = '11155111'
       const currentChainId = String(provider.chain?.id)
 

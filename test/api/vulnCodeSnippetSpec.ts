@@ -15,13 +15,13 @@ describe('/snippets/:challenge', () => {
     return frisby.get(URL + '/snippets/doesNotExistChallenge')
       .expect('status', 404)
       .expect('json', 'error', 'No code challenge for challenge key: doesNotExistChallenge')
-  })/**/
+  })
 
   it('GET code snippet retrieval for challenge without code snippet throws error', () => {
     return frisby.get(URL + '/snippets/easterEggLevelTwoChallenge')
       .expect('status', 404)
       .expect('json', 'error', 'No code challenge for challenge key: easterEggLevelTwoChallenge')
-  })/**/
+  })
 
   it('GET code snippet retrieval for challenge with code snippet', () => {
     return frisby.get(URL + '/snippets/loginAdminChallenge')
@@ -29,9 +29,9 @@ describe('/snippets/:challenge', () => {
       .expect('jsonTypes', {
         snippet: Joi.string(),
         vulnLines: Joi.array()
-      })/**/
-  })/**/
-})/**/
+      })
+  })
+})
 
 describe('snippets/verdict', () => {
   let socket: SocketIOClient.Socket
@@ -40,18 +40,18 @@ describe('snippets/verdict', () => {
     socket = io('http://localhost:3000', {
       reconnectionDelay: 0,
       forceNew: true
-    })/**/
+    })
     socket.on('connect', () => {
       done()
-    })/**/
-  })/**/
+    })
+  })
 
   afterEach(done => {
     if (socket.connected) {
       socket.disconnect()
     }
     done()
-  })/**/
+  })
 //
   it('should check for the incorrect lines', () => {
     return frisby.post(URL + '/snippets/verdict', {
@@ -59,15 +59,15 @@ describe('snippets/verdict', () => {
         selectedLines: [5, 9],
         key: 'resetPasswordJimChallenge'
       }
-    })/**/
+    })
       .expect('status', 200)
       .expect('jsonTypes', {
         verdict: Joi.boolean()
-      })/**/
+      })
       .expect('json', {
         verdict: false
-      })/**/
-  })/**/
+      })
+  })
 
   it('should check for the correct lines', async () => {
     const websocketReceivedPromise = new Promise<void>((resolve) => {
@@ -75,26 +75,26 @@ describe('snippets/verdict', () => {
         expect(data).toEqual({
           key: 'resetPasswordJimChallenge',
           codingChallengeStatus: 1
-        })/**/
+        })
         resolve()
-      })/**/
-    })/**/
+      })
+    })
 
     await frisby.post(URL + '/snippets/verdict', {
       body: {
         selectedLines: [2],
         key: 'resetPasswordJimChallenge'
       }
-    })/**/
+    })
       .expect('status', 200)
       .expect('jsonTypes', {
         verdict: Joi.boolean()
-      })/**/
+      })
       .expect('json', {
         verdict: true
-      })/**/
+      })
       .promise()
 
     await websocketReceivedPromise
-  })/**/
-})/**/
+  })
+})

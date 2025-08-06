@@ -62,7 +62,7 @@ describe('sortChallenges', () => {
     ]) {
       expect(sortChallenges(challengeOrderingCombination).map(challenge => challenge.key)).toEqual(['challenge-1', 'challenge-2'])
     }
-  })/**/
+  })
 
   it('sort non tutorial challenges by difficulty while still maintaining tutorial order for challenges with tutorials', () => {
     for (const challengeOrderingCombination of [
@@ -75,5 +75,5 @@ describe('sortChallenges', () => {
     ]) {
       expect(sortChallenges(challengeOrderingCombination).map(challenge => challenge.key)).toEqual(['challenge-1', 'challenge-2', 'challenge-3'])
     }
-  })/**/
-})/**/
+  })
+})

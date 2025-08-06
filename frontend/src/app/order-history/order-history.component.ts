@@ -33,7 +33,7 @@ export interface Order {
   selector: 'app-order-history',
   templateUrl: './order-history.component.html',
   styleUrls: ['./order-history.component.scss']
-})/**/
+})
 export class OrderHistoryComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price', 'review']
   public orders: Order[] = []
@@ -58,7 +58,7 @@ export class OrderHistoryComponent implements OnInit {
             price: product.price,
             quantity: product.quantity,
             total: product.total
-          })/**/
+          })
         }
         this.orders.push({
           orderId: order.orderId,
@@ -66,9 +66,9 @@ export class OrderHistoryComponent implements OnInit {
           bonus: order.bonus,
           products: new MatTableDataSource<StrippedProduct>(products),
           delivered: order.delivered
-        })/**/
+        })
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   showDetail (id: number) {
@@ -87,8 +87,8 @@ export class OrderHistoryComponent implements OnInit {
         data: {
           productData: element
         }
-      })/**/
-    }, (err) => { console.log(err) })/**/
+      })
+    }, (err) => { console.log(err) })
   }
 
   openConfirmationPDF (orderId: string) {
@@ -101,6 +101,6 @@ export class OrderHistoryComponent implements OnInit {
       queryParams: {
         id: orderId
       }
-    })/**/)
+    }))
   }
 }

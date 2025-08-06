@@ -6,7 +6,7 @@ import { type EnrichedChallenge } from '../../types/EnrichedChallenge'
   selector: 'coding-challenge-progress-score-card',
   templateUrl: './coding-challenge-progress-score-card.component.html',
   styleUrls: ['./coding-challenge-progress-score-card.component.scss']
-})/**/
+})
 export class CodingChallengeProgressScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = []

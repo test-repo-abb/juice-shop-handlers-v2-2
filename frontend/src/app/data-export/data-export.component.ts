@@ -13,7 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser'
   selector: 'app-data-export',
   templateUrl: './data-export.component.html',
   styleUrls: ['./data-export.component.scss']
-})/**/
+})
 export class DataExportComponent implements OnInit {
   public captchaControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5)])
   public formatControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -43,7 +43,7 @@ export class DataExportComponent implements OnInit {
   getNewCaptcha () {
     this.imageCaptchaService.getCaptcha().subscribe((data: any) => {
       this.captcha = this.sanitizer.bypassSecurityTrustHtml(data.image)
-    })/**/
+    })
   }
 
   save () {
@@ -64,7 +64,7 @@ export class DataExportComponent implements OnInit {
       this.error = error.error
       this.confirmation = null
       this.resetFormError()
-    })/**/
+    })
   }
 
   resetForm () {

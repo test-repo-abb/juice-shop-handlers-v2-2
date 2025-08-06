@@ -134,12 +134,12 @@ const startupGauge = new Prometheus.Gauge({
   name: `${appName}_startup_duration_seconds`,
   help: `Duration ${appName} required to perform a certain task during startup`,
   labelNames: ['task']
-})/**/
+})
 
 // Wraps the function and measures its (async) execution time
 const collectDurationPromise = (name: string, func: (...args: any) => Promise<any>) => {
   return async (...args: any) => {
-    const end = startupGauge.startTimer({ task: name })/**/
+    const end = startupGauge.startTimer({ task: name })
     try {
       const res = await func(...args)
       end()
@@ -156,7 +156,7 @@ app.set('view engine', 'hbs')
 
 void collectDurationPromise('validatePreconditions', validatePreconditions)()
 void collectDurationPromise('cleanupFtpFolder', cleanupFtpFolder)()
-void collectDurationPromise('validateConfig', validateConfig)({})/**/
+void collectDurationPromise('validateConfig', validateConfig)({})
 
 // Function called first to ensure that all the i18n files are reloaded successfully before other linked operations.
 restoreOverwrittenFilesWithOriginals().then(() => {
@@ -183,19 +183,19 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     features: {
       payment: ["'self'"]
     }
-  })/**/)
+  }))
 
   /* Hiring header */
   app.use((req: Request, res: Response, next: NextFunction) => {
     res.append('X-Recruiting', config.get('application.securityTxt.hiring'))
     next()
-  })/**/
+  })
 
   /* Remove duplicate slashes from URL which allowed bypassing subsequent filters */
   app.use((req: Request, res: Response, next: NextFunction) => {
     req.url = req.url.replace(/[/]+/g, '/')
     next()
-  })/**/
+  })
 
   /* Increase request counter metric for every request */
   app.use(metrics.observeRequestMetricsMiddleware())
@@ -208,14 +208,14 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     contact: config.get('application.securityTxt.contact'),
     encryption: config.get('application.securityTxt.encryption'),
     acknowledgements: config.get('application.securityTxt.acknowledgements'),
-    'Preferred-Languages': [...new Set(locales.map((locale: { key: string })/**/ => locale.key.substr(0, 2)))].join(', '),
+    'Preferred-Languages': [...new Set(locales.map((locale: { key: string }) => locale.key.substr(0, 2)))].join(', '),
     hiring: config.get('application.securityTxt.hiring'),
     csaf: config.get<string>('server.baseUrl') + config.get<string>('application.securityTxt.csaf'),
     expires: securityTxtExpiration.toUTCString()
-  })/**/)
+  }))
 
   /* robots.txt */
-  app.use(robots({ UserAgent: '*', Disallow: '/ftp' })/**/)
+  app.use(robots({ UserAgent: '*', Disallow: '/ftp' }))
 
   /* Check for any URLs having been called that would be expected for challenge solving without cheating */
   app.use(antiCheat.checkForPreSolveInteractions())
@@ -247,7 +247,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
             relativePath = relativePath.replace('..', '.')
           }
           return 'a href="' + relativePath + '"'
-        })/**/
+        })
       }
       // @ts-expect-error FIXME passed argument has wrong type
       origEnd.apply(this, arguments)
@@ -257,19 +257,19 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   // vuln-code-snippet start directoryListingChallenge accessLogDisclosureChallenge
   /* /ftp directory browsing and file download */ // vuln-code-snippet neutral-line directoryListingChallenge
-  app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })/**/) // vuln-code-snippet vuln-line directoryListingChallenge
+  app.use('/ftp', serveIndexMiddleware, serveIndex('ftp', { icons: true })) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp(?!/quarantine)/:file', fileServer()) // vuln-code-snippet vuln-line directoryListingChallenge
   app.use('/ftp/quarantine/:file', quarantineServer()) // vuln-code-snippet neutral-line directoryListingChallenge
 
-  app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' })/**/)
+  app.use('/.well-known', serveIndexMiddleware, serveIndex('.well-known', { icons: true, view: 'details' }))
   app.use('/.well-known', express.static('.well-known'))
 
   /* /encryptionkeys directory browsing */
-  app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' })/**/)
+  app.use('/encryptionkeys', serveIndexMiddleware, serveIndex('encryptionkeys', { icons: true, view: 'details' }))
   app.use('/encryptionkeys/:file', keyServer())
 
   /* /logs directory browsing */ // vuln-code-snippet neutral-line accessLogDisclosureChallenge
-  app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })/**/) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
+  app.use('/support/logs', serveIndexMiddleware, serveIndex('logs', { icons: true, view: 'details' })) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
   app.use('/support/logs', verify.accessControlChallenges()) // vuln-code-snippet hide-line
   app.use('/support/logs/:file', logFileServer()) // vuln-code-snippet vuln-line accessLogDisclosureChallenge
 
@@ -282,22 +282,22 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Configure and enable backend-side i18n */
   i18n.configure({
-    locales: locales.map((locale: { key: string })/**/ => locale.key),
+    locales: locales.map((locale: { key: string }) => locale.key),
     directory: path.resolve('i18n'),
     cookie: 'language',
     defaultLocale: 'en',
     autoReload: true
-  })/**/
+  })
   app.use(i18n.init)
 
-  app.use(bodyParser.urlencoded({ extended: true })/**/)
+  app.use(bodyParser.urlencoded({ extended: true }))
   /* File Upload */
   app.post('/file-upload', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), handleZipFileUpload, checkUploadSize, checkFileType, handleXmlUpload)
   app.post('/profile/image/file', uploadToMemory.single('file'), ensureFileIsPassed, metrics.observeFileUploadMetricsMiddleware(), profileImageFileUpload())
   app.post('/profile/image/url', uploadToMemory.single('file'), profileImageUrlUpload())
   app.post('/rest/memories', uploadToDisk.single('image'), ensureFileIsPassed, security.appendUserId(), metrics.observeFileUploadMetricsMiddleware(), memory.addMemory())
 
-  app.use(bodyParser.text({ type: '*/*' })/**/)
+  app.use(bodyParser.text({ type: '*/*' }))
   app.use(function jsonParser (req: Request, res: Response, next: NextFunction) {
     // @ts-expect-error FIXME intentionally saving original request in this property
     req.rawBody = req.body
@@ -310,7 +310,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       }
     }
     next()
-  })/**/
+  })
 
   /* HTTP request logging */
   const accessLogStream = require('file-stream-rotator').getStream({
@@ -318,8 +318,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
     frequency: 'daily',
     verbose: false,
     max_logs: '2d'
-  })/**/
-  app.use(morgan('combined', { stream: accessLogStream })/**/)
+  })
+  app.use(morgan('combined', { stream: accessLogStream }))
 
   // vuln-code-snippet start resetPasswordMortyChallenge
   /* Rate limiting */
@@ -327,8 +327,8 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   app.use('/rest/user/reset-password', new RateLimit({
     windowMs: 5 * 60 * 1000,
     max: 100,
-    keyGenerator ({ headers, ip }: { headers: any, ip: any })/**/ { return headers['X-Forwarded-For'] ?? ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
-  })/**/)
+    keyGenerator ({ headers, ip }: { headers: any, ip: any }) { return headers['X-Forwarded-For'] ?? ip } // vuln-code-snippet vuln-line resetPasswordMortyChallenge
+  }))
   // vuln-code-snippet end resetPasswordMortyChallenge
 
   // vuln-code-snippet start changeProductChallenge
@@ -394,7 +394,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       }
     }
     next()
-  })/**/
+  })
   app.post('/api/Users', verify.registerAdminChallenge())
   app.post('/api/Users', verify.passwordRepeatChallenge()) // vuln-code-snippet hide-end
   app.post('/api/Users', verify.emptyUserRegistration())
@@ -406,7 +406,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Accounting users are allowed to check and update quantities */
   app.delete('/api/Quantitys/:id', security.denyAll())
   app.post('/api/Quantitys', security.denyAll())
-  app.use('/api/Quantitys/:id', security.isAccounting(), ipfilter(['123.456.789'], { mode: 'allow' })/**/)
+  app.use('/api/Quantitys/:id', security.isAccounting(), ipfilter(['123.456.789'], { mode: 'allow' }))
   /* Feedbacks: Do not allow changes of existing feedback */
   app.put('/api/Feedbacks/:id', security.denyAll())
   /* PrivacyRequests: Only allowed for authenticated users */
@@ -434,20 +434,20 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   /* Verify the 2FA Token */
   app.post('/rest/2fa/verify',
-    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 })/**/,
+    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     twoFactorAuth.verify()
   )
   /* Check 2FA Status for the current User */
   app.get('/rest/2fa/status', security.isAuthorized(), twoFactorAuth.status())
   /* Enable 2FA for the current User */
   app.post('/rest/2fa/setup',
-    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 })/**/,
+    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     security.isAuthorized(),
     twoFactorAuth.setup()
   )
   /* Disable 2FA Status for the current User */
   app.post('/rest/2fa/disable',
-    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 })/**/,
+    new RateLimit({ windowMs: 5 * 60 * 1000, max: 100 }),
     security.isAuthorized(),
     twoFactorAuth.disable()
   )
@@ -456,7 +456,7 @@ restoreOverwrittenFilesWithOriginals().then(() => {
 
   // vuln-code-snippet start registerAdminChallenge
   /* Generated API endpoints */
-  finale.initialize({ app, sequelize })/**/
+  finale.initialize({ app, sequelize })
 
   const autoModels = [
     { name: 'User', exclude: ['password', 'totpSecret'], model: UserModel },
@@ -480,22 +480,22 @@ restoreOverwrittenFilesWithOriginals().then(() => {
       endpoints: [`/api/${name}s`, `/api/${name}s/:id`],
       excludeAttributes: exclude,
       pagination: false
-    })/**/
+    })
 
     // create a wallet when a new user is registered using API
     if (name === 'User') { // vuln-code-snippet neutral-line registerAdminChallenge
-      resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any })/**/ => { // vuln-code-snippet vuln-line registerAdminChallenge
-        WalletModel.create({ UserId: context.instance.id })/**/.catch((err: unknown) => {
+      resource.create.send.before((req: Request, res: Response, context: { instance: { id: any }, continue: any }) => { // vuln-code-snippet vuln-line registerAdminChallenge
+        WalletModel.create({ UserId: context.instance.id }).catch((err: unknown) => {
           console.log(err)
-        })/**/
+        })
         return context.continue // vuln-code-snippet neutral-line registerAdminChallenge
-      })/**/ // vuln-code-snippet neutral-line registerAdminChallenge
+      }) // vuln-code-snippet neutral-line registerAdminChallenge
     } // vuln-code-snippet neutral-line registerAdminChallenge
     // vuln-code-snippet end registerAdminChallenge
 
     // translate challenge descriptions and hints on-the-fly
     if (name === 'Challenge') {
-      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any })/**/ => {
+      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
           let description = context.instance[i].description
           if (utils.contains(description, '<em>(This challenge is <strong>')) {
@@ -510,54 +510,54 @@ restoreOverwrittenFilesWithOriginals().then(() => {
           }
         }
         return context.continue
-      })/**/
-      resource.read.send.before((req: Request, res: Response, context: { instance: { description: string, hint: string }, continue: any })/**/ => {
+      })
+      resource.read.send.before((req: Request, res: Response, context: { instance: { description: string, hint: string }, continue: any }) => {
         context.instance.description = req.__(context.instance.description)
         if (context.instance.hint) {
           context.instance.hint = req.__(context.instance.hint)
         }
         return context.continue
-      })/**/
+      })
     }
 
     // translate security questions on-the-fly
     if (name === 'SecurityQuestion') {
-      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any })/**/ => {
+      resource.list.fetch.after((req: Request, res: Response, context: { instance: string | any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
           context.instance[i].question = req.__(context.instance[i].question)
         }
         return context.continue
-      })/**/
-      resource.read.send.before((req: Request, res: Response, context: { instance: { question: string }, continue: any })/**/ => {
+      })
+      resource.read.send.before((req: Request, res: Response, context: { instance: { question: string }, continue: any }) => {
         context.instance.question = req.__(context.instance.question)
         return context.continue
-      })/**/
+      })
     }
 
     // translate product names and descriptions on-the-fly
     if (name === 'Product') {
-      resource.list.fetch.after((req: Request, res: Response, context: { instance: any[], continue: any })/**/ => {
+      resource.list.fetch.after((req: Request, res: Response, context: { instance: any[], continue: any }) => {
         for (let i = 0; i < context.instance.length; i++) {
           context.instance[i].name = req.__(context.instance[i].name)
           context.instance[i].description = req.__(context.instance[i].description)
         }
         return context.continue
-      })/**/
-      resource.read.send.before((req: Request, res: Response, context: { instance: { name: string, description: string }, continue: any })/**/ => {
+      })
+      resource.read.send.before((req: Request, res: Response, context: { instance: { name: string, description: string }, continue: any }) => {
         context.instance.name = req.__(context.instance.name)
         context.instance.description = req.__(context.instance.description)
         return context.continue
-      })/**/
+      })
     }
 
     // fix the api difference between finale (fka epilogue) and previously used sequlize-restful
-    resource.all.send.before((req: Request, res: Response, context: { instance: { status: string, data: any }, continue: any })/**/ => {
+    resource.all.send.before((req: Request, res: Response, context: { instance: { status: string, data: any }, continue: any }) => {
       context.instance = {
         status: 'success',
         data: context.instance
       }
       return context.continue
-    })/**/
+    })
   }
 
   /* Custom Restful API */
@@ -646,12 +646,12 @@ restoreOverwrittenFilesWithOriginals().then(() => {
   /* Error Handling */
   app.use(verify.errorHandlingChallenge())
   app.use(errorhandler())
-})/**/.catch((err) => {
+}).catch((err) => {
   console.error(err)
-})/**/
+})
 
 const multer = require('multer')
-const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })/**/
+const uploadToMemory = multer({ storage: multer.memoryStorage(), limits: { fileSize: 200000 } })
 const mimeTypeMap: any = {
   'image/png': 'png',
   'image/jpeg': 'jpg',
@@ -675,25 +675,25 @@ const uploadToDisk = multer({
       const ext = mimeTypeMap[file.mimetype]
       cb(null, name + '-' + Date.now() + '.' + ext)
     }
-  })/**/
-})/**/
+  })
+})
 
 const expectedModels = ['Address', 'Basket', 'BasketItem', 'Captcha', 'Card', 'Challenge', 'Complaint', 'Delivery', 'Feedback', 'ImageCaptcha', 'Memory', 'PrivacyRequestModel', 'Product', 'Quantity', 'Recycle', 'SecurityAnswer', 'SecurityQuestion', 'User', 'Wallet']
 while (!expectedModels.every(model => Object.keys(sequelize.models).includes(model))) {
-  logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})/**/`)
+  logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.yellow('WAITING')})`)
 }
-logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.green('OK')})/**/`)
+logger.info(`Entity models ${colors.bold(Object.keys(sequelize.models).length.toString())} of ${colors.bold(expectedModels.length.toString())} are initialized (${colors.green('OK')})`)
 
 // vuln-code-snippet start exposedMetricsChallenge
 /* Serve metrics */
 let metricsUpdateLoop: any
 const Metrics = metrics.observeMetrics() // vuln-code-snippet neutral-line exposedMetricsChallenge
 app.get('/metrics', metrics.serveMetrics()) // vuln-code-snippet vuln-line exposedMetricsChallenge
-errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})/**/`
+errorhandler.title = `${config.get<string>('application.name')} (Express ${utils.version('express')})`
 
 export async function start (readyCallback?: () => void) {
-  const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })/**/
-  await sequelize.sync({ force: true })/**/
+  const datacreatorEnd = startupGauge.startTimer({ task: 'datacreator' })
+  await sequelize.sync({ force: true })
   await datacreator()
   datacreatorEnd()
   const port = process.env.PORT ?? config.get('server.port')
@@ -711,7 +711,7 @@ export async function start (readyCallback?: () => void) {
     if (readyCallback) {
       readyCallback()
     }
-  })/**/
+  })
 
   void collectDurationPromise('customizeApplication', customizeApplication)() // vuln-code-snippet hide-line
   void collectDurationPromise('customizeEasterEgg', customizeEasterEgg)() // vuln-code-snippet hide-line
@@ -729,5 +729,5 @@ export function close (exitCode: number | undefined) {
 // vuln-code-snippet end exposedMetricsChallenge
 
 // stop server on sigint or sigterm signals
-process.on('SIGINT', () => { close(0) })/**/
-process.on('SIGTERM', () => { close(0) })/**/
+process.on('SIGINT', () => { close(0) })
+process.on('SIGTERM', () => { close(0) })

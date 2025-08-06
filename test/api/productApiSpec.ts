@@ -31,8 +31,8 @@ describe('/api/Products', () => {
         price: Joi.number(),
         deluxePrice: Joi.number(),
         image: Joi.string()
-      })/**/
-  })/**/
+      })
+  })
 
   it('POST new product is forbidden via public API', () => {
     return frisby.post(API_URL + '/Products', {
@@ -40,9 +40,9 @@ describe('/api/Products', () => {
       description: 'Made from ugly dirt.',
       price: 0.99,
       image: 'dirt_juice.jpg'
-    })/**/
+    })
       .expect('status', 401)
-  })/**/
+  })
 
   if (utils.isChallengeEnabled(challenges.restfulXssChallenge)) {
     it('POST new product does not filter XSS attacks', () => {
@@ -54,12 +54,12 @@ describe('/api/Products', () => {
           price: 9999.99,
           image: 'xss3juice.jpg'
         }
-      })/**///
+      })//
         .expect('header', 'content-type', /application\/json/)
-        .expect('json', 'data', { description: '<iframe src="javascript:alert(`xss`)">' })/**/
-    })/**/
+        .expect('json', 'data', { description: '<iframe src="javascript:alert(`xss`)">' })
+    })
   }
-})/**/
+})
 
 describe('/api/Products/:id', () => {
   it('GET existing product by id', () => {
@@ -75,16 +75,16 @@ describe('/api/Products/:id', () => {
         image: Joi.string(),
         createdAt: Joi.string(),
         updatedAt: Joi.string()
-      })/**/
-      .expect('json', 'data', { id: 1 })/**/
-  })/**/
+      })
+      .expect('json', 'data', { id: 1 })
+  })
 
   it('GET non-existing product by id', () => {
     return frisby.get(API_URL + '/Products/4711')
       .expect('status', 404)
       .expect('header', 'content-type', /application\/json/)
       .expect('json', 'message', 'Not Found')
-  })/**/
+  })
 
   it('PUT update existing product is possible due to Missing Function-Level Access Control vulnerability', () => {
     return frisby.put(API_URL + '/Products/' + tamperingProductId, {
@@ -92,11 +92,11 @@ describe('/api/Products/:id', () => {
       body: {
         description: '<a href="http://kimminich.de" target="_blank">More...</a>'
       }
-    })/**/
+    })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<a href="http://kimminich.de" target="_blank">More...</a>' })/**/
-  })/**/
+      .expect('json', 'data', { description: '<a href="http://kimminich.de" target="_blank">More...</a>' })
+  })
 
   xit('PUT update existing product does not filter XSS attacks', () => { // FIXME Started to fail regularly on CI under Linux
     return frisby.put(API_URL + '/Products/1', {
@@ -104,19 +104,19 @@ describe('/api/Products/:id', () => {
       body: {
         description: '<script>alert(\'XSS\')</script>'
       }
-    })/**/
+    })
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .expect('json', 'data', { description: '<script>alert(\'XSS\')</script>' })/**/
-  })/**/
+      .expect('json', 'data', { description: '<script>alert(\'XSS\')</script>' })
+  })
 
   it('DELETE existing product is forbidden via public API', () => {
     return frisby.del(API_URL + '/Products/1')
       .expect('status', 401)
-  })/**/
+  })
 
   it('DELETE existing product is forbidden via API even when authenticated', () => {
-    return frisby.del(API_URL + '/Products/1', { headers: authHeader })/**/
+    return frisby.del(API_URL + '/Products/1', { headers: authHeader })
       .expect('status', 401)
-  })/**/
-})/**/
+  })
+})

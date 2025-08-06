@@ -46,8 +46,8 @@ export const makeKeyNonUpdatable = (model: Model, column: string) => {
           )
         )
       }
-    })/**/
+    })
 
     if (validationErrors.length > 0) { throw new ValidationError(null, validationErrors) }
-  })/**/
+  })
 }

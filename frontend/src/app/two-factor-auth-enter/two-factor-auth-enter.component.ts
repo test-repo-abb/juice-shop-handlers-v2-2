@@ -22,11 +22,11 @@ interface TokenEnterFormFields {
   selector: 'app-two-factor-auth-enter',
   templateUrl: './two-factor-auth-enter.component.html',
   styleUrls: ['./two-factor-auth-enter.component.scss']
-})/**/
+})
 export class TwoFactorAuthEnterComponent {
   public twoFactorForm: UntypedFormGroup = new UntypedFormGroup({
     token: new UntypedFormControl('', [Validators.minLength(6), Validators.maxLength(6), Validators.required, Validators.pattern('^[\\d]{6}$')])
-  })/**/
+  })
 
   public errored: boolean = false
 
@@ -45,7 +45,7 @@ export class TwoFactorAuthEnterComponent {
       localStorage.setItem('token', authentication.token)
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
-      this.cookieService.put('token', authentication.token, { expires })/**/
+      this.cookieService.put('token', authentication.token, { expires })
       sessionStorage.setItem('bid', authentication.bid?.toString())
       /* Use userService to notifiy if user has logged in */
       /* this.userService.isLoggedIn = true; */
@@ -57,6 +57,6 @@ export class TwoFactorAuthEnterComponent {
         this.errored = false
       }, 5 * 1000)
       return error
-    })/**/
+    })
   }
 }

@@ -19,9 +19,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
-  })/**/
+  })
 
   it('POST file too large for client validation but valid for API', () => {
     const file = path.resolve(__dirname, '../files/invalidSizeForClient.pdf')
@@ -29,9 +29,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
-  })/**/
+  })
 
   it('POST file with illegal type for client validation but valid for API', () => {
     const file = path.resolve(__dirname, '../files/invalidTypeForClient.exe')
@@ -39,9 +39,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
-  })/**/
+  })
 
   it('POST file type XML deprecated for API', () => {
     const file = path.resolve(__dirname, '../files/deprecatedTypeForServer.xml')
@@ -49,9 +49,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 410)
-  })/**/
+  })
 //
   it('POST large XML file near upload size limit', () => {
     const file = path.resolve(__dirname, '../files/maxSizeForServer.xml')
@@ -59,9 +59,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 410)
-  })/**/
+  })
 
   if (utils.isChallengeEnabled(challenges.xxeFileDisclosureChallenge) || utils.isChallengeEnabled(challenges.xxeDosChallenge)) {
     it('POST file type XML with XXE attack against Windows', () => {
@@ -73,9 +73,9 @@ describe('/file-upload', () => {
         // @ts-expect-error FIXME form.getHeaders() is not found
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
-      })/**/
+      })
         .expect('status', 410)
-    })/**/
+    })
 
     it('POST file type XML with XXE attack against Linux', () => {
       const file = path.resolve(__dirname, '../files/xxeForLinux.xml')
@@ -86,9 +86,9 @@ describe('/file-upload', () => {
         // @ts-expect-error FIXME form.getHeaders() is not found
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
-      })/**/
+      })
         .expect('status', 410)
-    })/**/
+    })
 
     it('POST file type XML with Billion Laughs attack is caught by parser', () => {
       const file = path.resolve(__dirname, '../files/xxeBillionLaughs.xml')
@@ -99,10 +99,10 @@ describe('/file-upload', () => {
         // @ts-expect-error FIXME form.getHeaders() is not found
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
-      })/**/
+      })
         .expect('status', 410)
         .expect('bodyContains', 'Detected an entity reference loop')
-    })/**/
+    })
 
     it('POST file type XML with Quadratic Blowup attack', () => {
       const file = path.resolve(__dirname, '../files/xxeQuadraticBlowup.xml')
@@ -113,10 +113,10 @@ describe('/file-upload', () => {
         // @ts-expect-error FIXME form.getHeaders() is not found
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
-      })/**/.then((res) => {
+      }).then((res) => {
         expect(res.status).toBeGreaterThanOrEqual(410) // usually runs into 410 on Travis-CI but into 503 locally
-      })/**/
-    })/**/
+      })
+    })
 
     it('POST file type XML with dev/random attack', () => {
       const file = path.resolve(__dirname, '../files/xxeDevRandom.xml')
@@ -127,8 +127,8 @@ describe('/file-upload', () => {
         // @ts-expect-error FIXME form.getHeaders() is not found
         headers: { 'Content-Type': form.getHeaders()['content-type'] },
         body: form
-      })/**/
-    })/**/
+      })
+    })
   }
 
   it('POST file too large for API', () => {
@@ -137,9 +137,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 500)
-  })/**/
+  })
 
   it('POST zip file with directory traversal payload', () => {
     const file = path.resolve(__dirname, '../files/arbitraryFileWrite.zip')
@@ -147,9 +147,9 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
-  })/**/
+  })
 
   it('POST zip file with password protection', () => {
     const file = path.resolve(__dirname, '../files/passwordProtected.zip')
@@ -157,7 +157,7 @@ describe('/file-upload', () => {
     form.append('file', fs.createReadStream(file))
 
     // @ts-expect-error FIXME form.getHeaders() is not found
-    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })/**/
+    return frisby.post(URL + '/file-upload', { headers: { 'Content-Type': form.getHeaders()['content-type'] }, body: form })
       .expect('status', 204)
-  })/**/
-})/**/
+  })
+})

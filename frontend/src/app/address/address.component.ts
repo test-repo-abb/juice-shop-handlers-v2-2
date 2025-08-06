@@ -19,7 +19,7 @@ library.add(faEdit, faTrashAlt)
   selector: 'app-address',
   templateUrl: './address.component.html',
   styleUrls: ['./address.component.scss']
-})/**/
+})
 export class AddressComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
   @Input('allowEdit') public allowEdit: boolean = false
@@ -54,7 +54,7 @@ export class AddressComponent implements OnInit {
     }, (err) => {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
-    })/**/
+    })
   }
 
   emitSelectionToParent (id: number) {
@@ -79,11 +79,11 @@ export class AddressComponent implements OnInit {
         this.snackBarHelperService.open(addressRemoved, 'confirmBar')
       }, (translationId) => {
         this.snackBarHelperService.open(translationId, 'confirmBar')
-      })/**/
+      })
       this.load()
     }, (err) => {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
-    })/**/
+    })
   }
 }

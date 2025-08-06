@@ -29,10 +29,10 @@ describe('WalletComponent', () => {
 
   beforeEach(waitForAsync(() => {
     walletService = jasmine.createSpyObj('AddressService', ['get', 'put'])
-    walletService.get.and.returnValue(of({})/**/)
-    walletService.put.and.returnValue(of({})/**/)
+    walletService.get.and.returnValue(of({}))
+    walletService.put.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -57,24 +57,24 @@ describe('WalletComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WalletComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should be compulsory to provide amount', () => {
     component.balanceControl.setValue('')
     expect(component.balanceControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('amount should be in the range [10, 1000]', () => {
     component.balanceControl.setValue(-1)
@@ -85,19 +85,19 @@ describe('WalletComponent', () => {
     expect(component.balanceControl.valid).toBe(true)
     component.balanceControl.setValue(1000)
     expect(component.balanceControl.valid).toBe(true)
-  })/**/
+  })
 
   it('should hold balance returned by backend API', () => {
     walletService.get.and.returnValue(of(100))
     component.ngOnInit()
     fixture.detectChanges()
     expect(component.balance).toBe('100.00')
-  })/**/
+  })
 
   it('should log error while getting balance from backend API directly to browser console', fakeAsync(() => {
     walletService.get.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
-})/**/
+  }))
+})

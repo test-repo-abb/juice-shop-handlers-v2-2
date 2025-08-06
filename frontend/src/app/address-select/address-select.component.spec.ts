@@ -36,7 +36,7 @@ describe('AddressSelectComponent', () => {
 
   beforeEach(waitForAsync(() => {
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -68,22 +68,22 @@ describe('AddressSelectComponent', () => {
       declarations: [AddressSelectComponent, AddressComponent, DeliveryMethodComponent],
       providers: [{ provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddressSelectComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should store address id on calling getMessage', () => {
     component.getMessage(1)
     expect(component.addressId).toBe(1)
-  })/**/
-})/**/
+  })
+})

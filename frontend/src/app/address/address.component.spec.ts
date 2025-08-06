@@ -38,9 +38,9 @@ describe('AddressComponent', () => {
   beforeEach(waitForAsync(() => {
     addressService = jasmine.createSpyObj('AddressService', ['get', 'del'])
     addressService.get.and.returnValue(of([]))
-    addressService.del.and.returnValue(of({})/**/)
+    addressService.del.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -74,26 +74,26 @@ describe('AddressComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddressComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should hold no addresses when get API call fails', () => {
     addressService.get.and.returnValue(throwError('Error'))
     component.ngOnInit()
     fixture.detectChanges()
     expect(component.storedAddresses).toEqual([])
-  })/**/
+  })
 
   it('should log error from get address API call directly to browser console', fakeAsync(() => {
     addressService.get.and.returnValue(throwError('Error'))
@@ -101,7 +101,7 @@ describe('AddressComponent', () => {
     component.ngOnInit()
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should log error from delete address API call directly to browser console', fakeAsync(() => {
     addressService.del.and.returnValue(throwError('Error'))
@@ -109,7 +109,7 @@ describe('AddressComponent', () => {
     component.deleteAddress(1)
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should delete an address on calling deleteAddress', fakeAsync(() => {
     addressService.get.and.returnValue(of([]))
@@ -118,12 +118,12 @@ describe('AddressComponent', () => {
     spyOn(component, 'load')
     expect(addressService.del).toHaveBeenCalled()
     expect(addressService.get).toHaveBeenCalled()
-  })/**/)
+  }))
 
   it('should store address id in session storage', () => {
     component.addressId = 1
     spyOn(sessionStorage, 'setItem')
     component.chooseAddress()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('addressId', 1 as any)
-  })/**/
-})/**/
+  })
+})

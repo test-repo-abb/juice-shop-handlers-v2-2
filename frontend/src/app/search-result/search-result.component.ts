@@ -39,7 +39,7 @@ interface TableEntry {
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss']
-})/**/
+})
 export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public displayedColumns = ['Image', 'Product', 'Description', 'Price', 'Select']
   public tableData!: any[]
@@ -48,7 +48,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
   public gridDataSource!: any
   public searchValue?: SafeHtml
   public resultsLength = 0
-  @ViewChild(MatPaginator, { static: true })/**/ paginator: MatPaginator | null = null
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator | null = null
   private readonly productSubscription?: Subscription
   private routerSubscription?: Subscription
   public breakpoint: number = 6
@@ -75,12 +75,12 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
           id: product.id,
           image: product.image,
           description: product.description
-        })/**/
+        })
       }
       for (const quantity of quantities) {
         const entry = dataTable.find((dataTableEntry) => {
           return dataTableEntry.id === quantity.ProductId
-        })/**/
+        })
         if (entry === undefined) {
           continue
         }
@@ -97,7 +97,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       this.filterTable()
       this.routerSubscription = this.router.events.subscribe(() => {
         this.filterTable()
-      })/**/
+      })
       const challenge: string = this.route.snapshot.queryParams.challenge // vuln-code-snippet hide-start
       if (challenge && this.route.snapshot.url.join('').match(/hacking-instructor/)) {
         this.startHackingInstructor(decodeURIComponent(challenge))
@@ -117,7 +117,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         this.breakpoint = 6
       }
       this.cdRef.detectChanges()
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   trustProductDescription (tableData: any[]) { // vuln-code-snippet neutral-line restfulXssChallenge
@@ -146,7 +146,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       queryParam = queryParam.trim()
       this.ngZone.runOutsideAngular(() => { // vuln-code-snippet hide-start
         this.io.socket().emit('verifyLocalXssChallenge', queryParam)
-      })/**/ // vuln-code-snippet hide-end
+      }) // vuln-code-snippet hide-end
       this.dataSource.filter = queryParam.toLowerCase()
       this.searchValue = this.sanitizer.bypassSecurityTrustHtml(queryParam) // vuln-code-snippet vuln-line localXssChallenge xssBonusChallenge
       this.gridDataSource.subscribe((result: any) => {
@@ -155,7 +155,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
         } else {
           this.emptyState = false
         }
-      })/**/
+      })
     } else {
       this.dataSource.filter = ''
       this.searchValue = undefined
@@ -168,7 +168,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
     console.log(`Starting instructions for challenge "${challengeName}"`)
     import(/* webpackChunkName: "tutorial" */ '../../hacking-instructor').then(module => {
       module.startHackingInstructorFor(challengeName)
-    })/**/
+    })
   }
 
   showDetail (element: Product) {
@@ -178,7 +178,7 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
       data: {
         productData: element
       }
-    })/**/
+    })
   }
 
   addToBasket (id?: number) {
@@ -191,41 +191,41 @@ export class SearchResultComponent implements OnDestroy, AfterViewInit {
           this.basketService.get(productsInBasket[i].BasketItem.id).subscribe((existingBasketItem) => {
             // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
             const newQuantity = existingBasketItem.quantity + 1
-            this.basketService.put(existingBasketItem.id, { quantity: newQuantity })/**/.subscribe((updatedBasketItem) => {
+            this.basketService.put(existingBasketItem.id, { quantity: newQuantity }).subscribe((updatedBasketItem) => {
               this.productService.get(updatedBasketItem.ProductId).subscribe((product) => {
-                this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name })/**/.subscribe((basketAddSameProduct) => {
+                this.translateService.get('BASKET_ADD_SAME_PRODUCT', { product: product.name }).subscribe((basketAddSameProduct) => {
                   this.snackBarHelperService.open(basketAddSameProduct, 'confirmBar')
                   this.basketService.updateNumberOfCartItems()
                 }, (translationId) => {
                   this.snackBarHelperService.open(translationId, 'confirmBar')
                   this.basketService.updateNumberOfCartItems()
-                })/**/
-              }, (err) => { console.log(err) })/**/
+                })
+              }, (err) => { console.log(err) })
             }, (err) => {
               this.snackBarHelperService.open(err.error?.error, 'errorBar')
               console.log(err)
-            })/**/
-          }, (err) => { console.log(err) })/**/
+            })
+          }, (err) => { console.log(err) })
           break
         }
       }
       if (!found) {
-        this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 })/**/.subscribe((newBasketItem) => {
+        this.basketService.save({ ProductId: id, BasketId: sessionStorage.getItem('bid'), quantity: 1 }).subscribe((newBasketItem) => {
           this.productService.get(newBasketItem.ProductId).subscribe((product) => {
-            this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name })/**/.subscribe((basketAddProduct) => {
+            this.translateService.get('BASKET_ADD_PRODUCT', { product: product.name }).subscribe((basketAddProduct) => {
               this.snackBarHelperService.open(basketAddProduct, 'confirmBar')
               this.basketService.updateNumberOfCartItems()
             }, (translationId) => {
               this.snackBarHelperService.open(translationId, 'confirmBar')
               this.basketService.updateNumberOfCartItems()
-            })/**/
-          }, (err) => { console.log(err) })/**/
+            })
+          }, (err) => { console.log(err) })
         }, (err) => {
           this.snackBarHelperService.open(err.error?.error, 'errorBar')
           console.log(err)
-        })/**/
+        })
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 
   isLoggedIn () {

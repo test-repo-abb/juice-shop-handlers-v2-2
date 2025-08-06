@@ -16,7 +16,7 @@ describe('CategoryFilterComponent', () => {
         MatTooltipModule
       ],
       declarations: [CategoryFilterComponent]
-    })/**/
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(CategoryFilterComponent)
@@ -30,14 +30,14 @@ describe('CategoryFilterComponent', () => {
     ]
     component.categories = []
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should extract all categories from passed in challenges', () => {
     const availableCategories = CategoryFilterComponent.getAvailableCategories(component.allChallenges)
     expect(availableCategories).toContain('category-one')
     expect(availableCategories).toContain('category-two')
     expect(availableCategories).toContain('category-three')
-  })/**/
+  })
 
   it('toggle should add and remove selected categories', () => {
     component.toggleCategorySelected('category-one')
@@ -46,7 +46,7 @@ describe('CategoryFilterComponent', () => {
     component.toggleCategorySelected('category-one')
     expect(component.categories).not.toContain('category-one')
     expect(component.isCategorySelected('category-one')).toBe(false)
-  })/**/
+  })
 
   it('reset should clear categories', () => {
     component.toggleCategorySelected('category-one')
@@ -54,5 +54,5 @@ describe('CategoryFilterComponent', () => {
     expect(component.isAllCategoriesSelected()).toBe(false)
     component.resetCategoryFilter()
     expect(component.isAllCategoriesSelected()).toBe(true)
-  })/**/
-})/**/
+  })
+})

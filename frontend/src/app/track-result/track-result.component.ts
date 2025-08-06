@@ -24,7 +24,7 @@ export enum Status {
   selector: 'app-track-result',
   templateUrl: './track-result.component.html',
   styleUrls: ['./track-result.component.scss']
-})/**/
+})
 export class TrackResultComponent implements OnInit {
   public displayedColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource = new MatTableDataSource()
@@ -54,6 +54,6 @@ export class TrackResultComponent implements OnInit {
       } else {
         this.status = Status.Transit
       }
-    })/**/
+    })
   }
 }

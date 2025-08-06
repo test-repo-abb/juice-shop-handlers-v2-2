@@ -34,9 +34,9 @@ describe('ServerStartedNotificationComponent', () => {
 
   beforeEach(waitForAsync(() => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['restoreProgress'])
-    challengeService.restoreProgress.and.returnValue(of({})/**/)
+    challengeService.restoreProgress.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -60,22 +60,22 @@ describe('ServerStartedNotificationComponent', () => {
         { provide: SocketIoService, useValue: socketIoService },
         CookieService
       ]
-    })/**/
+    })
       .compileComponents()
 
     cookieService = TestBed.inject(CookieService)
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ServerStartedNotificationComponent)
     component = fixture.componentInstance
     cookieService.remove('continueCode')
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should keep continue code cookie after successfully restoring progress on server start', () => {
     spyOn(mockSocket, 'on')
@@ -85,7 +85,7 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(cookieService.get('continueCode')).toBe('CODE')
-  })/**/
+  })
 
   it('should set auto-restore success-message when progress restore succeeds', () => {
     spyOn(mockSocket, 'on')
@@ -96,7 +96,7 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBeDefined()
-  })/**/
+  })
 
   it('should translate AUTO_RESTORED_PROGRESS message', () => {
     spyOn(mockSocket, 'on')
@@ -107,7 +107,7 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORED_PROGRESS')
-  })/**/
+  })
 
   it('should log errors during automatic progress restore directly to browser console', fakeAsync(() => {
     spyOn(mockSocket, 'on')
@@ -119,7 +119,7 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should set auto-restore error-message when progress restore failed', fakeAsync(() => {
     spyOn(mockSocket, 'on')
@@ -131,7 +131,7 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBeDefined()
-  })/**/)
+  }))
 
   it('should translate AUTO_RESTORE_PROGRESS_FAILED message including the returned error', fakeAsync(() => {
     spyOn(mockSocket, 'on')
@@ -143,7 +143,7 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBe('Translation of AUTO_RESTORE_PROGRESS_FAILED: error')
-  })/**/)
+  }))
 
   it('do nothing if continueCode cookie is not present', () => {
     spyOn(mockSocket, 'on')
@@ -152,16 +152,16 @@ describe('ServerStartedNotificationComponent', () => {
     callback()
     expect(mockSocket.on.calls.argsFor(0)[0]).toBe('server started')
     expect(component.hackingProgress.autoRestoreMessage).toBeUndefined()
-  })/**/
+  })
 
   it('should remove the restore message when closing the notification', () => {
     component.closeNotification()
     expect(component.hackingProgress.autoRestoreMessage).toBeNull()
-  })/**/
+  })
 
   it('should remove the continue code cookie when clearing the progress', () => {
     component.clearProgress()
     expect(cookieService.get('continueCode')).toBeUndefined()
     expect(component.hackingProgress.cleared).toBe(true)
-  })/**/
-})/**/
+  })
+})

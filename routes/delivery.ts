@@ -20,18 +20,18 @@ module.exports.getDeliveryMethods = function getDeliveryMethods () {
           price: security.isDeluxe(req) ? method.deluxePrice : method.price,
           eta: method.eta,
           icon: method.icon
-        })/**/
+        })
       }
-      res.status(200).json({ status: 'success', data: sendMethods })/**/
+      res.status(200).json({ status: 'success', data: sendMethods })
     } else {
-      res.status(400).json({ status: 'error' })/**/
+      res.status(400).json({ status: 'error' })
     }
   }
 }
 
 module.exports.getDeliveryMethod = function getDeliveryMethod () {
   return async (req: Request, res: Response, next: NextFunction) => {
-    const method = await DeliveryModel.findOne({ where: { id: req.params.id } })/**/
+    const method = await DeliveryModel.findOne({ where: { id: req.params.id } })
     if (method != null) {
       const sendMethod = {
         id: method.id,
@@ -40,9 +40,9 @@ module.exports.getDeliveryMethod = function getDeliveryMethod () {
         eta: method.eta,
         icon: method.icon
       }
-      res.status(200).json({ status: 'success', data: sendMethod })/**/
+      res.status(200).json({ status: 'success', data: sendMethod })
     } else {
-      res.status(400).json({ status: 'error' })/**/
+      res.status(400).json({ status: 'error' })
     }
   }
 }

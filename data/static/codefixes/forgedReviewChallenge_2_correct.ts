@@ -6,10 +6,10 @@ module.exports = function productReviews () {
       { $set: { message: req.body.message } },
       { multi: true }
     ).then(
-      (result: { modified: number, original: Array<{ author: any }> })/**/ => {
+      (result: { modified: number, original: Array<{ author: any }> }) => {
         res.json(result)
       }, (err: unknown) => {
         res.status(500).json(err)
-      })/**/
+      })
   }
 }

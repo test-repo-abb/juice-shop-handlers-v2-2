@@ -312,11 +312,11 @@ export function HttpLoaderFactory (http: HttpClient) {
     PhotoWallService
   ],
   bootstrap: [AppComponent]
-})/**/
+})
 export class AppModule {
   constructor (public configurationService: ConfigurationService, public overlayContainer: OverlayContainer) {
     configurationService.getApplicationConfiguration().subscribe((conf) => {
       overlayContainer.getContainerElement().classList.add(conf.application.theme + '-theme')
-    })/**/
+    })
   }
 }

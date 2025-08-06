@@ -64,39 +64,39 @@ describe('DeliveryMethodComponent', () => {
         { provide: AddressService, useValue: addressService },
         { provide: DeliveryService, useValue: deliveryService }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeliveryMethodComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should log errors from address service directly to browser console', fakeAsync(() => {
     addressService.getById.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should log errors from delivery service directly to browser console', fakeAsync(() => {
     deliveryService.get.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })/**/)
+  }))
 
   it('should hold address on ngOnInit', () => {
-    addressService.getById.and.returnValue(of({ address: 'address' })/**/)
+    addressService.getById.and.returnValue(of({ address: 'address' }))
     component.ngOnInit()
-    expect(component.address).toEqual({ address: 'address' })/**/
-  })/**/
+    expect(component.address).toEqual({ address: 'address' })
+  })
 
   it('should hold delivery methods on ngOnInit', () => {
     deliveryService.get.and.returnValue(of([{ id: 1, name: '1', price: 1, eta: 1, icon: '1' }]))
@@ -106,17 +106,17 @@ describe('DeliveryMethodComponent', () => {
     expect(component.methods[0].price).toEqual(1)
     expect(component.methods[0].eta).toEqual(1)
     expect(component.methods[0].icon).toEqual('1')
-  })/**/
+  })
 
   it('should store delivery method id on selectMethod', () => {
     component.selectMethod(1)
     expect(component.deliveryMethodId).toBe(1)
-  })/**/
+  })
 
   it('should store address id in session storage', () => {
     component.deliveryMethodId = 1
     spyOn(sessionStorage, 'setItem')
     component.chooseDeliveryMethod()
     expect(sessionStorage.setItem).toHaveBeenCalledWith('deliveryMethodId', '1')
-  })/**/
-})/**/
+  })
+})

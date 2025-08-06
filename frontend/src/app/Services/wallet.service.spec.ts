@@ -12,24 +12,24 @@ describe('WalletService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [WalletService]
-    })/**/
-  })/**/
+    })
+  })
 
   it('should be created', inject([WalletService], (service: WalletService) => {
     expect(service).toBeTruthy()
-  })/**/)
+  }))
 
   it('should get wallet balance directly from the api', inject([WalletService, HttpTestingController],
     fakeAsync((service: WalletService, httpMock: HttpTestingController) => {
       let res
       service.get().subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/wallet/balance')
-      req.flush({ data: 'apiResponse' })/**/
+      req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })/**/
+    })
   ))
 
   it('should update wallet balance directly from the api', inject([WalletService, HttpTestingController],
@@ -37,11 +37,11 @@ describe('WalletService', () => {
       let res
       service.put(1).subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/wallet/balance')
-      req.flush({ data: 'apiResponse' })/**/
+      req.flush({ data: 'apiResponse' })
       tick()
       expect(req.request.method).toBe('PUT')
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })/**/
+    })
   ))
-})/**/
+})

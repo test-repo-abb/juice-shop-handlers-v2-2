@@ -13,27 +13,27 @@ describe('CodeFixesComponent', () => {
       imports: [CookieModule.forRoot()],
       declarations: [CodeFixesComponent],
       providers: [CookieService]
-    })/**/
+    })
       .compileComponents()
     cookieService = TestBed.inject(CookieService)
-  })/**/
+  })
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CodeFixesComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should set the format from cookie if the cookie key exists', () => {
     spyOn(cookieService, 'hasKey').and.returnValue(true)
     spyOn(cookieService, 'get').and.returnValue('LineByLine')
     component.ngOnInit()
     expect(component.format).toBe('LineByLine')
-  })/**/
+  })
 
   it('should set the format to "LineByLine" and save it in the cookie if the cookie key does not exist', () => {
     spyOn(cookieService, 'hasKey').and.returnValue(false)
@@ -41,5 +41,5 @@ describe('CodeFixesComponent', () => {
     component.ngOnInit()
     expect(component.format).toBe('LineByLine')
     expect(cookieService.put).toHaveBeenCalledWith('code-fixes-component-format', 'LineByLine')
-  })/**/
-})/**/
+  })
+})

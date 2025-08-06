@@ -30,11 +30,11 @@ describe('AddressCreateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     addressService = jasmine.createSpyObj('AddressService', ['getById', 'put', 'save'])
-    addressService.save.and.returnValue(of({})/**/)
-    addressService.getById.and.returnValue(of({})/**/)
-    addressService.put.and.returnValue(of({})/**/)
+    addressService.save.and.returnValue(of({}))
+    addressService.getById.and.returnValue(of({}))
+    addressService.put.and.returnValue(of({}))
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({})/**/)
+    translateService.get.and.returnValue(of({}))
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -62,19 +62,19 @@ describe('AddressCreateComponent', () => {
         { provide: TranslateService, useValue: translateService },
         { provide: MatSnackBar, useValue: snackBar }
       ]
-    })/**/
+    })
       .compileComponents()
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AddressCreateComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should reinitizalise forms by calling resetForm', () => {
     component.countryControl.setValue('US')
@@ -106,42 +106,42 @@ describe('AddressCreateComponent', () => {
     expect(component.stateControl.value).toBe('')
     expect(component.stateControl.pristine).toBe(true)
     expect(component.stateControl.untouched).toBe(true)
-  })/**/
+  })
 
   it('should be compulsory to provide country', () => {
     component.countryControl.setValue('')
     expect(component.countryControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('should be compulsory to provide name', () => {
     component.nameControl.setValue('')
     expect(component.nameControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('should be compulsory to provide number', () => {
     component.numberControl.setValue('')
     expect(component.numberControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('should be compulsory to provide pin', () => {
     component.pinControl.setValue('')
     expect(component.pinControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('should be compulsory to provide address', () => {
     component.addressControl.setValue('')
     expect(component.addressControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('should be compulsory to provide city', () => {
     component.cityControl.setValue('')
     expect(component.cityControl.valid).toBeFalsy()
-  })/**/
+  })
 
   it('should not be compulsory to provide state', () => {
     component.stateControl.setValue('')
     expect(component.stateControl.valid).toBe(true)
-  })/**/
+  })
 
   it('pin code should not be more than 8 characters', () => {
     let str: string = ''
@@ -153,7 +153,7 @@ describe('AddressCreateComponent', () => {
     str = str.slice(1)
     component.pinControl.setValue(str)
     expect(component.pinControl.valid).toBe(true)
-  })/**/
+  })
 
   it('address should not be more than 160 characters', () => {
     let str: string = ''
@@ -165,7 +165,7 @@ describe('AddressCreateComponent', () => {
     str = str.slice(1)
     component.addressControl.setValue(str)
     expect(component.addressControl.valid).toBe(true)
-  })/**/
+  })
 
   it('number should be in the range [1111111, 9999999999]', () => {
     component.numberControl.setValue(1111110)
@@ -176,50 +176,50 @@ describe('AddressCreateComponent', () => {
     expect(component.numberControl.valid).toBe(true)
     component.numberControl.setValue(1111111)
     expect(component.numberControl.valid).toBe(true)
-  })/**/
+  })
 
   it('should reset the form on updating address and show confirmation', () => {
-    addressService.put.and.returnValue(of({ city: 'NY' })/**/)
+    addressService.put.and.returnValue(of({ city: 'NY' }))
     translateService.get.and.returnValue(of('ADDRESS_UPDATED'))
     component.mode = 'edit'
     spyOn(component, 'resetForm')
     spyOn(component, 'ngOnInit')
     component.save()
-    expect(translateService.get).toHaveBeenCalledWith('ADDRESS_UPDATED', { city: 'NY' })/**/
+    expect(translateService.get).toHaveBeenCalledWith('ADDRESS_UPDATED', { city: 'NY' })
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
-  })/**/
+  })
 
   it('should reset the form on adding address and show confirmation', () => {
-    addressService.save.and.returnValue(of({ city: 'NY' })/**/)
+    addressService.save.and.returnValue(of({ city: 'NY' }))
     translateService.get.and.returnValue(of('ADDRESS_ADDED'))
     spyOn(component, 'resetForm')
     spyOn(component, 'ngOnInit')
     component.save()
-    expect(translateService.get).toHaveBeenCalledWith('ADDRESS_ADDED', { city: 'NY' })/**/
+    expect(translateService.get).toHaveBeenCalledWith('ADDRESS_ADDED', { city: 'NY' })
     expect(component.ngOnInit).toHaveBeenCalled()
     expect(component.resetForm).toHaveBeenCalled()
-  })/**/
+  })
 
   it('should clear the form and display error if saving address fails', fakeAsync(() => {
-    addressService.save.and.returnValue(throwError({ error: 'Error' })/**/)
+    addressService.save.and.returnValue(throwError({ error: 'Error' }))
     spyOn(component, 'resetForm')
     component.save()
     expect(component.resetForm).toHaveBeenCalled()
     expect(snackBar.open).toHaveBeenCalled()
-  })/**/)
+  }))
 
   it('should clear the form and display error if updating address fails', fakeAsync(() => {
-    addressService.put.and.returnValue(throwError({ error: 'Error' })/**/)
+    addressService.put.and.returnValue(throwError({ error: 'Error' }))
     component.mode = 'edit'
     spyOn(component, 'resetForm')
     component.save()
     expect(component.resetForm).toHaveBeenCalled()
     expect(snackBar.open).toHaveBeenCalled()
-  })/**/)
+  }))
 
   it('should populate the form on calling initializeForm', () => {
-    component.initializeForm({ country: 'US', fullName: 'jim', mobileNum: 9800000000, zipCode: 'NX 101', streetAddress: 'Bakers Street', city: 'NYC', state: 'NY' })/**/
+    component.initializeForm({ country: 'US', fullName: 'jim', mobileNum: 9800000000, zipCode: 'NX 101', streetAddress: 'Bakers Street', city: 'NYC', state: 'NY' })
     expect(component.countryControl.value).toBe('US')
     expect(component.nameControl.value).toBe('jim')
     expect(component.numberControl.value).toBe(9800000000)
@@ -227,5 +227,5 @@ describe('AddressCreateComponent', () => {
     expect(component.addressControl.value).toBe('Bakers Street')
     expect(component.cityControl.value).toBe('NYC')
     expect(component.stateControl.value).toBe('NY')
-  })/**/
-})/**/
+  })
+})

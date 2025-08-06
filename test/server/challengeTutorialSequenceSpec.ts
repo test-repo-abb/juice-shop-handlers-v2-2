@@ -15,7 +15,7 @@ const { safeLoad } = require('js-yaml')
 const readFile = promisify(fs.readFile)
 
 const loadYamlFile = async (filename: string) => {
-  const contents = await readFile(filename, { encoding: 'utf8' })/**/
+  const contents = await readFile(filename, { encoding: 'utf8' })
   return safeLoad(contents)
 }
 
@@ -23,7 +23,7 @@ describe('challengeTutorialSequence', () => {
   let challenges: any
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
-  })/**/
+  })
 
   it('should have unique tutorial orders', async () => {
     const tutorialOrderCounts: any = {}
@@ -43,5 +43,5 @@ describe('challengeTutorialSequence', () => {
 
       expect(count, `Tutorial order "${order}" is used for multiple challenges.`).to.equal(1)
     }
-  })/**/
-})/**/
+  })
+})

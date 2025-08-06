@@ -19,7 +19,7 @@ library.add(faTwitter)
   selector: 'app-order-completion',
   templateUrl: './order-completion.component.html',
   styleUrls: ['./order-completion.component.scss']
-})/**/
+})
 export class OrderCompletionComponent implements OnInit {
   public tableColumns = ['product', 'price', 'quantity', 'total price']
   public dataSource
@@ -61,12 +61,12 @@ export class OrderCompletionComponent implements OnInit {
               this.tweetText += config.application.name
             }
           }
-        }, (err) => { console.log(err) })/**/
+        }, (err) => { console.log(err) })
         this.addressService.getById(this.orderDetails.addressId).subscribe((address) => {
           this.address = address
-        }, (error) => { console.log(error) })/**/
-      }, (err) => { console.log(err) })/**/
-    }, (err) => { console.log(err) })/**/
+        }, (error) => { console.log(error) })
+      }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })
   }
 
   openConfirmationPDF () {

@@ -11,7 +11,7 @@ import { ConfigurationService } from '../Services/configuration.service'
   selector: 'app-privacy-policy',
   templateUrl: './privacy-policy.component.html',
   styleUrls: ['./privacy-policy.component.scss']
-})/**/
+})
 export class PrivacyPolicyComponent implements OnInit {
   public applicationName: string = 'OWASP Juice Shop'
   public privacyContactEmail!: string
@@ -30,6 +30,6 @@ export class PrivacyPolicyComponent implements OnInit {
       } else {
         this.privacyContactEmail = `donotreply@${this._document.location.hostname}`
       }
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
   }
 }

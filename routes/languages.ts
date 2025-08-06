@@ -45,14 +45,14 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
             }
             count++
             if (count === languageFiles.length) {
-              languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })/**/
+              languages.push({ key: 'en', icons: ['gb', 'us'], shortKey: 'EN', lang: 'English', percentage: 100, gauge: 'full' })
               languages.sort((a, b) => a.lang.localeCompare(b.lang))
               res.status(200).json(languages)
             }
-          })/**/
-        })/**/
-      })/**/
-    })/**/
+          })
+        })
+      })
+    })
 
     async function calcPercentage (fileContent: any, enContent: any): Promise<number> {
       const totalStrings = Object.keys(enContent).length
@@ -68,7 +68,7 @@ module.exports = function getLanguageList () { // TODO Refactor and extend to al
         } catch (err) {
           reject(err)
         }
-      })/**/
+      })
     }
   }
 }

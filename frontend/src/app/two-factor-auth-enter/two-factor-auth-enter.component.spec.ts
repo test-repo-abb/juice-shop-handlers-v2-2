@@ -44,11 +44,11 @@ describe('TwoFactorAuthEnterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     userService = jasmine.createSpyObj('UserService', ['login'])
-    userService.login.and.returnValue(of({})/**/)
+    userService.login.and.returnValue(of({}))
     userService.isLoggedIn = jasmine.createSpyObj('userService.isLoggedIn', ['next'])
-    userService.isLoggedIn.next.and.returnValue({})/**/
+    userService.isLoggedIn.next.and.returnValue({})
     twoFactorAuthService = jasmine.createSpyObj('TwoFactorAuthService', ['verify'])
-    twoFactorAuthService.verify.and.returnValue(of({ })/**/)
+    twoFactorAuthService.verify.and.returnValue(of({ }))
 
     TestBed.configureTestingModule({
       imports: [
@@ -82,45 +82,45 @@ describe('TwoFactorAuthEnterComponent', () => {
         WindowRefService,
         CookieService
       ]
-    })/**/
+    })
       .compileComponents()
     cookieService = TestBed.inject(CookieService)
-  })/**/)
+  }))
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TwoFactorAuthEnterComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should store authentication token in cookie', () => {
-    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN' })/**/)
+    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN' }))
     component.verify()
 
     expect(cookieService.get('token')).toBe('TOKEN')
-  })/**/
+  })
 
   it('should store authentication token in local storage', () => {
-    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN' })/**/)
+    twoFactorAuthService.verify.and.returnValue(of({ token: 'TOKEN' }))
     component.verify()
 
     expect(localStorage.getItem('token')).toBe('TOKEN')
-  })/**/
+  })
 
   it('should store basket ID in session storage', () => {
-    twoFactorAuthService.verify.and.returnValue(of({ bid: 42 })/**/)
+    twoFactorAuthService.verify.and.returnValue(of({ bid: 42 }))
     component.verify()
 
     expect(sessionStorage.getItem('bid')).toBe('42')
-  })/**/
+  })
 
   xit('should notify about user login after 2FA verification', () => { // FIXME Spy call is not registered at all
     component.verify()
 
     expect(userService.isLoggedIn.next).toHaveBeenCalledWith(true)
-  })/**/
-})/**/
+  })
+})

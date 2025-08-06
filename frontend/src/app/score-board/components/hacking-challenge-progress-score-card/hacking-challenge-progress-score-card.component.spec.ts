@@ -12,15 +12,15 @@ describe('HackingChallengeProgressScoreCardComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ScoreCardComponent, HackingChallengeProgressScoreCardComponent],
       imports: [TranslateModule.forRoot()]
-    })/**/
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(HackingChallengeProgressScoreCardComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
-})/**/
+  })
+})

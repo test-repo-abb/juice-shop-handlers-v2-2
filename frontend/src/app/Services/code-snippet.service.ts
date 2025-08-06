@@ -20,7 +20,7 @@ export interface Solved {
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class CodeSnippetService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets'
@@ -28,10 +28,10 @@ export class CodeSnippetService {
   constructor (private readonly http: HttpClient) { }
 
   get (key: string): Observable<CodeSnippet> {
-    return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(map((response: CodeSnippet) => response), catchError((err) => { throw err })/**/)
+    return this.http.get<CodeSnippet>(`${this.host}/${key}`).pipe(map((response: CodeSnippet) => response), catchError((err) => { throw err }))
   }
 
   challenges (): Observable<string[]> {
-    return this.http.get(`${this.host}`).pipe(map((response: any) => response.challenges), catchError((err) => { throw err })/**/)
+    return this.http.get(`${this.host}`).pipe(map((response: any) => response.challenges), catchError((err) => { throw err }))
   }
 }

@@ -67,7 +67,7 @@ async function createChallenges () {
   const challenges = await loadStaticChallengeData()
 
   await Promise.all(
-    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags })/**/ => {
+    challenges.map(async ({ name, category, description, difficulty, hint, hintUrl, mitigationUrl, key, disabledEnv, tutorial, tags }) => {
       // todo(@J12934) change this to use a proper challenge model or something
       // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
       const { enabled: isChallengeEnabled, disabledBecause } = utils.getChallengeEnablementStatus({ disabledEnv: disabledEnv?.join(';') ?? '' } as ChallengeModel)
@@ -91,11 +91,11 @@ async function createChallenges () {
           disabledEnv: disabledBecause,
           tutorialOrder: (tutorial != null) ? tutorial.order : null,
           codingChallengeStatus: 0
-        })/**/
+        })
       } catch (err) {
         logger.error(`Could not insert Challenge ${name}: ${utils.getErrorMessage(err)}`)
       }
-    })/**/
+    })
   )
 }
 
@@ -103,7 +103,7 @@ async function createUsers () {
   const users = await loadStaticUserData()
 
   await Promise.all(
-    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' })/**/ => {
+    users.map(async ({ username, email, password, customDomain, key, role, deletedFlag, profileImage, securityQuestion, feedback, address, card, totpSecret, lastLoginIp = '' }) => {
       try {
         const completeEmail = customDomain ? email : `${email}@${config.get<string>('application.domain')}`
         const user = await UserModel.create({
@@ -115,7 +115,7 @@ async function createUsers () {
           profileImage: `assets/public/images/uploads/${profileImage ?? (role === security.roles.admin ? 'defaultAdmin.png' : 'default.svg')}`,
           totpSecret,
           lastLoginIp
-        })/**/
+        })
         datacache.users[key] = user
         if (securityQuestion != null) await createSecurityAnswer(user.id, securityQuestion.id, securityQuestion.answer)
         if (feedback != null) await createFeedback(user.id, feedback.comment, feedback.rating, user.email)
@@ -125,7 +125,7 @@ async function createUsers () {
       } catch (err) {
         logger.error(`Could not insert User ${key}: ${utils.getErrorMessage(err)}`)
       }
-    })/**/
+    })
   )
 }
 
@@ -136,10 +136,10 @@ async function createWallet () {
       return await WalletModel.create({
         UserId: index + 1,
         balance: user.walletBalance ?? 0
-      })/**/.catch((err: unknown) => {
+      }).catch((err: unknown) => {
         logger.error(`Could not create wallet: ${utils.getErrorMessage(err)}`)
-      })/**/
-    })/**/
+      })
+    })
   )
 }
 
@@ -147,7 +147,7 @@ async function createDeliveryMethods () {
   const deliveries = await loadStaticDeliveryData()
 
   await Promise.all(
-    deliveries.map(async ({ name, price, deluxePrice, eta, icon })/**/ => {
+    deliveries.map(async ({ name, price, deluxePrice, eta, icon }) => {
       try {
         await DeliveryModel.create({
           name,
@@ -155,11 +155,11 @@ async function createDeliveryMethods () {
           deluxePrice,
           eta,
           icon
-        })/**/
+        })
       } catch (err) {
         logger.error(`Could not insert Delivery Method: ${utils.getErrorMessage(err)}`)
       }
-    })/**/
+    })
   )
 }
 
@@ -175,10 +175,10 @@ async function createAddresses (UserId: number, addresses: StaticUserAddress[]) 
         streetAddress: address.streetAddress,
         city: address.city,
         state: address.state ? address.state : null
-      })/**/.catch((err: unknown) => {
+      }).catch((err: unknown) => {
         logger.error(`Could not create address: ${utils.getErrorMessage(err)}`)
-      })/**/
-    })/**/
+      })
+    })
   )
 }
 
@@ -190,22 +190,22 @@ async function createCards (UserId: number, cards: StaticUserCard[]) {
       cardNum: Number(card.cardNum),
       expMonth: card.expMonth,
       expYear: card.expYear
-    })/**/.catch((err: unknown) => {
+    }).catch((err: unknown) => {
       logger.error(`Could not create card: ${utils.getErrorMessage(err)}`)
-    })/**/
-  })/**/)
+    })
+  }))
 }
 
 async function deleteUser (userId: number) {
-  return await UserModel.destroy({ where: { id: userId } })/**/.catch((err: unknown) => {
+  return await UserModel.destroy({ where: { id: userId } }).catch((err: unknown) => {
     logger.error(`Could not perform soft delete for the user ${userId}: ${utils.getErrorMessage(err)}`)
-  })/**/
+  })
 }
 
 async function deleteProduct (productId: number) {
-  return await ProductModel.destroy({ where: { id: productId } })/**/.catch((err: unknown) => {
+  return await ProductModel.destroy({ where: { id: productId } }).catch((err: unknown) => {
     logger.error(`Could not perform soft delete for the product ${productId}: ${utils.getErrorMessage(err)}`)
-  })/**/
+  })
 }
 
 async function createRandomFakeUsers () {
@@ -227,7 +227,7 @@ async function createRandomFakeUsers () {
     async () => await UserModel.create({
       email: getGeneratedRandomFakeUserEmail(),
       password: makeRandomString(5)
-    })/**/
+    })
   ))
 }
 
@@ -238,10 +238,10 @@ async function createQuantity () {
         ProductId: index + 1,
         quantity: product.quantity ?? Math.floor(Math.random() * 70 + 30),
         limitPerUser: product.limitPerUser ?? null
-      })/**/.catch((err: unknown) => {
+      }).catch((err: unknown) => {
         logger.error(`Could not create quantity: ${utils.getErrorMessage(err)}`)
-      })/**/
-    })/**/
+      })
+    })
   )
 }
 
@@ -251,9 +251,9 @@ async function createMemories () {
       imagePath: 'assets/public/images/uploads/😼-#zatschi-#whoneedsfourlegs-1572600969477.jpg',
       caption: '😼 #zatschi #whoneedsfourlegs',
       UserId: datacache.users.bjoernOwasp.id
-    })/**/.catch((err: unknown) => {
+    }).catch((err: unknown) => {
       logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
-    })/**/,
+    }),
     ...structuredClone(config.get<MemoryConfig[]>('memories')).map(async (memory) => {
       let tmpImageFileName = memory.image
       if (utils.isUrl(memory.image)) {
@@ -283,10 +283,10 @@ async function createMemories () {
         imagePath: 'assets/public/images/uploads/' + tmpImageFileName,
         caption: memory.caption,
         UserId: userIdOfMemory
-      })/**/.catch((err: unknown) => {
+      }).catch((err: unknown) => {
         logger.error(`Could not create memory: ${utils.getErrorMessage(err)}`)
-      })/**/
-    })/**/
+      })
+    })
   ]
 
   return await Promise.all(memories)
@@ -306,13 +306,13 @@ async function createProducts () {
       void utils.downloadToFile(imageUrl, 'frontend/dist/frontend/assets/public/images/products/' + product.image)
     }
     return product
-  })/**/
+  })
 
   // add Challenge specific information
-  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge })/**/ => useForChristmasSpecialChallenge)
-  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge })/**/ => keywordsForPastebinDataLeakChallenge)
-  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge })/**/ => urlForProductTamperingChallenge)
-  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge })/**/ => fileForRetrieveBlueprintChallenge)
+  const christmasChallengeProduct = products.find(({ useForChristmasSpecialChallenge }) => useForChristmasSpecialChallenge)
+  const pastebinLeakChallengeProduct = products.find(({ keywordsForPastebinDataLeakChallenge }) => keywordsForPastebinDataLeakChallenge)
+  const tamperingChallengeProduct = products.find(({ urlForProductTamperingChallenge }) => urlForProductTamperingChallenge)
+  const blueprintRetrievalChallengeProduct = products.find(({ fileForRetrieveBlueprintChallenge }) => fileForRetrieveBlueprintChallenge)
 
   if (christmasChallengeProduct) {
     christmasChallengeProduct.description += ' (Seasonal special offer! Limited availability!)'
@@ -338,14 +338,14 @@ async function createProducts () {
 
   return await Promise.all(
     products.map(
-      async ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, deletedDate = false, ...product })/**/ =>
+      async ({ reviews = [], useForChristmasSpecialChallenge = false, urlForProductTamperingChallenge = false, fileForRetrieveBlueprintChallenge = false, deletedDate = false, ...product }) =>
         await ProductModel.create({
           name: product.name,
           description: product.description,
           price: product.price,
           deluxePrice: product.deluxePrice ?? product.price,
           image: product.image
-        })/**/.catch(
+        }).catch(
           (err: unknown) => {
             logger.error(`Could not insert Product ${product.name}: ${utils.getErrorMessage(err)}`)
           }
@@ -359,33 +359,33 @@ async function createProducts () {
                   datacache.challenges.changeProductChallenge.description,
                   config.get('challenges.overwriteUrlForProductTamperingChallenge'),
                   persistedProduct)
-              })/**/
+              })
             }
             if (fileForRetrieveBlueprintChallenge && datacache.challenges.retrieveBlueprintChallenge.hint !== null) {
               await datacache.challenges.retrieveBlueprintChallenge.update({
                 hint: customizeRetrieveBlueprintChallenge(
                   datacache.challenges.retrieveBlueprintChallenge.hint,
                   persistedProduct)
-              })/**/
+              })
             }
             if (deletedDate) void deleteProduct(persistedProduct.id) // TODO Rename into "isDeleted" or "deletedFlag" in config for v14.x release
           } else {
             throw new Error('No persisted product found!')
           }
           return persistedProduct
-        })/**/
-          .then(async ({ id }: { id: number })/**/ =>
+        })
+          .then(async ({ id }: { id: number }) =>
             await Promise.all(
-              reviews.map(({ text, author })/**/ =>
+              reviews.map(({ text, author }) =>
                 reviewsCollection.insert({
                   message: text,
                   author: datacache.users[author].email,
                   product: id,
                   likesCount: 0,
                   likedBy: []
-                })/**/.catch((err: unknown) => {
+                }).catch((err: unknown) => {
                   logger.error(`Could not insert Product Review ${text}: ${utils.getErrorMessage(err)}`)
-                })/**/
+                })
               )
             )
           )
@@ -416,10 +416,10 @@ async function createBaskets () {
     baskets.map(async basket => {
       return await BasketModel.create({
         UserId: basket.UserId
-      })/**/.catch((err: unknown) => {
+      }).catch((err: unknown) => {
         logger.error(`Could not insert Basket for UserId ${basket.UserId}: ${utils.getErrorMessage(err)}`)
-      })/**/
-    })/**/
+      })
+    })
   )
 }
 
@@ -471,8 +471,8 @@ async function createBasketItems () {
     basketItems.map(async basketItem => {
       return await BasketItemModel.create(basketItem).catch((err: unknown) => {
         logger.error(`Could not insert BasketItem for BasketId ${basketItem.BasketId}: ${utils.getErrorMessage(err)}`)
-      })/**/
-    })/**/
+      })
+    })
   )
 }
 
@@ -502,19 +502,19 @@ async function createAnonymousFeedback () {
 }
 
 async function createFeedback (UserId: number | null, comment: string, rating: number, author?: string) {
-  const authoredComment = author ? `${comment} (***${author.slice(3)})/**/` : `${comment} (anonymous)`
-  return await FeedbackModel.create({ UserId, comment: authoredComment, rating })/**/.catch((err: unknown) => {
+  const authoredComment = author ? `${comment} (***${author.slice(3)})` : `${comment} (anonymous)`
+  return await FeedbackModel.create({ UserId, comment: authoredComment, rating }).catch((err: unknown) => {
     logger.error(`Could not insert Feedback ${authoredComment} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
-  })/**/
+  })
 }
 
 async function createComplaints () {
   return await ComplaintModel.create({
     UserId: 3,
     message: 'I\'ll build my own eCommerce business! With Black Jack! And Hookers!'
-  })/**/.catch((err: unknown) => {
+  }).catch((err: unknown) => {
     logger.error(`Could not insert Complaint: ${utils.getErrorMessage(err)}`)
-  })/**/
+  })
 }
 
 async function createRecycleItem () {
@@ -588,36 +588,36 @@ async function createRecycleItem () {
   )
 }
 
-async function createRecycle (data: { UserId: number, quantity: number, AddressId: number, date: string, isPickup: boolean })/**/ {
+async function createRecycle (data: { UserId: number, quantity: number, AddressId: number, date: string, isPickup: boolean }) {
   return await RecycleModel.create({
     UserId: data.UserId,
     AddressId: data.AddressId,
     quantity: data.quantity,
     isPickup: data.isPickup,
     date: data.date
-  })/**/.catch((err: unknown) => {
+  }).catch((err: unknown) => {
     logger.error(`Could not insert Recycling Model: ${utils.getErrorMessage(err)}`)
-  })/**/
+  })
 }
 
 async function createSecurityQuestions () {
   const questions = await loadStaticSecurityQuestionsData()
 
   await Promise.all(
-    questions.map(async ({ question })/**/ => {
+    questions.map(async ({ question }) => {
       try {
-        await SecurityQuestionModel.create({ question })/**/
+        await SecurityQuestionModel.create({ question })
       } catch (err) {
         logger.error(`Could not insert SecurityQuestion ${question}: ${utils.getErrorMessage(err)}`)
       }
-    })/**/
+    })
   )
 }
 
 async function createSecurityAnswer (UserId: number, SecurityQuestionId: number, answer: string) {
-  return await SecurityAnswerModel.create({ SecurityQuestionId, UserId, answer })/**/.catch((err: unknown) => {
+  return await SecurityAnswerModel.create({ SecurityQuestionId, UserId, answer }).catch((err: unknown) => {
     logger.error(`Could not insert SecurityAnswer ${answer} mapped to UserId ${UserId}: ${utils.getErrorMessage(err)}`)
-  })/**/
+  })
 }
 
 async function createOrders () {
@@ -703,7 +703,7 @@ async function createOrders () {
   ]
 
   return await Promise.all(
-    orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered })/**/ =>
+    orders.map(({ orderId, email, totalPrice, bonus, products, eta, delivered }) =>
       ordersCollection.insert({
         orderId,
         email,
@@ -712,9 +712,9 @@ async function createOrders () {
         products,
         eta,
         delivered
-      })/**/.catch((err: unknown) => {
+      }).catch((err: unknown) => {
         logger.error(`Could not insert Order ${orderId}: ${utils.getErrorMessage(err)}`)
-      })/**/
+      })
     )
   )
 }
@@ -726,5 +726,5 @@ async function prepareFilesystem () {
     paths: ['.well-known/csaf/provider-metadata.json'],
     recursive: true,
     silent: true
-  })/**/
+  })
 }

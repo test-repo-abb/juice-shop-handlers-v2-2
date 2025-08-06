@@ -31,7 +31,7 @@ const replaceImagePath = (overlay: string) => {
     paths: ['frontend/dist/frontend/assets/private/threejs-demo.html'],
     recursive: false,
     silent: true
-  })/**/
+  })
 }
 
 const replaceThreeJsTitleTag = () => {
@@ -42,7 +42,7 @@ const replaceThreeJsTitleTag = () => {
     paths: ['frontend/dist/frontend/assets/private/threejs-demo.html'],
     recursive: false,
     silent: true
-  })/**/
+  })
 }
 
 export default customizeEasterEgg

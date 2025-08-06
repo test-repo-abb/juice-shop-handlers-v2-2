@@ -10,13 +10,13 @@ import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})/**/
+})
 export class ImageCaptchaService {
   private readonly hostServer = environment.hostServer
 
   constructor (private readonly http: HttpClient) { }
 
   getCaptcha () {
-    return this.http.get(this.hostServer + '/rest/image-captcha/').pipe(catchError((err) => { throw err })/**/)
+    return this.http.get(this.hostServer + '/rest/image-captcha/').pipe(catchError((err) => { throw err }))
   }
 }

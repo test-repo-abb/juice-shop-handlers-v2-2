@@ -17,10 +17,10 @@ const playbackDelays = {
 export async function sleep (timeInMs: number): Promise<void> {
   await new Promise((resolve) => {
     setTimeout(resolve, timeInMs)
-  })/**/
+  })
 }
 
-export function waitForInputToHaveValue (inputSelector: string, value: string, options: any = { ignoreCase: true, replacement: [] })/**/ {
+export function waitForInputToHaveValue (inputSelector: string, value: string, options: any = { ignoreCase: true, replacement: [] }) {
   return async () => {
     const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
@@ -51,7 +51,7 @@ export function waitForInputToHaveValue (inputSelector: string, value: string, o
   }
 }
 
-export function waitForInputToNotHaveValue (inputSelector: string, value: string, options = { ignoreCase: true })/**/ {
+export function waitForInputToNotHaveValue (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
     const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
@@ -68,7 +68,7 @@ export function waitForInputToNotHaveValue (inputSelector: string, value: string
   }
 }
 
-export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, value: string, options = { ignoreCase: true })/**/ {
+export function waitForInputToNotHaveValueAndNotBeEmpty (inputSelector: string, value: string, options = { ignoreCase: true }) {
   return async () => {
     const inputElement: HTMLInputElement = document.querySelector(
       inputSelector
@@ -112,8 +112,8 @@ export function waitForElementToGetClicked (elementSelector: string) {
     }
 
     await new Promise<void>((resolve) => {
-      element.addEventListener('click', () => { resolve() })/**/
-    })/**/
+      element.addEventListener('click', () => { resolve() })
+    })
   }
 }
 

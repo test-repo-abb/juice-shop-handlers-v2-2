@@ -32,7 +32,7 @@ export const findFilesWithCodeChallenges = async (paths: readonly string[]): Pro
           code.includes('// vuln-code' + '-snippet start') ||
           code.includes('# vuln-code' + '-snippet start')
         ) {
-          matches.push({ path: currPath, content: code })/**/
+          matches.push({ path: currPath, content: code })
         }
       } catch (e) {
         logger.warn(`File ${currPath} could not be read. it might have been moved or deleted. If coding challenges are contained in the file, they will not be available.`)
@@ -104,7 +104,7 @@ export async function getCodeChallenges (): Promise<Map<string, CachedCodeChalle
           snippet: codeChallenge.snippet,
           vulnLines: codeChallenge.vulnLines,
           neutralLines: codeChallenge.neutralLines
-        })/**/
+        })
       }
     }
   }

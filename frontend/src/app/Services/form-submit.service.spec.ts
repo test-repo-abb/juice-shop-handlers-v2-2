@@ -11,10 +11,10 @@ describe('FormSubmitService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [FormSubmitService]
-    })/**/
-  })/**/
+    })
+  })
 
   it('should be created', inject([FormSubmitService], (service: FormSubmitService) => {
     expect(service).toBeTruthy()
-  })/**/)
-})/**/
+  }))
+})

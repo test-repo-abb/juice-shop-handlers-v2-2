@@ -15,7 +15,7 @@ library.add(faUserSlash, faHandPaper)
   selector: 'app-error-page',
   templateUrl: './error-page.component.html',
   styleUrls: ['./error-page.component.scss']
-})/**/
+})
 export class ErrorPageComponent implements OnInit {
   public error: string | null = null
 
@@ -29,7 +29,7 @@ export class ErrorPageComponent implements OnInit {
         this.error = errorMessage
       }, (translationId) => {
         this.error = translationId
-      })/**/
+      })
     }
   }
 }

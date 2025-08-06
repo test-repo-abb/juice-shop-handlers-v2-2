@@ -30,12 +30,12 @@ export const notify = async (challenge: { key: any, name: any }, cheatScore = -1
       ctfFlag: utils.ctfFlag(challenge.name),
       issuer: {
         hostName: os.hostname(),
-        os: `${os.type()} (${os.release()})/**/`,
+        os: `${os.type()} (${os.release()})`,
         appName: config.get<string>('application.name'),
         config: process.env.NODE_ENV ?? 'default',
         version: utils.version()
       }
     }
-  })/**/
+  })
   logger.info(`Webhook ${colors.bold(webhook)} notified about ${colors.cyan(challenge.key)} being solved: ${res.statusCode < 400 ? colors.green(res.statusCode.toString()) : colors.red(res.statusCode.toString())}`)
 }

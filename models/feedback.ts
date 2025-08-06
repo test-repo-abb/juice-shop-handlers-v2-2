@@ -48,7 +48,7 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
                 sanitizedComment,
                 '<iframe src="javascript:alert(`xss`)">'
               )
-            })/**/
+            })
           } else {
             sanitizedComment = security.sanitizeSecure(comment)
           }
@@ -62,7 +62,7 @@ const FeedbackModelInit = (sequelize: Sequelize) => {
           this.setDataValue('rating', rating)
           challengeUtils.solveIf(challenges.zeroStarsChallenge, () => {
             return rating === 0
-          })/**/
+          })
         }
       }
     },

@@ -23,8 +23,8 @@ describe('fileServer', () => {
     next = sinon.spy()
     save = () => ({
       then () { }
-    })/**/
-  })/**/
+    })
+  })
 
   it('should serve PDF files from folder /ftp', () => {
     req.params.file = 'test.pdf'
@@ -32,7 +32,7 @@ describe('fileServer', () => {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.pdf/))
-  })/**/
+  })
 
   it('should serve Markdown files from folder /ftp', () => {
     req.params.file = 'test.md'
@@ -40,7 +40,7 @@ describe('fileServer', () => {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]test\.md/))
-  })/**/
+  })
 
   it('should serve incident-support.kdbx files from folder /ftp', () => {
     req.params.file = 'incident-support.kdbx'
@@ -48,7 +48,7 @@ describe('fileServer', () => {
     servePublicFiles()(req, res, next)
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]incident-support\.kdbx/))
-  })/**/
+  })
 
   it('should raise error for slashes in filename', () => {
     req.params.file = '../../../../nice.try'
@@ -57,7 +57,7 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
-  })/**/
+  })
 
   it('should raise error for disallowed file type', () => {
     req.params.file = 'nice.try'
@@ -66,7 +66,7 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
-  })/**/
+  })
 
   it('should solve "directoryListingChallenge" when requesting acquisitions.md', () => {
     challenges.directoryListingChallenge = { solved: false, save }
@@ -76,7 +76,7 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]acquisitions\.md/))
     expect(challenges.directoryListingChallenge.solved).to.equal(true)
-  })/**/
+  })
 
   it('should solve "easterEggLevelOneChallenge" when requesting eastere.gg with Poison Null Byte attack', () => {
     challenges.easterEggLevelOneChallenge = { solved: false, save }
@@ -86,7 +86,7 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]eastere\.gg/))
     expect(challenges.easterEggLevelOneChallenge.solved).to.equal(true)
-  })/**/
+  })
 
   it('should solve "forgottenDevBackupChallenge" when requesting package.json.bak with Poison Null Byte attack', () => {
     challenges.forgottenDevBackupChallenge = { solved: false, save }
@@ -96,7 +96,7 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]package\.json\.bak/))
     expect(challenges.forgottenDevBackupChallenge.solved).to.equal(true)
-  })/**/
+  })
 
   it('should solve "forgottenBackupChallenge" when requesting coupons_2013.md.bak with Poison Null Byte attack', () => {
     challenges.forgottenBackupChallenge = { solved: false, save }
@@ -106,7 +106,7 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]coupons_2013\.md\.bak/))
     expect(challenges.forgottenBackupChallenge.solved).to.equal(true)
-  })/**/
+  })
 
   it('should solve "misplacedSignatureFileChallenge" when requesting suspicious_errors.yml with Poison Null Byte attack', () => {
     challenges.misplacedSignatureFileChallenge = { solved: false, save }
@@ -116,5 +116,5 @@ describe('fileServer', () => {
 
     expect(res.sendFile).to.have.been.calledWith(sinon.match(/ftp[/\\]suspicious_errors\.yml/))
     expect(challenges.misplacedSignatureFileChallenge.solved).to.equal(true)
-  })/**/
-})/**/
+  })
+})

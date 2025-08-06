@@ -24,7 +24,7 @@ library.add(faUserPlus, faExclamationCircle)
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
-})/**/
+})
 export class RegisterComponent implements OnInit {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
@@ -48,9 +48,9 @@ export class RegisterComponent implements OnInit {
   ngOnInit () {
     this.securityQuestionService.find(null).subscribe((securityQuestions: any) => {
       this.securityQuestions = securityQuestions
-    }, (err) => { console.log(err) })/**/
+    }, (err) => { console.log(err) })
 
-    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })/**/
+    this.formSubmitService.attachEnterKeyHandler('registration-form', 'registerButton', () => { this.save() })
   }
 
   save () {
@@ -67,10 +67,10 @@ export class RegisterComponent implements OnInit {
         UserId: response.id,
         answer: this.securityAnswerControl.value,
         SecurityQuestionId: this.securityQuestionControl.value
-      })/**/.subscribe(() => {
+      }).subscribe(() => {
         this.ngZone.run(async () => await this.router.navigate(['/login']))
         this.snackBarHelperService.open('CONFIRM_REGISTER')
-      })/**/
+      })
     }, (err) => {
       console.log(err)
       if (err.error?.errors) {
@@ -82,7 +82,7 @@ export class RegisterComponent implements OnInit {
           this.error = error
         }
       }
-    })/**/
+    })
   }
 }
 

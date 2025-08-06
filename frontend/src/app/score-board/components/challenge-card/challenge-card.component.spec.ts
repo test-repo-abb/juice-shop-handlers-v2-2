@@ -14,7 +14,7 @@ describe('ChallengeCard', () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot(), MatIconModule, MatTooltipModule],
       declarations: [ChallengeCardComponent]
-    })/**/
+    })
       .compileComponents()
 
     fixture = TestBed.createComponent(ChallengeCardComponent)
@@ -42,11 +42,11 @@ describe('ChallengeCard', () => {
     } as Config
 
     fixture.detectChanges()
-  })/**/
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })/**/
+  })
 
   it('should not show a mitigation link when challenge has it but isnt solved', () => {
     component.challenge.solved = false
@@ -54,7 +54,7 @@ describe('ChallengeCard', () => {
     fixture.detectChanges()
     expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
       .toBeFalsy()
-  })/**/
+  })
 
   it('should show a mitigation link when challenge has it but isnt solved', () => {
     component.challenge.solved = true
@@ -62,5 +62,5 @@ describe('ChallengeCard', () => {
     fixture.detectChanges()
     expect(fixture.nativeElement.querySelector('[aria-label="Vulnerability mitigation link"]'))
       .toBeTruthy()
-  })/**/
-})/**/
+  })
+})

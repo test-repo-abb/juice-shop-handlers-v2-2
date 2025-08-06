@@ -8,13 +8,13 @@ import { type RandomFixes } from '../code-snippet/code-snippet.component'
   selector: 'app-code-fixes',
   templateUrl: './code-fixes.component.html',
   styleUrls: ['./code-fixes.component.scss']
-})/**/
+})
 export class CodeFixesComponent implements OnInit, DoCheck {
   differ: KeyValueDiffer<string, DiffTableFormat>
 
   constructor (private readonly cookieService: CookieService, private readonly differs: KeyValueDiffers) {
     this.cookieService = cookieService
-    this.differ = this.differs.find({})/**/.create()
+    this.differ = this.differs.find({}).create()
   }
 
   @Input('snippet')
@@ -32,7 +32,7 @@ export class CodeFixesComponent implements OnInit, DoCheck {
   @Input('format')
   public format: string = 'SideBySide'
 
-  @ViewChild('codeComponent', { static: false })/**/ codeComponent: NgxTextDiffComponent
+  @ViewChild('codeComponent', { static: false }) codeComponent: NgxTextDiffComponent
 
   ngOnInit (): void {
     if (this.cookieService.hasKey('code-fixes-component-format')) {
@@ -45,7 +45,7 @@ export class CodeFixesComponent implements OnInit, DoCheck {
 
   ngDoCheck () {
     try {
-      const change = this.differ.diff({ 'diff-format': this.codeComponent.format })/**/
+      const change = this.differ.diff({ 'diff-format': this.codeComponent.format })
       if (change) {
         change.forEachChangedItem(item => {
           this.format = item.currentValue
