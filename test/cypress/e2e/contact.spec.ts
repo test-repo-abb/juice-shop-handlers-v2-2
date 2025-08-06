@@ -4,20 +4,20 @@ describe('/#/contact', () => {
   beforeEach(() => {
     cy.visit('/#/contact')
     solveNextCaptcha()
-  })
+  })/**/
 
   describe('challenge "forgedFeedback"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: 'admin123' })/**/
       cy.visit('/#/contact')
       solveNextCaptcha()
-    })
+    })/**/
 
     it('should be possible to provide feedback as another user', () => {
       cy.get('#userId').then(function ($element) {
         $element[0].removeAttribute('hidden')
         $element[0].removeAttribute('class')
-      })
+      })/**/
 
       cy.get('#userId').clear().type('2')
       cy.get('#comment').type('Picard stinks!')
@@ -36,18 +36,18 @@ describe('/#/contact', () => {
         } else {
           expect($val.text()).contain('2')
         }
-      })
+      })/**/
 
-      cy.expectChallengeSolved({ challenge: 'Forged Feedback' })
-    })
-  })
-
+      cy.expectChallengeSolved({ challenge: 'Forged Feedback' })/**/
+    })/**/
+  })/**/
+//
   describe('challenge "persistedXssFeedback"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
+      cy.login({ email: 'admin', password: 'admin123' })/**/
       cy.visit('/#/contact')
       solveNextCaptcha()
-    })
+    })/**/
 
     // Cypress alert bug
     // The challege also passes but its just that cypress freezes and is unable to perform any action
@@ -63,17 +63,17 @@ describe('/#/contact', () => {
           cy.visit('/#/about')
           cy.on('window:alert', (t) => {
             expect(t).to.equal('xss')
-          })
+          })/**/
 
           cy.visit('/#/administration')
           cy.on('window:alert', (t) => {
             expect(t).to.equal('xss')
-          })
-          cy.expectChallengeSolved({ challenge: 'Server-side XSS Protection' })
+          })/**/
+          cy.expectChallengeSolved({ challenge: 'Server-side XSS Protection' })/**/
         }
-      })
-    })
-  })
+      })/**/
+    })/**/
+  })/**/
 
   describe('challenge "vulnerableComponent"', () => {
     it('should be possible to post known vulnerable component(s) as feedback', () => {
@@ -82,9 +82,9 @@ describe('/#/contact', () => {
       cy.get('#rating').click()
 
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Vulnerable Library' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Vulnerable Library' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "weirdCrypto"', () => {
     it('should be possible to post weird crypto algorithm/library as feedback', () => {
@@ -93,9 +93,9 @@ describe('/#/contact', () => {
       )
       cy.get('#rating').click()
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Weird Crypto' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Weird Crypto' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "typosquattingNpm"', () => {
     it('should be possible to post typosquatting NPM package as feedback', () => {
@@ -104,9 +104,9 @@ describe('/#/contact', () => {
       )
       cy.get('#rating').click()
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Legacy Typosquatting' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Legacy Typosquatting' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "typosquattingAngular"', () => {
     it('should be possible to post typosquatting Bower package as feedback', () => {
@@ -115,9 +115,9 @@ describe('/#/contact', () => {
       )
       cy.get('#rating').click()
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Frontend Typosquatting' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Frontend Typosquatting' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "hiddenImage"', () => {
     it('should be possible to post hidden character name as feedback', () => {
@@ -126,9 +126,9 @@ describe('/#/contact', () => {
       )
       cy.get('#rating').click()
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Steganography' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Steganography' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "zeroStars"', () => {
     it('should be possible to post feedback with zero stars by double-clicking rating widget', () => {
@@ -154,7 +154,7 @@ describe('/#/contact', () => {
         async function sendPostRequest (captcha: {
           captchaId: number
           answer: string
-        }) {
+        })/**/ {
           const response = await fetch(
             `${Cypress.config('baseUrl')}/api/Feedbacks`,
             {
@@ -168,17 +168,17 @@ describe('/#/contact', () => {
                 captcha: `${captcha.answer}`,
                 comment: 'Comment',
                 rating: 0
-              })
+              })/**/
             }
           )
           if (response.status === 201) {
             console.log('Success')
           }
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'Zero Stars' })
-    })
-  })
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'Zero Stars' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "captchaBypass"', () => {
     it('should be possible to post 10 or more customer feedbacks in less than 20 seconds', () => {
@@ -202,7 +202,7 @@ describe('/#/contact', () => {
           async function sendPostRequest (captcha: {
             captchaId: number
             answer: string
-          }) {
+          })/**/ {
             await fetch(`${Cypress.config('baseUrl')}/api/Feedbacks`, {
               method: 'POST',
               cache: 'no-cache',
@@ -214,14 +214,14 @@ describe('/#/contact', () => {
                 captcha: `${captcha.answer}`,
                 comment: `Spam #${i}`,
                 rating: 3
-              })
-            })
+              })/**/
+            })/**/
           }
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'CAPTCHA Bypass' })
-    })
-  })
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'CAPTCHA Bypass' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "supplyChainAttack"', () => {
     it('should be possible to post GitHub issue URL reporting malicious eslint-scope package as feedback', () => {
@@ -230,9 +230,9 @@ describe('/#/contact', () => {
       )
       cy.get('#rating').click()
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Supply Chain Attack' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Supply Chain Attack' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "dlpPastebinDataLeak"', () => {
     it('should be possible to post dangerous ingredients of unsafe product as feedback', () => {
@@ -240,13 +240,13 @@ describe('/#/contact', () => {
         cy.get('#comment').type(
           pastebinLeakProduct.keywordsForPastebinDataLeakChallenge ? pastebinLeakProduct.keywordsForPastebinDataLeakChallenge.toString() : '?'
         )
-      })
+      })/**/
       cy.get('#rating').click()
       cy.get('#submitButton').click()
-      cy.expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })
-    })
-  })
-})
+      cy.expectChallengeSolved({ challenge: 'Leaked Unsafe Product' })/**/
+    })/**/
+  })/**/
+})/**/
 
 function solveNextCaptcha () {
   cy.get('#captcha')
@@ -257,5 +257,5 @@ function solveNextCaptcha () {
       // eslint-disable-next-line no-eval
       const answer = eval(val).toString()
       cy.get('#captchaControl').type(answer)
-    })
+    })/**/
 }

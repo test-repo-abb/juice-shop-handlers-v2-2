@@ -21,26 +21,26 @@ describe('/rest/user/data-export', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(REST_URL + '/user/data-export', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             format: '1'
           }
-        })
+        })/**/
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-          .then(({ json }) => {
+          .then(({ json })/**/ => {
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('bkimminich')
             expect(parsedData.email).toBe('bjoern.kimminich@gmail.com')
-          })
-      })
-  })
-
+          })/**/
+      })/**/
+  })/**/
+//
   it('Export data when CAPTCHA requested need right answer', () => {
     return frisby.post(REST_URL + '/user/login', {
       headers: jsonHeader,
@@ -48,12 +48,12 @@ describe('/rest/user/data-export', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.get(REST_URL + '/image-captcha', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-        })
+        })/**/
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .then(() => {
@@ -63,12 +63,12 @@ describe('/rest/user/data-export', () => {
                 answer: 'AAAAAA',
                 format: 1
               }
-            })
+            })/**/
               .expect('status', 401)
               .expect('bodyContains', 'Wrong answer to CAPTCHA. Please try again.')
-          })
-      })
-  })
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data using right answer to CAPTCHA', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -77,33 +77,33 @@ describe('/rest/user/data-export', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.get(REST_URL + '/image-captcha', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-        })
+        })/**/
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .then(({ json: captchaAnswer }) => {
+          .then(({ json: captchaAnswer })/**/ => {
             return frisby.post(REST_URL + '/user/data-export', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: captchaAnswer.answer,
                 format: 1
               }
-            })
+            })/**/
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
               .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-              .then(({ json }) => {
+              .then(({ json })/**/ => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('bkimminich')
                 expect(parsedData.email).toBe('bjoern.kimminich@gmail.com')
-              })
-          })
-      })
-  })
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data including orders without use of CAPTCHA', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -112,12 +112,12 @@ describe('/rest/user/data-export', () => {
         email: 'amy@' + config.get<string>('application.domain'),
         password: 'K1f.....................'
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(REST_URL + '/basket/4/checkout', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-        })
+        })/**/
           .expect('status', 200)
           .then(() => {
             return frisby.post(REST_URL + '/user/data-export', {
@@ -125,11 +125,11 @@ describe('/rest/user/data-export', () => {
               body: {
                 format: '1'
               }
-            })
+            })/**/
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
               .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-              .then(({ json }) => {
+              .then(({ json })/**/ => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('')
                 expect(parsedData.email).toBe('amy@' + config.get<string>('application.domain'))
@@ -140,10 +140,10 @@ describe('/rest/user/data-export', () => {
                 expect(parsedData.orders[0].products[0].price).toBe(4.99)
                 expect(parsedData.orders[0].products[0].total).toBe(9.98)
                 expect(parsedData.orders[0].products[0].bonus).toBe(0)
-              })
-          })
-      })
-  })
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data including reviews without use of CAPTCHA', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -152,19 +152,19 @@ describe('/rest/user/data-export', () => {
         email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(REST_URL + '/user/data-export', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
           body: {
             format: '1'
           }
-        })
+        })/**/
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-          .then(({ json }) => {
+          .then(({ json })/**/ => {
             const parsedData = JSON.parse(json.userData)
             expect(parsedData.username).toBe('')
             expect(parsedData.email).toBe('jim@' + config.get<string>('application.domain'))
@@ -178,9 +178,9 @@ describe('/rest/user/data-export', () => {
             expect(parsedData.reviews[1].productId).toBe(22)
             expect(parsedData.reviews[1].likesCount).toBe(0)
             expect(parsedData.reviews[1].likedBy[0]).toBe(undefined)
-          })
-      })
-  })
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data including memories without use of CAPTCHA', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
@@ -194,9 +194,9 @@ describe('/rest/user/data-export', () => {
         email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
@@ -204,7 +204,7 @@ describe('/rest/user/data-export', () => {
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form
-        })
+        })/**/
           .expect('status', 200)
           .then(() => {
             return frisby.post(REST_URL + '/user/data-export', {
@@ -212,20 +212,20 @@ describe('/rest/user/data-export', () => {
               body: {
                 format: '1'
               }
-            })
+            })/**/
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
               .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-              .then(({ json }) => {
+              .then(({ json })/**/ => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('')
                 expect(parsedData.email).toBe('jim@' + config.get<string>('application.domain'))
                 expect(parsedData.memories[0].caption).toBe('Valid Image')
                 expect(parsedData.memories[0].imageUrl).toContain('assets/public/images/uploads/valid-image')
-              })
-          })
-      })
-  })
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data including orders with use of CAPTCHA', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -234,31 +234,31 @@ describe('/rest/user/data-export', () => {
         email: 'amy@' + config.get<string>('application.domain'),
         password: 'K1f.....................'
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(REST_URL + '/basket/4/checkout', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-        })
+        })/**/
           .expect('status', 200)
           .then(() => {
             return frisby.get(REST_URL + '/image-captcha', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-            })
+            })/**/
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
-              .then(({ json: captchaAnswer }) => {
+              .then(({ json: captchaAnswer })/**/ => {
                 return frisby.post(REST_URL + '/user/data-export', {
                   headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
                   body: {
                     answer: captchaAnswer.answer,
                     format: 1
                   }
-                })
+                })/**/
                   .expect('status', 200)
                   .expect('header', 'content-type', /application\/json/)
                   .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-                  .then(({ json }) => {
+                  .then(({ json })/**/ => {
                     const parsedData = JSON.parse(json.userData)
                     expect(parsedData.username).toBe('')
                     expect(parsedData.email).toBe('amy@' + config.get<string>('application.domain'))
@@ -269,11 +269,11 @@ describe('/rest/user/data-export', () => {
                     expect(parsedData.orders[0].products[0].price).toBe(4.99)
                     expect(parsedData.orders[0].products[0].total).toBe(9.98)
                     expect(parsedData.orders[0].products[0].bonus).toBe(0)
-                  })
-              })
-          })
-      })
-  })
+                  })/**/
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data including reviews with use of CAPTCHA', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -282,26 +282,26 @@ describe('/rest/user/data-export', () => {
         email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.get(REST_URL + '/image-captcha', {
           headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-        })
+        })/**/
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .then(({ json: captchaAnswer }) => {
+          .then(({ json: captchaAnswer })/**/ => {
             return frisby.post(REST_URL + '/user/data-export', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
                 answer: captchaAnswer.answer,
                 format: 1
               }
-            })
+            })/**/
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
               .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-              .then(({ json }) => {
+              .then(({ json })/**/ => {
                 const parsedData = JSON.parse(json.userData)
                 expect(parsedData.username).toBe('')
                 expect(parsedData.email).toBe('jim@' + config.get<string>('application.domain'))
@@ -315,10 +315,10 @@ describe('/rest/user/data-export', () => {
                 expect(parsedData.reviews[1].productId).toBe(22)
                 expect(parsedData.reviews[1].likesCount).toBe(0)
                 expect(parsedData.reviews[1].likedBy[0]).toBe(undefined)
-              })
-          })
-      })
-  })
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('Export data including memories with use of CAPTCHA', () => {
     const file = path.resolve(__dirname, '../files/validProfileImage.jpg')
@@ -332,9 +332,9 @@ describe('/rest/user/data-export', () => {
         email: 'jim@' + config.get<string>('application.domain'),
         password: 'ncc-1701'
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(REST_URL + '/memories', {
           headers: {
             Authorization: 'Bearer ' + jsonLogin.authentication.token,
@@ -342,34 +342,34 @@ describe('/rest/user/data-export', () => {
             'Content-Type': form.getHeaders()['content-type']
           },
           body: form
-        })
+        })/**/
           .expect('status', 200)
           .then(() => {
             return frisby.get(REST_URL + '/image-captcha', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' }
-            })
+            })/**/
               .expect('status', 200)
               .expect('header', 'content-type', /application\/json/)
-              .then(({ json: captchaAnswer }) => {
+              .then(({ json: captchaAnswer })/**/ => {
                 return frisby.post(REST_URL + '/user/data-export', {
                   headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
                   body: {
                     answer: captchaAnswer.answer,
                     format: 1
                   }
-                })
+                })/**/
                   .expect('status', 200)
                   .expect('header', 'content-type', /application\/json/)
                   .expect('json', 'confirmation', 'Your data export will open in a new Browser window.')
-                  .then(({ json }) => {
+                  .then(({ json })/**/ => {
                     const parsedData = JSON.parse(json.userData)
                     expect(parsedData.username).toBe('')
                     expect(parsedData.email).toBe('jim@' + config.get<string>('application.domain'))
                     expect(parsedData.memories[0].caption).toBe('Valid Image')
                     expect(parsedData.memories[0].imageUrl).toContain('assets/public/images/uploads/valid-image')
-                  })
-              })
-          })
-      })
-  })
-})
+                  })/**/
+              })/**/
+          })/**/
+      })/**/
+  })/**/
+})/**/

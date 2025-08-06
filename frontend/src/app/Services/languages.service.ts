@@ -10,12 +10,12 @@ import { catchError } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class LanguagesService {
   private readonly hostServer = environment.hostServer
   constructor (private readonly http: HttpClient) { }
 
   getLanguages () {
-    return this.http.get(`${this.hostServer}/rest/languages`).pipe(catchError((err) => { throw err }))
+    return this.http.get(`${this.hostServer}/rest/languages`).pipe(catchError((err) => { throw err })/**/)
   }
 }

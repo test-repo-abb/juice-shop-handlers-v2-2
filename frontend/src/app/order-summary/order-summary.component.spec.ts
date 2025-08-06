@@ -42,13 +42,13 @@ describe('OrderSummaryComponent', () => {
     addressService = jasmine.createSpyObj('AddressService', ['getById'])
     addressService.getById.and.returnValue(of([]))
     basketService = jasmine.createSpyObj('BasketService', ['checkout', 'find', 'updateNumberOfCartItems'])
-    basketService.find.and.returnValue(of({ Products: [] }))
-    basketService.checkout.and.returnValue(of({}))
-    basketService.updateNumberOfCartItems.and.returnValue(of({}))
+    basketService.find.and.returnValue(of({ Products: [] })/**/)
+    basketService.checkout.and.returnValue(of({})/**/)
+    basketService.updateNumberOfCartItems.and.returnValue(of({})/**/)
     paymentService = jasmine.createSpyObj('PaymentService', ['getById'])
     paymentService.getById.and.returnValue(of([]))
     deliveryService = jasmine.createSpyObj('DeliveryService', ['getById'])
-    deliveryService.getById.and.returnValue(of({ price: 10 }))
+    deliveryService.getById.and.returnValue(of({ price: 10 })/**/)
     deluxeGuard = jasmine.createSpyObj('', ['isDeluxe'])
     deluxeGuard.isDeluxe.and.returnValue(false)
     snackBar = jasmine.createSpyObj('MatSnackBar', ['open'])
@@ -80,26 +80,26 @@ describe('OrderSummaryComponent', () => {
         { provide: DeluxeGuard, useValue: deluxeGuard },
         { provide: MatSnackBar, useValue: snackBar }
       ]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(OrderSummaryComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should log errors from address service directly to browser console', fakeAsync(() => {
     addressService.getById.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })/**/)
 
   it('should log errors from payment service directly to browser console', fakeAsync(() => {
     sessionStorage.setItem('paymentId', '1')
@@ -107,32 +107,32 @@ describe('OrderSummaryComponent', () => {
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })/**/)
 
   it('should hold address on ngOnInit', () => {
-    addressService.getById.and.returnValue(of({ address: 'address' }))
+    addressService.getById.and.returnValue(of({ address: 'address' })/**/)
     component.ngOnInit()
-    expect(component.address).toEqual({ address: 'address' })
-  })
+    expect(component.address).toEqual({ address: 'address' })/**/
+  })/**/
 
   it('should hold delivery price on ngOnInit', () => {
-    deliveryService.getById.and.returnValue(of({ price: 10 }))
+    deliveryService.getById.and.returnValue(of({ price: 10 })/**/)
     component.ngOnInit()
     expect(component.deliveryPrice).toEqual(10)
-  })
+  })/**/
 
   it('should hold card on ngOnInit when paymentId is initialized to an id', () => {
     sessionStorage.setItem('paymentId', '1')
-    paymentService.getById.and.returnValue(of({ cardNum: '************1234' }))
+    paymentService.getById.and.returnValue(of({ cardNum: '************1234' })/**/)
     component.ngOnInit()
-    expect(component.paymentMethod).toEqual({ cardNum: '1234' })
-  })
+    expect(component.paymentMethod).toEqual({ cardNum: '1234' })/**/
+  })/**/
 
   it('should be wallet on ngOnInit when paymentId is initialized to wallet', () => {
     sessionStorage.setItem('paymentId', 'wallet')
     component.ngOnInit()
     expect(component.paymentMethod).toEqual('wallet')
-  })
+  })/**/
 
   it('should store prices on calling getMessage', () => {
     sessionStorage.setItem('couponDiscount', '70')
@@ -140,10 +140,10 @@ describe('OrderSummaryComponent', () => {
     expect(component.itemTotal).toBe(100)
     expect(component.promotionalDiscount).toBe(70)
     expect(component.bonus).toBe(1)
-  })
+  })/**/
 
   it('should remove session details from session storage', () => {
-    basketService.checkout.and.returnValue(of({ orderConfirmationId: '1234123412341234' }))
+    basketService.checkout.and.returnValue(of({ orderConfirmationId: '1234123412341234' })/**/)
     spyOn(sessionStorage, 'removeItem')
     component.placeOrder()
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('paymentId')
@@ -151,5 +151,5 @@ describe('OrderSummaryComponent', () => {
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('deliveryMethodId')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('couponDetails')
     expect(sessionStorage.removeItem).toHaveBeenCalledWith('couponDiscount')
-  })
-})
+  })/**/
+})/**/

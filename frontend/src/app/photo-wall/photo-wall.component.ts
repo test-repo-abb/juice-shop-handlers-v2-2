@@ -19,14 +19,14 @@ library.add(faTwitter)
   selector: 'app-photo-wall',
   templateUrl: './photo-wall.component.html',
   styleUrls: ['./photo-wall.component.scss']
-})
+})/**/
 export class PhotoWallComponent implements OnInit {
   public emptyState: boolean = true
   public imagePreview: string
   public form: UntypedFormGroup = new UntypedFormGroup({
-    image: new UntypedFormControl('', { validators: [Validators.required], asyncValidators: [mimeType] }),
+    image: new UntypedFormControl('', { validators: [Validators.required], asyncValidators: [mimeType] })/**/,
     caption: new UntypedFormControl('', [Validators.required])
-  })
+  })/**/
 
   public slideshowDataSource: IImage[] = []
   public twitterHandle = null
@@ -45,23 +45,23 @@ export class PhotoWallComponent implements OnInit {
       for (const memory of memories) {
         if (memory.User?.username) {
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-          memory.caption = `${memory.caption} (© ${memory.User.username})`
+          memory.caption = `${memory.caption} (© ${memory.User.username})/**/`
         }
-        this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })
+        this.slideshowDataSource.push({ url: memory.imagePath, caption: memory.caption })/**/
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.application?.social) {
         if (config.application.social.twitterUrl) {
           this.twitterHandle = config.application.social.twitterUrl.replace('https://twitter.com/', '@')
         }
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   onImagePicked (event: Event) {
     const file = (event.target as HTMLInputElement).files[0]
-    this.form.patchValue({ image: file })
+    this.form.patchValue({ image: file })/**/
     this.form.get('image').updateValueAndValidity()
     const reader = new FileReader()
     reader.onload = () => {
@@ -78,7 +78,7 @@ export class PhotoWallComponent implements OnInit {
     }, (err) => {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
-    })
+    })/**/
   }
 
   isLoggedIn () {

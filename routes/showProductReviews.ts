@@ -31,9 +31,9 @@ module.exports = function productReviews () {
 
     // Measure how long the query takes, to check if there was a nosql dos attack
     const t0 = new Date().getTime()
-    db.reviewsCollection.find({ $where: 'this.product == ' + id }).then((reviews: Review[]) => {
+    db.reviewsCollection.find({ $where: 'this.product == ' + id })/**/.then((reviews: Review[]) => {
       const t1 = new Date().getTime()
-      challengeUtils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })
+      challengeUtils.solveIf(challenges.noSqlCommandChallenge, () => { return (t1 - t0) > 2000 })/**/
       const user = security.authenticatedUsers.from(req)
       for (let i = 0; i < reviews.length; i++) {
         if (user === undefined || reviews[i].likedBy.includes(user.data.email)) {
@@ -42,7 +42,7 @@ module.exports = function productReviews () {
       }
       res.json(utils.queryResultToJson(reviews))
     }, () => {
-      res.status(400).json({ error: 'Wrong Params' })
-    })
+      res.status(400).json({ error: 'Wrong Params' })/**/
+    })/**/
   }
 }

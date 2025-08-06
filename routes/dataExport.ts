@@ -50,15 +50,15 @@ module.exports = function dataExport () {
         memories: []
       }
 
-      const memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })
+      const memories = await MemoryModel.findAll({ where: { UserId: req.body.UserId } })/**/
       memories.forEach((memory: MemoryModel) => {
         userData.memories.push({
           imageUrl: req.protocol + '://' + req.get('host') + '/' + memory.imagePath,
           caption: memory.caption
-        })
-      })
+        })/**/
+      })/**/
 
-      db.ordersCollection.find({ email: updatedEmail }).then((orders: Array<{
+      db.ordersCollection.find({ email: updatedEmail })/**/.then((orders: Array<{
         orderId: string
         totalPrice: number
         products: ProductModel[]
@@ -73,11 +73,11 @@ module.exports = function dataExport () {
               products: [...order.products],
               bonus: order.bonus,
               eta: order.eta
-            })
-          })
+            })/**/
+          })/**/
         }
 
-        db.reviewsCollection.find({ author: email }).then((reviews: Array<{
+        db.reviewsCollection.find({ author: email })/**/.then((reviews: Array<{
           message: string
           author: string
           product: number
@@ -92,22 +92,22 @@ module.exports = function dataExport () {
                 productId: review.product,
                 likesCount: review.likesCount,
                 likedBy: review.likedBy
-              })
-            })
+              })/**/
+            })/**/
           }
           const emailHash = security.hash(email).slice(0, 4)
           for (const order of userData.orders) {
-            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })
+            challengeUtils.solveIf(challenges.dataExportChallenge, () => { return order.orderId.split('-')[0] !== emailHash })/**/
           }
-          res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })
+          res.status(200).send({ userData: JSON.stringify(userData, null, 2), confirmation: 'Your data export will open in a new Browser window.' })/**/
         },
         () => {
           next(new Error(`Error retrieving reviews for ${updatedEmail}`))
-        })
+        })/**/
       },
       () => {
         next(new Error(`Error retrieving orders for ${updatedEmail}`))
-      })
+      })/**/
     } else {
       next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
     }

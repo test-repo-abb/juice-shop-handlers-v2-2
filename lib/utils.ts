@@ -127,7 +127,7 @@ export const downloadToFile = async (url: string, dest: string) => {
   }
 }
 
-export const jwtFrom = ({ headers }: { headers: any }) => {
+export const jwtFrom = ({ headers }: { headers: any })/**/ => {
   if (headers?.authorization) {
     const parts = headers.authorization.split(' ')
     if (parts.length === 2) {
@@ -162,7 +162,7 @@ export function getChallengeEnablementStatus (challenge: Challenge,
     isHeroku: isEnvironmentFunction
     isWindows: isEnvironmentFunction
     isGitpod: isEnvironmentFunction
-  } = { isDocker, isHeroku, isWindows, isGitpod }): ChallengeEnablementStatus {
+  } = { isDocker, isHeroku, isWindows, isGitpod })/**/: ChallengeEnablementStatus {
   if (!challenge?.disabledEnv) {
     return { enabled: true, disabledBecause: null }
   }
@@ -198,7 +198,7 @@ export const parseJsonCustom = (jsonString: string) => {
   const parser = clarinet.parser()
   const result: any[] = []
   parser.onkey = parser.onopenobject = (k: any) => {
-    result.push({ key: k, value: null })
+    result.push({ key: k, value: null })/**/
   }
   parser.onvalue = (v: any) => {
     result[result.length - 1].value = v

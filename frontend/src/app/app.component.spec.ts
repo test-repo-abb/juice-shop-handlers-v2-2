@@ -73,16 +73,16 @@ describe('AppComponent', () => {
         MatDialogModule
       ],
       providers: [TranslateService, LoginGuard]
-    }).compileComponents()
-  }))
+    })/**/.compileComponents()
+  })/**/)
 
   beforeEach(() => {
     const fixture = TestBed.createComponent(AppComponent)
     app = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create the app', waitForAsync(() => {
     expect(app).toBeTruthy()
-  }))
-})
+  })/**/)
+})/**/

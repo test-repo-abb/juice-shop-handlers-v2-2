@@ -21,7 +21,7 @@ library.add(faUser, faEye, faHome, faArchive, faTrashAlt)
   selector: 'app-administration',
   templateUrl: './administration.component.html',
   styleUrls: ['./administration.component.scss']
-})
+})/**/
 export class AdministrationComponent implements OnInit {
   public userDataSource: any
   public userDataSourceHidden: any
@@ -54,7 +54,7 @@ export class AdministrationComponent implements OnInit {
     }, (err) => {
       this.error = err
       console.log(this.error)
-    })
+    })/**/
   }
 
   findAllFeedbacks () {
@@ -69,7 +69,7 @@ export class AdministrationComponent implements OnInit {
     }, (err) => {
       this.error = err
       console.log(this.error)
-    })
+    })/**/
   }
 
   deleteFeedback (id: number) {
@@ -78,7 +78,7 @@ export class AdministrationComponent implements OnInit {
     }, (err) => {
       this.error = err
       console.log(this.error)
-    })
+    })/**/
   }
 
   showUserDetail (id: number) {
@@ -86,7 +86,7 @@ export class AdministrationComponent implements OnInit {
       data: {
         id
       }
-    })
+    })/**/
   }
 
   showFeedbackDetails (feedback: any, id: number) {
@@ -95,14 +95,14 @@ export class AdministrationComponent implements OnInit {
         feedback,
         id
       }
-    })
+    })/**/
   }
 
   times (numberOfTimes: number) {
     return Array(numberOfTimes).fill('★')
   }
 
-  doesUserHaveAnActiveSession (user: { email: string, lastLoginTime: number }) {
+  doesUserHaveAnActiveSession (user: { email: string, lastLoginTime: number })/**/ {
     const SIX_HOURS_IN_SECONDS = 60 * 60 * 6
     return user.lastLoginTime && user.lastLoginTime > ((Date.now() / 1000) - SIX_HOURS_IN_SECONDS)
   }

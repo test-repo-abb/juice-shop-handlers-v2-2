@@ -16,7 +16,7 @@ library.add(faBitcoin, faUniversity, faGraduationCap, faCommentAlt, faComments, 
   selector: 'app-token-sale',
   templateUrl: './token-sale.component.html',
   styleUrls: ['./token-sale.component.scss']
-})
+})/**/
 export class TokenSaleComponent implements OnInit {
   public altcoinName = 'Juicycoin'
   constructor (private readonly configurationService: ConfigurationService) { }
@@ -26,6 +26,6 @@ export class TokenSaleComponent implements OnInit {
       if (config?.application?.altcoinName) {
         this.altcoinName = config.application.altcoinName
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 }

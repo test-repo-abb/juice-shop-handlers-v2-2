@@ -29,19 +29,19 @@ describe('/rest/products/:id/reviews', () => {
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', reviewResponseSchema)
-  })
+  })/**/
 
   it('GET product reviews attack by injecting a mongoDB sleep command', () => {
     return frisby.get(`${REST_URL}/products/sleep(1)/reviews`)
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', reviewResponseSchema)
-  })
+  })/**/
 
   xit('GET product reviews by alphanumeric non-mongoDB-command product id', () => { // FIXME Turn on when #1960 is resolved
     return frisby.get(`${REST_URL}/products/kaboom/reviews`)
       .expect('status', 400)
-  })
+  })/**/
 
   it('PUT single product review can be created', () => {
     return frisby.put(`${REST_URL}/products/1/reviews`, {
@@ -49,11 +49,11 @@ describe('/rest/products/:id/reviews', () => {
         message: 'Lorem Ipsum',
         author: 'Anonymous'
       }
-    })
+    })/**/
       .expect('status', 201)
       .expect('header', 'content-type', /application\/json/)
-  })
-})
+  })/**/
+})/**///
 
 describe('/rest/products/reviews', () => {
   const updatedReviewResponseSchema = {
@@ -70,15 +70,15 @@ describe('/rest/products/reviews', () => {
 
       res.on('data', (chunk: string) => {
         body += chunk
-      })
+      })/**/
 
       res.on('end', () => {
         const response = JSON.parse(body)
         reviewId = response.data[0]._id
         done()
-      })
-    })
-  })
+      })/**/
+    })/**/
+  })/**/
 
   it('PATCH single product review can be edited', () => {
     return frisby.patch(`${REST_URL}/products/reviews`, {
@@ -87,11 +87,11 @@ describe('/rest/products/reviews', () => {
         id: reviewId,
         message: 'Lorem Ipsum'
       }
-    })
+    })/**/
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', updatedReviewResponseSchema)
-  })
+  })/**/
 
   it('PATCH single product review editing need an authenticated user', () => {
     return frisby.patch(`${REST_URL}/products/reviews`, {
@@ -99,9 +99,9 @@ describe('/rest/products/reviews', () => {
         id: reviewId,
         message: 'Lorem Ipsum'
       }
-    })
+    })/**/
       .expect('status', 401)
-  })
+  })/**/
 
   it('POST non-existing product review cannot be liked', () => {
     return frisby.post(`${REST_URL}/user/login`, {
@@ -110,18 +110,18 @@ describe('/rest/products/reviews', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(`${REST_URL}/products/reviews`, {
           headers: { Authorization: `Bearer ${jsonLogin.authentication.token}` },
           body: {
             id: 'does not exist'
           }
-        })
+        })/**/
           .expect('status', 404)
-      })
-  })
+      })/**/
+  })/**/
 
   it('POST single product review can be liked', () => {
     return frisby.post(`${REST_URL}/user/login`, {
@@ -130,19 +130,19 @@ describe('/rest/products/reviews', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.post(`${REST_URL}/products/reviews`, {
           headers: { Authorization: `Bearer ${jsonLogin.authentication.token}` },
           body: {
             id: reviewId
           }
-        })
+        })/**/
           .expect('status', 200)
-          .expect('jsonTypes', { likesCount: Joi.number() })
-      })
-  })
+          .expect('jsonTypes', { likesCount: Joi.number() })/**/
+      })/**/
+  })/**/
 
   it('PATCH multiple product review via injection', () => {
     // Count all the reviews. (Count starts at one because of the review inserted by the other tests...)
@@ -154,10 +154,10 @@ describe('/rest/products/reviews', () => {
         id: { $ne: -1 },
         message: 'trololololololololololololololololololololololololololol'
       }
-    })
+    })/**/
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', updatedReviewResponseSchema)
-      .expect('json', { modified: totalReviews })
-  })
-})
+      .expect('json', { modified: totalReviews })/**/
+  })/**/
+})/**/

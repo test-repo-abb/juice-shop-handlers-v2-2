@@ -12,18 +12,18 @@ describe('ConfigurationService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ConfigurationService]
-    })
-  })
+    })/**/
+  })/**/
 
   it('should be created', inject([ConfigurationService], (service: ConfigurationService) => {
     expect(service).toBeTruthy()
-  }))
+  })/**/)
 
   it('should get application configuration directly from the rest api',
     inject([ConfigurationService, HttpTestingController],
       fakeAsync((service: ConfigurationService, httpMock: HttpTestingController) => {
         let res: any
-        service.getApplicationConfiguration().subscribe(data => { res = data })
+        service.getApplicationConfiguration().subscribe(data => { res = data })/**/
 
         const req = httpMock.expectOne('http://localhost:3000/rest/admin/application-configuration')
         req.flush({
@@ -32,7 +32,7 @@ describe('ConfigurationService', () => {
               version: '8.0.0',
               showGitHubLinks: false
             }
-        })
+        })/**/
 
         tick()
 
@@ -41,7 +41,7 @@ describe('ConfigurationService', () => {
         expect(data.showGitHubLink).toBeFalsy()
 
         httpMock.verify()
-      })
+      })/**/
     ))
 
   it('should throw an error on recieving an error from the server',
@@ -52,7 +52,7 @@ describe('ConfigurationService', () => {
           console.log(data)
         }, (err) => (res = err))
         const req = httpMock.expectOne('http://localhost:3000/rest/admin/application-configuration')
-        req.error(new ErrorEvent('Request failed'), { status: 404, statusText: 'Request failed' })
+        req.error(new ErrorEvent('Request failed'), { status: 404, statusText: 'Request failed' })/**/
         tick()
 
         const error = res
@@ -60,6 +60,6 @@ describe('ConfigurationService', () => {
         expect(error.status).toBe(404)
         expect(error.statusText).toBe('Request failed')
         httpMock.verify()
-      })
+      })/**/
     ))
-})
+})/**/

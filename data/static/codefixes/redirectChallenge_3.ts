@@ -27,5 +27,5 @@ const escapeHTML = str => {
         "'": '&#39;',
         '"': '&quot;'
       }[tag])
-    })
+    })/**/
 }

@@ -38,11 +38,11 @@ describe('RegisterComponent', () => {
 
   beforeEach(waitForAsync(() => {
     securityAnswerService = jasmine.createSpyObj('SecurityAnswerService', ['save'])
-    securityAnswerService.save.and.returnValue(of({}))
+    securityAnswerService.save.and.returnValue(of({})/**/)
     securityQuestionService = jasmine.createSpyObj('SecurityQuestionService', ['find'])
     securityQuestionService.find.and.returnValue(of([{}]))
     userService = jasmine.createSpyObj('UserService', ['save'])
-    userService.save.and.returnValue(of({}))
+    userService.save.and.returnValue(of({})/**/)
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule.withRoutes([
@@ -71,45 +71,45 @@ describe('RegisterComponent', () => {
         { provide: SecurityQuestionService, useValue: securityQuestionService },
         { provide: UserService, useValue: userService }
       ]
-    })
+    })/**/
       .compileComponents()
 
     location = TestBed.inject(Location)
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RegisterComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should be compulsory to provid email', () => {
     component.emailControl.setValue('')
     expect(component.emailControl.valid).toBeFalsy()
-  })
+  })/**/
 
   it('email field should be of proper format', () => {
     component.emailControl.setValue('email')
     expect(component.emailControl.valid).toBeFalsy()
     component.emailControl.setValue('x@x.xx')
     expect(component.emailControl.valid).toBe(true)
-  })
+  })/**/
 
   it('should be compulsory to provide password', () => {
     component.passwordControl.setValue('')
     expect(component.passwordControl.valid).toBeFalsy()
-  })
+  })/**/
 
   it('password should have at least five characters', () => {
     component.passwordControl.setValue('aaaa')
     expect(component.passwordControl.valid).toBeFalsy()
     component.passwordControl.setValue('aaaaa')
     expect(component.passwordControl.valid).toBe(true)
-  })
+  })/**/
 
   it('password should not be more than 20 characters', () => {
     let password: string = ''
@@ -121,7 +121,7 @@ describe('RegisterComponent', () => {
     password = password.slice(1)
     component.passwordControl.setValue(password)
     expect(component.passwordControl.valid).toBe(true)
-  })
+  })/**/
 
   it('should be compulsory to repeat the password', () => {
     component.passwordControl.setValue('a')
@@ -129,7 +129,7 @@ describe('RegisterComponent', () => {
     expect(component.repeatPasswordControl.valid).toBeFalsy()
     component.repeatPasswordControl.setValue('a')
     expect(component.repeatPasswordControl.valid).toBe(true)
-  })
+  })/**/
 
   it('password and repeat password should be the same', () => {
     const password: string = 'aaaaa'
@@ -139,11 +139,11 @@ describe('RegisterComponent', () => {
     expect(component.repeatPasswordControl.valid).toBeFalsy()
     component.repeatPasswordControl.setValue(passwordRepeat)
     expect(component.repeatPasswordControl.valid).toBe(true)
-  })
+  })/**/
 
   it('redirects to login page after user registration', fakeAsync(() => {
-    userService.save.and.returnValue(of({ id: 1, question: 'Wat is?' }))
-    securityAnswerService.save.and.returnValue(of({}))
+    userService.save.and.returnValue(of({ id: 1, question: 'Wat is?' })/**/)
+    securityAnswerService.save.and.returnValue(of({})/**/)
     component.securityQuestions = [{ id: 1, question: 'Wat is?' }]
     component.emailControl.setValue('x@x.xx')
     component.passwordControl.setValue('password')
@@ -159,7 +159,7 @@ describe('RegisterComponent', () => {
     expect(location.path()).toBe('/login')
     fixture.destroy()
     flush()
-  }))
+  })/**/)
 
   it('loading secret questions', () => {
     securityQuestionService.find.and.returnValue(of([{ id: 1, question: 'WTF?' }, { id: 2, question: 'WAT?' }]))
@@ -167,25 +167,25 @@ describe('RegisterComponent', () => {
     expect(component.securityQuestions.length).toBe(2)
     expect(component.securityQuestions[0].question).toBe('WTF?')
     expect(component.securityQuestions[1].question).toBe('WAT?')
-  })
+  })/**/
 
   it('should hold nothing when no secret questions exists', () => {
     securityQuestionService.find.and.returnValue(of(undefined))
     component.ngOnInit()
     expect(component.securityQuestions).toBeUndefined()
-  })
+  })/**/
 
   it('should log error from backend API on failing to get security questions', fakeAsync(() => {
     securityQuestionService.find.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })/**/)
 
   it('should log error on saving user', fakeAsync(() => {
     userService.save.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.save()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
-})
+  })/**/)
+})/**/

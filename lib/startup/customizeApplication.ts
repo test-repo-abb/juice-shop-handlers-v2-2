@@ -59,7 +59,7 @@ const customizeFavicon = async () => {
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
     silent: true
-  })
+  })/**/
 }
 
 const customizePromotionVideo = async () => {
@@ -88,7 +88,7 @@ const customizeTitle = () => {
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
     silent: true
-  })
+  })/**/
 }
 
 const customizeTheme = () => {
@@ -99,7 +99,7 @@ const customizeTheme = () => {
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
     silent: true
-  })
+  })/**/
 }
 
 const customizeCookieConsentBanner = () => {
@@ -110,7 +110,7 @@ const customizeCookieConsentBanner = () => {
     paths: ['frontend/dist/frontend/index.html'],
     recursive: false,
     silent: true
-  })
+  })/**/
 }
 
 export default customizeApplication

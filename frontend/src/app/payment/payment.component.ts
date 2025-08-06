@@ -38,7 +38,7 @@ library.add(faCartArrowDown, faGift, faHeart, faLeanpub, faThumbsUp, faTshirt, f
   selector: 'app-payment',
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
-})
+})/**/
 export class PaymentComponent implements OnInit {
   public couponConfirmation: any
   public couponError: any
@@ -81,7 +81,7 @@ export class PaymentComponent implements OnInit {
     this.walletService.get().subscribe((balance) => {
       this.walletBalance = balance
       this.walletBalanceStr = parseFloat(balance).toFixed(2)
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
     this.couponPanelExpanded = localStorage.getItem('couponPanelExpanded') ? JSON.parse(localStorage.getItem('couponPanelExpanded')) : false
     this.paymentPanelExpanded = localStorage.getItem('paymentPanelExpanded') ? JSON.parse(localStorage.getItem('paymentPanelExpanded')) : false
 
@@ -97,7 +97,7 @@ export class PaymentComponent implements OnInit {
           this.applicationName = config.application.name
         }
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   initTotal () {
@@ -108,16 +108,16 @@ export class PaymentComponent implements OnInit {
       } else if (this.mode === 'deluxe') {
         this.userService.deluxeStatus().subscribe((res) => {
           this.totalPrice = res.membershipCost
-        }, (err) => { console.log(err) })
+        }, (err) => { console.log(err) })/**/
       } else {
         const itemTotal = parseFloat(sessionStorage.getItem('itemTotal'))
         const promotionalDiscount = sessionStorage.getItem('couponDiscount') ? (parseFloat(sessionStorage.getItem('couponDiscount')) / 100) * itemTotal : 0
         this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
           const deliveryPrice = method.price
           this.totalPrice = itemTotal + deliveryPrice - promotionalDiscount
-        })
+        })/**/
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   applyCoupon () {
@@ -139,7 +139,7 @@ export class PaymentComponent implements OnInit {
           this.couponError = { error: invalidCoupon }
         }, (translationId) => {
           this.couponError = { error: translationId }
-        })
+        })/**/
         this.resetCouponForm()
       }
     } else {
@@ -149,7 +149,7 @@ export class PaymentComponent implements OnInit {
         this.couponConfirmation = undefined
         this.couponError = err
         this.resetCouponForm()
-      })
+      })/**/
     }
   }
 
@@ -157,11 +157,11 @@ export class PaymentComponent implements OnInit {
     this.resetCouponForm()
     this.couponError = undefined
     sessionStorage.setItem('couponDiscount', discount)
-    this.translate.get('DISCOUNT_APPLIED', { discount }).subscribe((discountApplied) => {
+    this.translate.get('DISCOUNT_APPLIED', { discount })/**/.subscribe((discountApplied) => {
       this.couponConfirmation = discountApplied
     }, (translationId) => {
       this.couponConfirmation = translationId
-    })
+    })/**/
     this.initTotal()
   }
 
@@ -177,20 +177,20 @@ export class PaymentComponent implements OnInit {
   choosePayment () {
     sessionStorage.removeItem('itemTotal')
     if (this.mode === 'wallet') {
-      this.walletService.put({ balance: this.totalPrice, paymentId: this.paymentId }).subscribe(() => {
+      this.walletService.put({ balance: this.totalPrice, paymentId: this.paymentId })/**/.subscribe(() => {
         sessionStorage.removeItem('walletTotal')
         this.ngZone.run(async () => await this.router.navigate(['/wallet']))
         this.snackBarHelperService.open('CHARGED_WALLET', 'confirmBar')
       }, (err) => {
         console.log(err)
         this.snackBarHelperService.open(err.error?.message, 'errorBar')
-      })
+      })/**/
     } else if (this.mode === 'deluxe') {
       this.userService.upgradeToDeluxe(this.paymentMode, this.paymentId).subscribe((data) => {
         localStorage.setItem('token', data.token)
         this.cookieService.put('token', data.token)
         this.ngZone.run(async () => await this.router.navigate(['/deluxe-membership']))
-      }, (err) => { console.log(err) })
+      }, (err) => { console.log(err) })/**/
     } else {
       if (this.paymentMode === 'wallet') {
         if (this.walletBalance < this.totalPrice) {
@@ -216,7 +216,7 @@ export class PaymentComponent implements OnInit {
         address: '1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm',
         title: 'TITLE_BITCOIN_ADDRESS'
       }
-    })
+    })/**/
   }
 
   showDashQrCode () {
@@ -227,7 +227,7 @@ export class PaymentComponent implements OnInit {
         address: 'Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW',
         title: 'TITLE_DASH_ADDRESS'
       }
-    })
+    })/**/
   }
 
   showEtherQrCode () {
@@ -238,7 +238,7 @@ export class PaymentComponent implements OnInit {
         address: '0x0f933ab9fCAAA782D0279C300D73750e1311EAE6',
         title: 'TITLE_ETHER_ADDRESS'
       }
-    })
+    })/**/
   }
 
   useWallet () {

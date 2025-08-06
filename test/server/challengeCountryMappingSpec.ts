@@ -15,7 +15,7 @@ const { safeLoad } = require('js-yaml')
 const readFile = promisify(fs.readFile)
 
 const loadYamlFile = async (filename: string) => {
-  const contents = await readFile(filename, { encoding: 'utf8' })
+  const contents = await readFile(filename, { encoding: 'utf8' })/**/
   return safeLoad(contents)
 }
 
@@ -25,12 +25,12 @@ describe('challengeCountryMapping', () => {
   before(async () => {
     challenges = await loadYamlFile(path.resolve('data/static/challenges.yml'))
     countryMapping = (await loadYamlFile(path.resolve('config/fbctf.yml'))).ctf.countryMapping
-  })
+  })/**/
   it('should have a country mapping for every challenge', async () => {
     for (const { key } of challenges) {
       expect(countryMapping, `Challenge "${key}" does not have a country mapping.`).to.have.property(key)
     }
-  })
+  })/**/
 
   it('should have unique country codes in every mapping', async () => {
     const countryCodeCounts: any = {}
@@ -49,5 +49,5 @@ describe('challengeCountryMapping', () => {
 
       expect(count, `Country "${key}" is used for multiple country mappings.`).to.equal(1)
     }
-  })
-})
+  })/**/
+})/**/

@@ -24,7 +24,7 @@ describe('ChangePasswordComponent', () => {
 
   beforeEach(waitForAsync(() => {
     userService = jasmine.createSpyObj('UserService', ['changePassword'])
-    userService.changePassword.and.returnValue(of({}))
+    userService.changePassword.and.returnValue(of({})/**/)
 
     TestBed.configureTestingModule({
       imports: [
@@ -39,26 +39,26 @@ describe('ChangePasswordComponent', () => {
       ],
       declarations: [ChangePasswordComponent],
       providers: [{ provide: UserService, useValue: userService }]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChangePasswordComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should be compulsory to give password', () => {
     component.passwordControl.setValue('')
     expect(component.passwordControl.valid).toBeFalsy()
     component.passwordControl.setValue('pass')
     expect(component.passwordControl.valid).toBe(true)
-  })
+  })/**/
 
   it('length of new password must be 5-40 characters', () => {
     component.newPasswordControl.setValue('old')
@@ -69,7 +69,7 @@ describe('ChangePasswordComponent', () => {
     expect(component.newPasswordControl.valid).toBe(true)
     component.newPasswordControl.setValue('new password new password new password new password')
     expect(component.newPasswordControl.valid).toBeFalsy()
-  })
+  })/**/
 
   it('should be compulsory to repeat new password', () => {
     component.repeatNewPasswordControl.setValue('')
@@ -77,7 +77,7 @@ describe('ChangePasswordComponent', () => {
     component.newPasswordControl.setValue('passed')
     component.repeatNewPasswordControl.setValue('passed')
     expect(component.repeatNewPasswordControl.valid).toBe(true)
-  })
+  })/**/
 
   it('should reinitizalise forms by calling resetForm', () => {
     component.passwordControl.setValue('password')
@@ -93,10 +93,10 @@ describe('ChangePasswordComponent', () => {
     expect(component.repeatNewPasswordControl.value).toBe('')
     expect(component.repeatNewPasswordControl.pristine).toBe(true)
     expect(component.repeatNewPasswordControl.untouched).toBe(true)
-  })
+  })/**/
 
   it('should clear form and show confirmation after changing password', () => {
-    userService.changePassword.and.returnValue(of({}))
+    userService.changePassword.and.returnValue(of({})/**/)
     spyOn(component, 'resetForm')
     component.passwordControl.setValue('old')
     component.newPasswordControl.setValue('foobar')
@@ -105,7 +105,7 @@ describe('ChangePasswordComponent', () => {
     expect(component.error).toBeUndefined()
     expect(component.confirmation).toBeDefined()
     expect(component.resetForm).toHaveBeenCalled()
-  })
+  })/**/
 
   it('should clear form and gracefully handle error on password change', fakeAsync(() => {
     userService.changePassword.and.returnValue(throwError('Error'))
@@ -119,5 +119,5 @@ describe('ChangePasswordComponent', () => {
     expect(component.error).toBe('Error')
     expect(console.log).toHaveBeenCalledWith('Error')
     expect(component.resetPasswords).toHaveBeenCalled()
-  }))
-})
+  })/**/)
+})/**/

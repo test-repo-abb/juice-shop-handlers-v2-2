@@ -37,13 +37,13 @@ describe('ProductDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     userService = jasmine.createSpyObj('UserService', ['whoAmI'])
-    userService.whoAmI.and.returnValue(of({}))
+    userService.whoAmI.and.returnValue(of({})/**/)
     productReviewService = jasmine.createSpyObj('ProductReviewService', ['get', 'create'])
     productReviewService.get.and.returnValue(of([]))
-    productReviewService.create.and.returnValue(of({}))
+    productReviewService.create.and.returnValue(of({})/**/)
     dialog = jasmine.createSpyObj('Dialog', ['open'])
     dialogRefMock = {
-      afterClosed: () => of({})
+      afterClosed: () => of({})/**/
     }
     dialog.open.and.returnValue(dialogRefMock)
 
@@ -71,23 +71,23 @@ describe('ProductDetailsComponent', () => {
         { provide: MatDialog, useValue: dialog },
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } }
       ]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductDetailsComponent)
     component = fixture.componentInstance
     fixture.autoDetectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should post anonymous review if no user email is returned', () => {
     component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({}))
+    userService.whoAmI.and.returnValue(of({})/**/)
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
     textArea.value = 'Great product!'
@@ -97,11 +97,11 @@ describe('ProductDetailsComponent', () => {
     expect(productReviewService.create.calls.count()).toBe(1)
     expect(productReviewService.create.calls.argsFor(0)[0]).toBe(42)
     expect(productReviewService.create.calls.argsFor(0)[1]).toEqual(reviewObject)
-  })
+  })/**/
 
   it('should post review with user email as author', () => {
     component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
+    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' })/**/)
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
     textArea.value = 'Great product!'
@@ -111,7 +111,7 @@ describe('ProductDetailsComponent', () => {
     expect(productReviewService.create.calls.count()).toBe(1)
     expect(productReviewService.create.calls.argsFor(0)[0]).toBe(42)
     expect(productReviewService.create.calls.argsFor(0)[1]).toEqual(reviewObject)
-  })
+  })/**/
 
   it('should log errors when retrieving user directly to browser console', fakeAsync(() => {
     component.data = { productData: { id: 42 } as Product }
@@ -119,11 +119,11 @@ describe('ProductDetailsComponent', () => {
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })/**/)
 
   it('should log errors when posting review directly to browser console', fakeAsync(() => {
     component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({}))
+    userService.whoAmI.and.returnValue(of({})/**/)
     productReviewService.create.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
@@ -134,13 +134,13 @@ describe('ProductDetailsComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
     fixture.destroy()
     flush()
-  }))
+  })/**/)
 
   it('should refresh reviews after posting a review', () => {
     component.data = { productData: { id: 42 } as Product }
-    productReviewService.create.and.returnValue(of({}))
+    productReviewService.create.and.returnValue(of({})/**/)
     productReviewService.get.and.returnValue(of([{ id: '42', message: 'Review 1', author: 'Anonymous' }]))
-    userService.whoAmI.and.returnValue(of({}))
+    userService.whoAmI.and.returnValue(of({})/**/)
     component.ngOnInit()
     const textArea: HTMLTextAreaElement = fixture.debugElement.query(By.css('textarea')).nativeElement
     textArea.value = 'Great product!'
@@ -148,11 +148,11 @@ describe('ProductDetailsComponent', () => {
     buttonDe.triggerEventHandler('click', null)
     expect(productReviewService.create).toHaveBeenCalled()
     expect(productReviewService.get).toHaveBeenCalled()
-  })
+  })/**/
 
   it('should open a modal dialog with review editor', () => {
     component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
+    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' })/**/)
     productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
@@ -160,17 +160,17 @@ describe('ProductDetailsComponent', () => {
     buttonDe.triggerEventHandler('click', null)
     expect(dialog.open.calls.count()).toBe(1)
     expect(dialog.open.calls.argsFor(0)[0]).toBe(ProductReviewEditComponent)
-    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })
-  })
+    expect(dialog.open.calls.argsFor(0)[1].data).toEqual({ reviewData: { id: '42', message: 'Great product!', author: 'horst@juice-sh.op' } })/**/
+  })/**/
 
   it('should refresh reviews of product after editing a review', () => {
     component.data = { productData: { id: 42 } as Product }
-    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' }))
+    userService.whoAmI.and.returnValue(of({ email: 'horst@juice-sh.op' })/**/)
     productReviewService.get.and.returnValue(of([{ id: '42', message: 'Great product!', author: 'horst@juice-sh.op' }]))
     component.ngOnInit()
     fixture.detectChanges()
     const buttonDe = fixture.debugElement.query(By.css('div.review-text'))
     buttonDe.triggerEventHandler('click', null)
     expect(productReviewService.get).toHaveBeenCalledWith(42)
-  })
-})
+  })/**/
+})/**/

@@ -148,23 +148,23 @@ function loadHint (hint: ChallengeHint): HTMLElement {
 async function waitForDoubleClick (element: HTMLElement) {
   return await new Promise((resolve) => {
     element.addEventListener('dblclick', resolve)
-  })
+  })/**/
 }
 
 async function waitForCancel (element: HTMLElement) {
   return await new Promise((resolve) => {
     element.addEventListener('click', () => {
       resolve('break')
-    })
-  })
+    })/**/
+  })/**/
 }
 
 export function hasInstructions (challengeName: string): boolean {
-  return challengeInstructions.find(({ name }) => name === challengeName) !== undefined
+  return challengeInstructions.find(({ name })/**/ => name === challengeName) !== undefined
 }
 
 export async function startHackingInstructorFor (challengeName: string): Promise<void> {
-  const challengeInstruction = challengeInstructions.find(({ name }) => name === challengeName) ?? TutorialUnavailableInstruction
+  const challengeInstruction = challengeInstructions.find(({ name })/**/ => name === challengeName) ?? TutorialUnavailableInstruction
 
   for (const hint of challengeInstruction.hints) {
     const element = loadHint(hint)

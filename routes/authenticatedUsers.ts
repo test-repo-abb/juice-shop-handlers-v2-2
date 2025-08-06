@@ -17,7 +17,7 @@ async function retrieveUserList (req: Request, res: Response, next: NextFunction
         const userToken = security.authenticatedUsers.tokenOf(user)
         let lastLoginTime: number | null = null
         if (userToken) {
-          const parsedToken = decode(userToken, { json: true })
+          const parsedToken = decode(userToken, { json: true })/**/
           lastLoginTime = parsedToken ? Math.floor(new Date(parsedToken?.iat ?? 0 * 1000).getTime()) : null
         }
 
@@ -27,8 +27,8 @@ async function retrieveUserList (req: Request, res: Response, next: NextFunction
           totpSecret: user.totpSecret?.replace(/./g, '*'),
           lastLoginTime
         }
-      })
-    })
+      })/**/
+    })/**/
   } catch (error) {
     next(error)
   }

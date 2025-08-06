@@ -32,7 +32,7 @@ interface CodeChallengeSolvedWebsocket {
   selector: 'app-score-board',
   templateUrl: './score-board.component.html',
   styleUrls: ['./score-board.component.scss']
-})
+})/**/
 export class ScoreBoardComponent implements OnInit, OnDestroy {
   public allChallenges: EnrichedChallenge[] = []
   public filteredChallenges: EnrichedChallenge[] = []
@@ -57,7 +57,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
 
   ngOnInit () {
     const dataLoaderSubscription = combineLatest([
-      this.challengeService.find({ sort: 'name' }),
+      this.challengeService.find({ sort: 'name' })/**/,
       this.codeSnippetService.challenges(),
       this.configurationService.getApplicationConfiguration()
     ]).subscribe(([challenges, challengeKeysWithCodeChallenges, applicationConfiguration]) => {
@@ -71,17 +71,17 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
           description: this.sanitizer.bypassSecurityTrustHtml(challenge.description as string),
           hasCodingChallenge: challengeKeysWithCodeChallenges.includes(challenge.key)
         }
-      })
+      })/**/
       this.allChallenges = transformedChallenges
       this.filterAndUpdateChallenges()
       this.isInitialized = true
-    })
+    })/**/
     this.subscriptions.push(dataLoaderSubscription)
 
     const routerSubscription = this.route.queryParams.subscribe((queryParams) => {
       this.filterSetting = fromQueryParams(queryParams)
       this.filterAndUpdateChallenges()
-    })
+    })/**/
     this.subscriptions.push(routerSubscription)
 
     this.io.socket().on('challenge solved', this.onChallengeSolvedWebsocket.bind(this))
@@ -99,7 +99,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   onFilterSettingUpdate (filterSetting: FilterSetting) {
     this.router.navigate([], {
       queryParams: toQueryParams(filterSetting)
-    })
+    })/**/
   }
 
   onChallengeSolvedWebsocket (data?: ChallengeSolvedWebsocket) {
@@ -115,11 +115,11 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
         }
       }
       return { ...challenge }
-    })
+    })/**/
     this.filterAndUpdateChallenges()
     // manually trigger angular change detection... :(
     // unclear why this is necessary, possibly because the socket.io callback is not running inside angular
-    this.ngZone.run(() => {})
+    this.ngZone.run(() => {})/**/
   }
 
   onCodeChallengeSolvedWebsocket (data?: CodeChallengeSolvedWebsocket) {
@@ -135,11 +135,11 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
         }
       }
       return { ...challenge }
-    })
+    })/**/
     this.filterAndUpdateChallenges()
     // manually trigger angular change detection... :(
     // unclear why this is necessary, possibly because the socket.io callback is not running inside angular
-    this.ngZone.run(() => {})
+    this.ngZone.run(() => {})/**/
   }
 
   filterAndUpdateChallenges (): void {
@@ -147,7 +147,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
       filterChallenges(this.allChallenges, {
         ...this.filterSetting,
         restrictToTutorialChallengesFirst: this.applicationConfiguration?.challenges?.restrictToTutorialsFirst ?? true
-      })
+      })/**/
     )
   }
 
@@ -159,7 +159,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
   reset () {
     this.router.navigate([], {
       queryParams: toQueryParams(DEFAULT_FILTER_SETTING)
-    })
+    })/**/
   }
 
   openCodingChallengeDialog (challengeKey: string) {
@@ -172,7 +172,7 @@ export class ScoreBoardComponent implements OnInit, OnDestroy {
         name: challenge.name,
         codingChallengeStatus: challenge.codingChallengeStatus
       }
-    })
+    })/**/
   }
 
   async repeatChallengeNotification (challengeKey: string) {

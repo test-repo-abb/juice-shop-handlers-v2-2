@@ -29,7 +29,7 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
         model: UserModel,
         where: { email }
       }]
-    })
+    })/**/
     if (answer == null) {
       throw new Error('No answer found!')
     }
@@ -38,11 +38,11 @@ router.get('/', async (req: Request, res: Response, next: NextFunction): Promise
       throw new Error('No question found!')
     }
 
-    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })
+    res.render('dataErasureForm', { userEmail: email, securityQuestion: question.question })/**/
   } catch (error) {
     next(error)
   }
-})
+})/**/
 
 interface DataErasureRequestParams {
   layout?: string
@@ -62,7 +62,7 @@ router.post('/', async (req: Request<Record<string, unknown>, Record<string, unk
     await PrivacyRequestModel.create({
       UserId: loggedInUser.data.id,
       deletionRequested: true
-    })
+    })/**/
 
     res.clearCookie('token')
     if (req.body.layout) {
@@ -77,20 +77,20 @@ router.post('/', async (req: Request<Record<string, unknown>, Record<string, unk
           } else {
             const sendlfrResponse: string = html.slice(0, 100) + '......'
             res.send(sendlfrResponse)
-            challengeUtils.solveIf(challenges.lfrChallenge, () => { return true })
+            challengeUtils.solveIf(challenges.lfrChallenge, () => { return true })/**/
           }
-        })
+        })/**/
       } else {
         next(new Error('File access not allowed'))
       }
     } else {
       res.render('dataErasureResult', {
         ...req.body
-      })
+      })/**/
     }
   } catch (error) {
     next(error)
   }
-})
+})/**/
 
 export default router

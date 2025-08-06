@@ -20,7 +20,7 @@ describe('UserDetailsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     userService = jasmine.createSpyObj('UserService', ['get'])
-    userService.get.and.returnValue(of({}))
+    userService.get.and.returnValue(of({})/**/)
 
     TestBed.configureTestingModule({
       imports: [
@@ -35,30 +35,30 @@ describe('UserDetailsComponent', () => {
         { provide: MatDialogRef, useValue: {} },
         { provide: MAT_DIALOG_DATA, useValue: { dialogData: {} } }
       ]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UserDetailsComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should log the error on retrieving user', () => {
     userService.get.and.returnValue(throwError('Error'))
     console.log = jasmine.createSpy('log')
     component.ngOnInit()
     expect(console.log).toHaveBeenCalledWith('Error')
-  })
+  })/**/
 
   it('should set the retrieved user', () => {
     userService.get.and.returnValue(of('User'))
     component.ngOnInit()
     expect(component.user).toBe('User')
-  })
-})
+  })/**/
+})/**/

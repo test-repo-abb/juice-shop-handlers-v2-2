@@ -1,12 +1,12 @@
 describe('/rest/products/reviews', () => {
   beforeEach(() => {
     cy.visit('/#/search')
-  })
+  })/**/
 
   describe('challenge "NoSQL DoS"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
-    })
+      cy.login({ email: 'admin', password: 'admin123' })/**/
+    })/**/
     it('should be possible to inject a command into the get route', () => {
       cy.task('isDocker').then((isDocker) => {
         if (!isDocker) {
@@ -20,12 +20,12 @@ describe('/rest/products/reviews', () => {
                 }
               }
             )
-          })
-          cy.expectChallengeSolved({ challenge: 'NoSQL DoS' })
+          })/**/
+          cy.expectChallengeSolved({ challenge: 'NoSQL DoS' })/**/
         }
-      })
-    })
-  })
+      })/**/
+    })/**/
+  })/**/
 
   describe('challenge "NoSQL Exfiltration"', () => {
     it('should be possible to inject and get all the orders', () => {
@@ -41,17 +41,17 @@ describe('/rest/products/reviews', () => {
                 }
               }
             )
-          })
-          cy.expectChallengeSolved({ challenge: 'NoSQL Exfiltration' })
+          })/**/
+          cy.expectChallengeSolved({ challenge: 'NoSQL Exfiltration' })/**/
         }
-      })
-    })
-  })
-
+      })/**/
+    })/**/
+  })/**/
+//
   describe('challenge "NoSQL Manipulation"', () => {
     beforeEach(() => {
-      cy.login({ email: 'admin', password: 'admin123' })
-    })
+      cy.login({ email: 'admin', password: 'admin123' })/**/
+    })/**/
 
     it('should be possible to inject a selector into the update route', () => {
       cy.window().then(async () => {
@@ -64,17 +64,17 @@ describe('/rest/products/reviews', () => {
           body: JSON.stringify({
             id: { $ne: -1 },
             message: 'NoSQL Injection!'
-          })
-        })
-      })
-      cy.expectChallengeSolved({ challenge: 'NoSQL Manipulation' })
-    })
-  })
+          })/**/
+        })/**/
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'NoSQL Manipulation' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "Forged Review"', () => {
     beforeEach(() => {
-      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })
-    })
+      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })/**/
+    })/**/
 
     it('should be possible to edit any existing review', () => {
       cy.visit('/')
@@ -103,22 +103,22 @@ describe('/rest/products/reviews', () => {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
               },
-              body: JSON.stringify({ id: reviewId, message: 'injected' })
+              body: JSON.stringify({ id: reviewId, message: 'injected' })/**/
             }
           )
           if (response.status === 200) {
             console.log('Success')
           }
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'Forged Review' })
-    })
-  })
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'Forged Review' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "Multiple Likes"', () => {
     beforeEach(() => {
-      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })
-    })
+      cy.login({ email: 'mc.safesearch', password: 'Mr. N00dles' })/**/
+    })/**/
 
     it('should be possible to like reviews multiple times', () => {
       cy.visit('/')
@@ -132,7 +132,7 @@ describe('/rest/products/reviews', () => {
                 'Content-type': 'application/json',
                 Authorization: `Bearer ${localStorage.getItem('token')}`
               },
-              body: JSON.stringify({ id: reviewId })
+              body: JSON.stringify({ id: reviewId })/**/
             }
           )
           if (anotherResponse.status === 200) {
@@ -157,8 +157,8 @@ describe('/rest/products/reviews', () => {
           void sendPostRequest(reviewId)
           void sendPostRequest(reviewId)
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'Multiple Likes' })
-    })
-  })
-})
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'Multiple Likes' })/**/
+    })/**/
+  })/**/
+})/**/

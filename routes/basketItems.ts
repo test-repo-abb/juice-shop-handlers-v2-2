@@ -42,14 +42,14 @@ module.exports.addBasketItem = function addBasketItem () {
         BasketId: basketIds[basketIds.length - 1],
         quantity: quantities[quantities.length - 1]
       }
-      challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId }) // eslint-disable-line eqeqeq
+      challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && basketItem.BasketId && basketItem.BasketId !== 'undefined' && user.bid != basketItem.BasketId })/**/ // eslint-disable-line eqeqeq
 
       const basketItemInstance = BasketItemModel.build(basketItem)
       basketItemInstance.save().then((addedBasketItem: BasketItemModel) => {
-        res.json({ status: 'success', data: addedBasketItem })
-      }).catch((error: Error) => {
+        res.json({ status: 'success', data: addedBasketItem })/**/
+      })/**/.catch((error: Error) => {
         next(error)
-      })
+      })/**/
     }
   }
 }
@@ -58,15 +58,15 @@ module.exports.quantityCheckBeforeBasketItemAddition = function quantityCheckBef
   return (req: Request, res: Response, next: NextFunction) => {
     void quantityCheck(req, res, next, req.body.ProductId, req.body.quantity).catch((error: Error) => {
       next(error)
-    })
+    })/**/
   }
 }
 
 module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBeforeBasketItemUpdate () {
   return (req: Request, res: Response, next: NextFunction) => {
-    BasketItemModel.findOne({ where: { id: req.params.id } }).then((item: BasketItemModel | null) => {
+    BasketItemModel.findOne({ where: { id: req.params.id } })/**/.then((item: BasketItemModel | null) => {
       const user = security.authenticatedUsers.from(req)
-      challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId }) // eslint-disable-line eqeqeq
+      challengeUtils.solveIf(challenges.basketManipulateChallenge, () => { return user && req.body.BasketId && user.bid != req.body.BasketId })/**/ // eslint-disable-line eqeqeq
       if (req.body.quantity) {
         if (item == null) {
           throw new Error('No such item found!')
@@ -75,14 +75,14 @@ module.exports.quantityCheckBeforeBasketItemUpdate = function quantityCheckBefor
       } else {
         next()
       }
-    }).catch((error: Error) => {
+    })/**/.catch((error: Error) => {
       next(error)
-    })
+    })/**/
   }
 }
 
 async function quantityCheck (req: Request, res: Response, next: NextFunction, id: number, quantity: number) {
-  const product = await QuantityModel.findOne({ where: { ProductId: id } })
+  const product = await QuantityModel.findOne({ where: { ProductId: id } })/**/
   if (product == null) {
     throw new Error('No such product found!')
   }
@@ -92,9 +92,9 @@ async function quantityCheck (req: Request, res: Response, next: NextFunction, i
     if (product.quantity >= quantity) { // enough in stock?
       next()
     } else {
-      res.status(400).json({ error: res.__('We are out of stock! Sorry for the inconvenience.') })
+      res.status(400).json({ error: res.__('We are out of stock! Sorry for the inconvenience.') })/**/
     }
   } else {
-    res.status(400).json({ error: res.__('You can order only up to {{quantity}} items of this product.', { quantity: product.limitPerUser.toString() }) })
+    res.status(400).json({ error: res.__('You can order only up to {{quantity}} items of this product.', { quantity: product.limitPerUser.toString() })/**/ })/**/
   }
 }

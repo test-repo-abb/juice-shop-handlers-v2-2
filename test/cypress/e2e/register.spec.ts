@@ -1,15 +1,15 @@
 describe('/#/register', () => {
   beforeEach(() => {
     cy.visit('/#/register')
-  })
+  })/**/
 
   describe('challenge "persistedXssUser"', () => {
     beforeEach(() => {
       cy.login({
         email: 'admin',
         password: 'admin123'
-      })
-    })
+      })/**/
+    })/**/
 
     it('should be possible to bypass validation by directly using Rest API', async () => {
       cy.task('isDocker').then((isDocker) => {
@@ -28,23 +28,23 @@ describe('/#/register', () => {
                   password: 'XSSed',
                   passwordRepeat: 'XSSed',
                   role: 'admin'
-                })
+                })/**/
               }
             )
             if (response.status === 201) {
               console.log('Success')
             }
-          })
+          })/**/
 
           cy.visit('/#/administration')
           cy.on('window:alert', (t) => {
             expect(t).to.equal('xss')
-          })
-          cy.expectChallengeSolved({ challenge: 'Client-side XSS Protection' })
+          })/**/
+          cy.expectChallengeSolved({ challenge: 'Client-side XSS Protection' })/**/
         }
-      })
-    })
-  })
+      })/**/
+    })/**/
+  })/**/
 
   describe('challenge "registerAdmin"', () => {
     it('should be possible to register admin user using REST API', () => {
@@ -60,15 +60,15 @@ describe('/#/register', () => {
             password: 'pwned',
             passwordRepeat: 'pwned',
             role: 'admin'
-          })
-        })
+          })/**/
+        })/**/
         if (response.status === 201) {
           console.log('Success')
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'Admin Registration' })
-    })
-  })
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'Admin Registration' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "passwordRepeat"', () => {
     it('should be possible to register user without repeating the password', () => {
@@ -82,15 +82,15 @@ describe('/#/register', () => {
           body: JSON.stringify({
             email: 'uncle@bob.com',
             password: 'ThereCanBeOnlyOne'
-          })
-        })
+          })/**/
+        })/**/
         if (response.status === 201) {
           console.log('Success')
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'Repetitive Registration' })
-    })
-  })
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'Repetitive Registration' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "registerEmptyUser"', () => {
     it('should be possible to register a user with blank email/password', () => {
@@ -105,13 +105,13 @@ describe('/#/register', () => {
             email: '',
             password: '',
             passwordRepeat: ''
-          })
-        })
+          })/**/
+        })/**/
         if (response.status === 201) {
           console.log('Success')
         }
-      })
-      cy.expectChallengeSolved({ challenge: 'Empty User Registration' })
-    })
-  })
-})
+      })/**/
+      cy.expectChallengeSolved({ challenge: 'Empty User Registration' })/**/
+    })/**/
+  })/**/
+})/**/

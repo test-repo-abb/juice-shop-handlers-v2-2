@@ -6,7 +6,7 @@ describe('/#/track-order', () => {
         if (!isDocker) {
           cy.on('uncaught:exception', (_err, _runnable) => {
             return false
-          })
+          })/**/
 
           cy.visit('/#/track-result')
           cy.visit('/#/track-result?id=<iframe src="javascript:alert(`xss`)">')
@@ -14,11 +14,11 @@ describe('/#/track-order', () => {
 
           cy.on('window:alert', (t) => {
             expect(t).to.equal('xss')
-          })
+          })/**/
 
-          cy.expectChallengeSolved({ challenge: 'Reflected XSS' })
+          cy.expectChallengeSolved({ challenge: 'Reflected XSS' })/**/
         }
-      })
-    })
-  })
-})
+      })/**/
+    })/**/
+  })/**/
+})/**/

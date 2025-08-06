@@ -42,7 +42,7 @@ describe('FilterSettingsComponent', () => {
           }
         }
       ]
-    }).compileComponents()
+    })/**/.compileComponents()
 
     fixture = TestBed.createComponent(FilterSettingsComponent)
     component = fixture.componentInstance
@@ -51,9 +51,9 @@ describe('FilterSettingsComponent', () => {
     component.filterSetting = { ...DEFAULT_FILTER_SETTING }
 
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
-})
+  })/**/
+})/**/

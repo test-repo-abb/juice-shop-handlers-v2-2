@@ -17,20 +17,20 @@ describe('countryMapping', () => {
 
   beforeEach(() => {
     req = {}
-    res = { send: sinon.spy(), status: sinon.stub().returns({ send: sinon.spy() }) }
-  })
+    res = { send: sinon.spy(), status: sinon.stub().returns({ send: sinon.spy() })/**/ }
+  })/**/
 
   it('should return configured country mappings', () => {
-    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST') })(req, res)
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns('TEST') })/**/(req, res)
 
     expect(res.send).to.have.been.calledWith('TEST')
-  })
+  })/**/
 
   it('should return server error when configuration has no country mappings', () => {
-    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null) })(req, res)
+    countryMapping({ get: sinon.stub().withArgs('ctf.countryMapping').returns(null) })/**/(req, res)
 
     expect(res.status).to.have.been.calledWith(500)
-  })
+  })/**/
 
   it('should return ' + (config.get('ctf.countryMapping') ? 'no ' : '') + 'server error for active configuration from config/' + process.env.NODE_ENV + '.yml', () => {
     countryMapping()(req, res)
@@ -40,5 +40,5 @@ describe('countryMapping', () => {
     } else {
       expect(res.status).to.have.been.calledWith(500)
     }
-  })
-})
+  })/**/
+})/**/

@@ -15,7 +15,7 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   selector: 'app-order-summary',
   templateUrl: './order-summary.component.html',
   styleUrls: ['./order-summary.component.scss']
-})
+})/**/
 export class OrderSummaryComponent implements OnInit {
   public bonus = 0
   public itemTotal = 0
@@ -28,17 +28,17 @@ export class OrderSummaryComponent implements OnInit {
   ngOnInit () {
     this.deliveryService.getById(sessionStorage.getItem('deliveryMethodId')).subscribe((method) => {
       this.deliveryPrice = method.price
-    })
+    })/**/
 
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
       this.address = address
-    }, (error) => { console.log(error) })
+    }, (error) => { console.log(error) })/**/
 
     if (sessionStorage.getItem('paymentId') !== 'wallet') {
       this.paymentService.getById(sessionStorage.getItem('paymentId')).subscribe((card) => {
         card.cardNum = String(card.cardNum).substring(String(card.cardNum).length - 4)
         this.paymentMethod = card
-      }, (err) => { console.log(err) })
+      }, (err) => { console.log(err) })/**/
     } else if (sessionStorage.getItem('paymentId') === 'wallet') {
       this.paymentMethod = 'wallet'
     }
@@ -67,6 +67,6 @@ export class OrderSummaryComponent implements OnInit {
     }, (err) => {
       console.log(err)
       this.snackBarHelperService.open(err.error?.error.message, 'errorBar')
-    })
+    })/**/
   }
 }

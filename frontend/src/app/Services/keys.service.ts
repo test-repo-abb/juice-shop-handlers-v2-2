@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class KeysService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/web3'
@@ -17,7 +17,7 @@ export class KeysService {
       map((response: any) => response),
       catchError((err) => {
         throw err
-      })
+      })/**/
     )
   }
 
@@ -26,7 +26,7 @@ export class KeysService {
       map((response: any) => response),
       catchError((err) => {
         throw err
-      })
+      })/**/
     )
   }
 
@@ -35,7 +35,7 @@ export class KeysService {
       map((response: any) => response),
       catchError((err) => {
         throw err
-      })
+      })/**/
     )
   }
 
@@ -46,7 +46,7 @@ export class KeysService {
       map((response: any) => response),
       catchError((err) => {
         throw err
-      })
+      })/**/
     )
   }
 
@@ -57,7 +57,7 @@ export class KeysService {
       map((response: any) => response),
       catchError((err) => {
         throw err
-      })
+      })/**/
     )
   }
 
@@ -68,7 +68,7 @@ export class KeysService {
       map((response: any) => response),
       catchError((err) => {
         throw err
-      })
+      })/**/
     )
   }
 }

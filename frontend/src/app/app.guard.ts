@@ -25,7 +25,7 @@ export class LoginGuard implements CanActivate {
     this.ngZone.run(async () => await this.router.navigate(['403'], {
       skipLocationChange: true,
       queryParams: { error }
-    }))
+    })/**/)
   }
 
   tokenDecode () {

@@ -19,6 +19,6 @@ describe('appConfiguration', () => {
     res = { json: sinon.spy() }
 
     retrieveAppConfiguration()(req, res)
-    expect(res.json).to.have.been.calledWith({ config: require('config') })
-  })
-})
+    expect(res.json).to.have.been.calledWith({ config: require('config') })/**/
+  })/**/
+})/**/

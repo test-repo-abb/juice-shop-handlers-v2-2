@@ -14,9 +14,9 @@ export default function validateChatBot (trainingData: any, exitOnFailure = true
   success = checkIntentWithFunctionHandlerExists(trainingData, 'queries.productPrice', 'productPrice') && success
   success = checkIntentWithFunctionHandlerExists(trainingData, 'queries.functionTest', 'testFunction') && success
   if (success) {
-    logger.info(`Chatbot training data ${colors.bold(utils.extractFilename(config.get('application.chatBot.trainingData')))} validated (${colors.green('OK')})`)
+    logger.info(`Chatbot training data ${colors.bold(utils.extractFilename(config.get('application.chatBot.trainingData')))} validated (${colors.green('OK')})/**/`)
   } else {
-    logger.warn(`Chatbot training data ${colors.bold(utils.extractFilename(config.get('application.chatBot.trainingData')))} validated (${colors.red('NOT OK')})`)
+    logger.warn(`Chatbot training data ${colors.bold(utils.extractFilename(config.get('application.chatBot.trainingData')))} validated (${colors.red('NOT OK')})/**/`)
     logger.warn(`Visit ${colors.yellow('https://pwning.owasp-juice.shop/appendix/chatbot.html')} for the training data schema definition.`)
     if (exitOnFailure) {
       logger.error(colors.red('Exiting due to configuration errors!'))
@@ -30,11 +30,11 @@ export const checkIntentWithFunctionHandlerExists = (trainingData: any, intent: 
   let success = true
   const intentData = trainingData.data.filter((data: any) => data.intent === intent)
   if (intentData.length === 0) {
-    logger.warn(`Intent ${colors.italic(intent)} is missing in chatbot training data (${colors.red('NOT OK')})`)
+    logger.warn(`Intent ${colors.italic(intent)} is missing in chatbot training data (${colors.red('NOT OK')})/**/`)
     success = false
   } else {
-    if (intentData[0].answers.filter((answer: { action: string, handler: string }) => answer.action === 'function' && answer.handler === handler).length === 0) {
-      logger.warn(`Answer with ${colors.italic('function')} action and handler ${colors.italic(handler)} is missing for intent ${colors.italic(intent)} (${colors.red('NOT OK')})`)
+    if (intentData[0].answers.filter((answer: { action: string, handler: string })/**/ => answer.action === 'function' && answer.handler === handler).length === 0) {
+      logger.warn(`Answer with ${colors.italic('function')} action and handler ${colors.italic(handler)} is missing for intent ${colors.italic(intent)} (${colors.red('NOT OK')})/**/`)
       success = false
     }
   }

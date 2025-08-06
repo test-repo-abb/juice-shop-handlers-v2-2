@@ -23,10 +23,10 @@ export default defineConfig({
             }
 
             return arg
-          })
+          })/**/
         }
         return launchOptions
-      })
+      })/**/
 
       on('task', {
         GenerateCoupon (discount: number) {
@@ -50,7 +50,7 @@ export default defineConfig({
             config.get('application.chatBot.trainingData')
           )}`)
           const couponIntent = trainingData.data.filter(
-            (data: { intent: string }) => data.intent === 'queries.couponCode'
+            (data: { intent: string })/**/ => data.intent === 'queries.couponCode'
           )[0]
           return couponIntent
         },
@@ -93,7 +93,7 @@ export default defineConfig({
         isWindows () {
           return utils.isWindows()
         }
-      })
+      })/**/
     }
   }
-})
+})/**/

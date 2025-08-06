@@ -23,18 +23,18 @@ library.add(faUnlockAlt, faSave)
   selector: 'app-two-factor-auth',
   templateUrl: './two-factor-auth.component.html',
   styleUrls: ['./two-factor-auth.component.scss']
-})
+})/**/
 export class TwoFactorAuthComponent {
   public data?: string
 
   public twoFactorSetupForm: UntypedFormGroup = new UntypedFormGroup({
     passwordControl: new UntypedFormControl('', [Validators.required]),
     initalTokenControl: new UntypedFormControl('', [Validators.required, Validators.pattern('^[\\d]{6}$')])
-  })
+  })/**/
 
   public twoFactorDisableForm: UntypedFormGroup = new UntypedFormGroup({
     passwordControl: new UntypedFormControl('', [Validators.required])
-  })
+  })/**/
 
   public setupStatus: boolean | null = null
   public errored: boolean | null = null
@@ -66,7 +66,7 @@ export class TwoFactorAuthComponent {
       }
     }, () => {
       console.log('Failed to fetch 2fa status')
-    })
+    })/**/
     return status
   }
 
@@ -82,7 +82,7 @@ export class TwoFactorAuthComponent {
       this.twoFactorSetupForm.get('passwordControl')?.markAsPristine()
       this.twoFactorSetupForm.get('initalTokenControl')?.markAsPristine()
       this.errored = true
-    })
+    })/**/
   }
 
   disable () {
@@ -98,6 +98,6 @@ export class TwoFactorAuthComponent {
     }, () => {
       this.twoFactorDisableForm.get('passwordControl')?.markAsPristine()
       this.errored = true
-    })
+    })/**/
   }
 }

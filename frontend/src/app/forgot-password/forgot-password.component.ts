@@ -19,7 +19,7 @@ library.add(faSave, faEdit)
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
-})
+})/**/
 export class ForgotPasswordComponent {
   public emailControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.email])
   public securityQuestionControl: UntypedFormControl = new UntypedFormControl({ disabled: true, value: '' }, [Validators.required])
@@ -66,19 +66,19 @@ export class ForgotPasswordComponent {
       answer: this.securityQuestionControl.value,
       new: this.passwordControl.value,
       repeat: this.repeatPasswordControl.value
-    }).subscribe(() => {
+    })/**/.subscribe(() => {
       this.error = undefined
       this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
         this.confirmation = passwordSuccessfullyChanged
       }, (translationId) => {
         this.confirmation = translationId
-      })
+      })/**/
       this.resetForm()
     }, (error) => {
       this.error = error.error
       this.confirmation = undefined
       this.resetErrorForm()
-    })
+    })/**/
   }
 
   resetForm () {

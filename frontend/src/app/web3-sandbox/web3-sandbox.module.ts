@@ -38,7 +38,7 @@ const routes: Routes = [
     MatSnackBarModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
-})
+})/**/
 export class FaucetModule {
   constructor (
     public configurationService: ConfigurationService,
@@ -48,6 +48,6 @@ export class FaucetModule {
       overlayContainer
         .getContainerElement()
         .classList.add(conf.application.theme + '-theme')
-    })
+    })/**/
   }
 }

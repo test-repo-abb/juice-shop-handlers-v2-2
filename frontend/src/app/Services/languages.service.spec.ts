@@ -12,12 +12,12 @@ describe('LanguagesService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule],
     providers: [LanguagesService]
-  }))
+  })/**/)
 
   it('should be created', () => {
     const service: LanguagesService = TestBed.inject(LanguagesService)
     expect(service).toBeTruthy()
-  })
+  })/**/
 
   it('should get the language list through the rest API', inject([LanguagesService, HttpTestingController],
     fakeAsync((service: LanguagesService, httpMock: HttpTestingController) => {
@@ -33,6 +33,6 @@ describe('LanguagesService', () => {
       expect(res).toBe('apiResponse')
 
       httpMock.verify()
-    })
+    })/**/
   ))
-})
+})/**/

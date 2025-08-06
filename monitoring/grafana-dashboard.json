@@ -111,7 +111,7 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"}) / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"}) * 100",
+          "expr": "sum without (category)(juiceshop_challenges_solved{difficulty=\"$difficulties\"})/**/ / sum without (category)(juiceshop_challenges_total{difficulty=\"$difficulties\"})/**/ * 100",
           "legendFormat": "",
           "refId": "A"
         }
@@ -344,7 +344,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "sum by (category)(juiceshop_challenges_solved{}) / sum by (category)(juiceshop_challenges_total{}) * 100 != 0",
+          "expr": "sum by (category)(juiceshop_challenges_solved{})/**/ / sum by (category)(juiceshop_challenges_total{})/**/ * 100 != 0",
           "instant": false,
           "interval": "",
           "legendFormat": "{{category}}",
@@ -1699,7 +1699,7 @@
       "pluginVersion": "8.1.5",
       "targets": [
         {
-          "expr": "sum(juiceshop_version_info{}) by (version)",
+          "expr": "sum(juiceshop_version_info{})/**/ by (version)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -1777,7 +1777,7 @@
       "pluginVersion": "8.1.5",
       "targets": [
         {
-          "expr": "sum(nodejs_version_info{}) by (version)",
+          "expr": "sum(nodejs_version_info{})/**/ by (version)",
           "format": "time_series",
           "instant": false,
           "interval": "",

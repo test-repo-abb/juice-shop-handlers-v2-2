@@ -14,7 +14,7 @@ export = async () => {
         reject(err)
       }
       resolve()
-    })
+    })/**/
   }
   )
 }

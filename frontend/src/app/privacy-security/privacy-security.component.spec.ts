@@ -43,16 +43,16 @@ describe('PrivacySecurityComponent', () => {
         RouterTestingModule
       ],
       providers: [TranslateService]
-    }).compileComponents()
-  }))
+    })/**/.compileComponents()
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PrivacySecurityComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should compile', () => {
     expect(component).toBeTruthy()
-  })
-})
+  })/**/
+})/**/

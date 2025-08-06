@@ -18,10 +18,10 @@ module.exports.nftMintListener = function nftMintListener () {
           if (!addressesMinted.has(minter)) {
             addressesMinted.add(minter)
           }
-        })
+        })/**/
         isEventListenerCreated = true
       }
-      res.status(200).json({ success: true, message: 'Event Listener Created' })
+      res.status(200).json({ success: true, message: 'Event Listener Created' })/**/
     } catch (error) {
       res.status(500).json(utils.getErrorMessage(error))
     }
@@ -35,9 +35,9 @@ module.exports.walletNFTVerify = function walletNFTVerify () {
       if (addressesMinted.has(metamaskAddress)) {
         addressesMinted.delete(metamaskAddress)
         challengeUtils.solveIf(challenges.nftMintChallenge, () => true)
-        res.status(200).json({ success: true, message: 'Challenge successfully solved', status: challenges.nftMintChallenge })
+        res.status(200).json({ success: true, message: 'Challenge successfully solved', status: challenges.nftMintChallenge })/**/
       } else {
-        res.status(200).json({ success: false, message: 'Wallet did not mint the NFT', status: challenges.nftMintChallenge })
+        res.status(200).json({ success: false, message: 'Wallet did not mint the NFT', status: challenges.nftMintChallenge })/**/
       }
     } catch (error) {
       res.status(500).json(utils.getErrorMessage(error))

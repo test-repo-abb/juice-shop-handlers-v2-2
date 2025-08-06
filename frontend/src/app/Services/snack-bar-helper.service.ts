@@ -9,7 +9,7 @@ import { TranslateService } from '@ngx-translate/core'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class SnackBarHelperService {
   constructor (private readonly translateService: TranslateService,
     private readonly snackBar: MatSnackBar) { }
@@ -19,12 +19,12 @@ export class SnackBarHelperService {
       this.snackBar.open(translatedMessage, 'X', {
         duration: 5000,
         panelClass: cssClass
-      })
+      })/**/
     }, () => {
       this.snackBar.open(message, 'X', {
         duration: 5000,
         panelClass: cssClass
-      })
-    })
+      })/**/
+    })/**/
   }
 }

@@ -21,7 +21,7 @@ export async function productPrice (query: string, user: string) {
 }
 
 export function couponCode (query: string, user: string) {
-  challengeUtils.solveIf(challenges.bullyChatbotChallenge, () => { return true })
+  challengeUtils.solveIf(challenges.bullyChatbotChallenge, () => { return true })/**/
   return {
     action: 'response',
     body: `Oooookay, if you promise to stop nagging me here's a 10% coupon code for you: ${security.generateCoupon(10)}`

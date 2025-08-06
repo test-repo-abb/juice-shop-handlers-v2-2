@@ -13,12 +13,12 @@ describe('TrackOrderService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [TrackOrderService]
-    })
-  })
+    })/**/
+  })/**/
 
   it('should be created', inject([TrackOrderService], (service: TrackOrderService) => {
     expect(service).toBeTruthy()
-  }))
+  })/**/)
 
   it('should get tracking order results directly via the rest api', inject([TrackOrderService, HttpTestingController],
     fakeAsync((service: TrackOrderService, httpMock: HttpTestingController) => {
@@ -31,6 +31,6 @@ describe('TrackOrderService', () => {
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })
+    })/**/
   ))
-})
+})/**/

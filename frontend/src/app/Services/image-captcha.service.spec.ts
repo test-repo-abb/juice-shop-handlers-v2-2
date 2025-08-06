@@ -12,12 +12,12 @@ describe('ImageCaptchaService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ImageCaptchaService]
-    })
-  })
+    })/**/
+  })/**/
 
   it('should be created', inject([ImageCaptchaService], (service: ImageCaptchaService) => {
     expect(service).toBeTruthy()
-  }))
+  })/**/)
 
   it('should get captcha directly from the rest api', inject([ImageCaptchaService, HttpTestingController],
     fakeAsync((service: ImageCaptchaService, httpMock: HttpTestingController) => {
@@ -30,6 +30,6 @@ describe('ImageCaptchaService', () => {
       expect(req.request.method).toBe('GET')
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })
+    })/**/
   ))
-})
+})/**/

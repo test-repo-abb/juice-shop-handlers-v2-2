@@ -20,7 +20,7 @@ library.add(faStar, faPaperPlane)
   selector: 'app-contact',
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
-})
+})/**/
 export class ContactComponent implements OnInit {
   public authorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public feedbackControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.maxLength(160)])
@@ -46,10 +46,10 @@ export class ContactComponent implements OnInit {
     }, (err) => {
       this.feedback = undefined
       console.log(err)
-    })
+    })/**/
     this.getNewCaptcha()
 
-    this.formSubmitService.attachEnterKeyHandler('feedback-form', 'submitButton', () => { this.save() })
+    this.formSubmitService.attachEnterKeyHandler('feedback-form', 'submitButton', () => { this.save() })/**/
   }
 
   getNewCaptcha () {
@@ -63,7 +63,7 @@ export class ContactComponent implements OnInit {
     this.feedback.captchaId = this.captchaId
     this.feedback.captcha = this.captchaControl.value
     // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-    this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})`
+    this.feedback.comment = `${this.feedbackControl.value} (${this.authorControl.value})/**/`
     this.feedback.rating = this.rating
     this.feedback.UserId = this.userIdControl.value
     this.feedbackService.save(this.feedback).subscribe((savedFeedback) => {
@@ -72,13 +72,13 @@ export class ContactComponent implements OnInit {
           this.snackBarHelperService.open(feedbackThankYou)
         }, (translationId) => {
           this.snackBarHelperService.open(translationId)
-        })
+        })/**/
       } else {
         this.translate.get('FEEDBACK_THANK_YOU').subscribe((feedbackThankYou) => {
           this.snackBarHelperService.open(feedbackThankYou)
         }, (translationId) => {
           this.snackBarHelperService.open(translationId)
-        })
+        })/**/
       }
       this.feedback = {}
       this.ngOnInit()
@@ -88,7 +88,7 @@ export class ContactComponent implements OnInit {
       this.snackBarHelperService.open(err.error, 'errorBar')
       this.feedback = {}
       this.resetCaptcha()
-    })
+    })/**/
   }
 
   resetForm () {

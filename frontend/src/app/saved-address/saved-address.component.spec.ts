@@ -53,17 +53,17 @@ describe('SavedAddressComponent', () => {
       ],
       declarations: [SavedAddressComponent, AddressComponent],
       providers: [{ provide: MatSnackBar, useValue: snackBar }]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SavedAddressComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
-})
+  })/**/
+})/**/

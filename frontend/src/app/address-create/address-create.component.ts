@@ -16,7 +16,7 @@ import { SnackBarHelperService } from '../Services/snack-bar-helper.service'
   selector: 'app-address-create',
   templateUrl: './address-create.component.html',
   styleUrls: ['./address-create.component.scss']
-})
+})/**/
 export class AddressCreateComponent implements OnInit {
   public countryControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public nameControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
@@ -41,13 +41,13 @@ export class AddressCreateComponent implements OnInit {
         this.addressId = paramMap.get('addressId')
         this.addressService.getById(this.addressId).subscribe((address) => {
           this.initializeForm(address)
-        })
+        })/**/
       } else {
         this.mode = 'create'
         this.addressId = null
       }
-    })
-    this.formSubmitService.attachEnterKeyHandler('address-form', 'submitButton', () => { this.save() })
+    })/**/
+    this.formSubmitService.attachEnterKeyHandler('address-form', 'submitButton', () => { this.save() })/**/
   }
 
   save () {
@@ -64,32 +64,32 @@ export class AddressCreateComponent implements OnInit {
         this.ngOnInit()
         this.resetForm()
         this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city }).subscribe((addressUpdated) => {
+        this.translate.get('ADDRESS_UPDATED', { city: savedAddress.city })/**/.subscribe((addressUpdated) => {
           this.snackBarHelperService.open(addressUpdated, 'confirmBar')
         }, (translationId) => {
           this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
+        })/**/
       }, (err) => {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
         this.address = {}
         this.resetForm()
-      })
+      })/**/
     } else {
       this.addressService.save(this.address).subscribe((savedAddress) => {
         this.address = {}
         this.ngOnInit()
         this.resetForm()
         this.routeToPreviousUrl()
-        this.translate.get('ADDRESS_ADDED', { city: savedAddress.city }).subscribe((addressAdded) => {
+        this.translate.get('ADDRESS_ADDED', { city: savedAddress.city })/**/.subscribe((addressAdded) => {
           this.snackBarHelperService.open(addressAdded, 'confirmBar')
         }, (translationId) => {
           this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
+        })/**/
       }, (err) => {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
         this.address = {}
         this.resetForm()
-      })
+      })/**/
     }
   }
 

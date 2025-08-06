@@ -21,9 +21,9 @@ library.add(faPaperPlane)
   selector: 'app-recycle',
   templateUrl: './recycle.component.html',
   styleUrls: ['./recycle.component.scss']
-})
+})/**/
 export class RecycleComponent implements OnInit {
-  @ViewChild('addressComp', { static: true }) public addressComponent: AddressComponent
+  @ViewChild('addressComp', { static: true })/**/ public addressComponent: AddressComponent
   public requestorControl: UntypedFormControl = new UntypedFormControl({ value: '', disabled: true }, [])
   public recycleQuantityControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.min(10), Validators.max(1000)])
   public pickUpDateControl: UntypedFormControl = new UntypedFormControl()
@@ -47,12 +47,12 @@ export class RecycleComponent implements OnInit {
         // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
         this.bottomImage = `assets/public/images/products/${config.application.recyclePage.bottomProductImage}`
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
 
     this.initRecycle()
     this.findAll()
 
-    this.formSubmitService.attachEnterKeyHandler('recycle-form', 'recycleButton', () => { this.save() })
+    this.formSubmitService.attachEnterKeyHandler('recycle-form', 'recycleButton', () => { this.save() })/**/
   }
 
   initRecycle () {
@@ -61,7 +61,7 @@ export class RecycleComponent implements OnInit {
       this.recycle.UserId = data.id
       this.userEmail = data.email
       this.requestorControl.setValue(this.userEmail)
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   save () {
@@ -74,17 +74,17 @@ export class RecycleComponent implements OnInit {
 
     this.recycleService.save(this.recycle).subscribe((savedRecycle: any) => {
       if (savedRecycle.isPickup) {
-        this.translate.get('CONFIRM_RECYCLING_PICKUP', { pickupdate: savedRecycle.pickupDate }).subscribe((confirmRecyclingPickup) => {
+        this.translate.get('CONFIRM_RECYCLING_PICKUP', { pickupdate: savedRecycle.pickupDate })/**/.subscribe((confirmRecyclingPickup) => {
           this.snackBarHelperService.open(confirmRecyclingPickup, 'confirmBar')
         }, (translationId) => {
           this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
+        })/**/
       } else {
         this.translate.get('CONFIRM_RECYCLING_BOX').subscribe((confirmRecyclingBox) => {
           this.snackBarHelperService.open(confirmRecyclingBox, 'confirmBar')
         }, (translationId) => {
           this.snackBarHelperService.open(translationId, 'confirmBar')
-        })
+        })/**/
       }
       this.addressComponent.load()
       this.initRecycle()
@@ -92,7 +92,7 @@ export class RecycleComponent implements OnInit {
     }, (err) => {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
       console.log(err)
-    })
+    })/**/
   }
 
   findAll () {
@@ -100,7 +100,7 @@ export class RecycleComponent implements OnInit {
       this.recycles = recycles
     }, (error) => {
       console.log(error)
-    })
+    })/**/
   }
 
   resetForm () {

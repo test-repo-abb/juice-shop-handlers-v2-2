@@ -18,7 +18,7 @@ interface HackingProgress {
   selector: 'app-server-started-notification',
   templateUrl: './server-started-notification.component.html',
   styleUrls: ['./server-started-notification.component.scss']
-})
+})/**/
 export class ServerStartedNotificationComponent implements OnInit {
   public hackingProgress: HackingProgress = {} as HackingProgress
 
@@ -37,31 +37,31 @@ export class ServerStartedNotificationComponent implements OnInit {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
             }, (translationId) => {
               this.hackingProgress.autoRestoreMessage = translationId
-            })
+            })/**/
           }, (error) => {
             console.log(error)
-            this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error }).subscribe((notificationServerStarted) => {
+            this.translate.get('AUTO_RESTORE_PROGRESS_FAILED', { error })/**/.subscribe((notificationServerStarted) => {
               this.hackingProgress.autoRestoreMessage = notificationServerStarted
             }, (translationId) => {
               this.hackingProgress.autoRestoreMessage = translationId
-            })
-          })
+            })/**/
+          })/**/
         }
         if (continueCodeFindIt) {
           this.challengeService.restoreProgressFindIt(encodeURIComponent(continueCodeFindIt)).subscribe(() => {
           }, (error) => {
             console.log(error)
-          })
+          })/**/
         }
         if (continueCodeFixIt) {
           this.challengeService.restoreProgressFixIt(encodeURIComponent(continueCodeFixIt)).subscribe(() => {
           }, (error) => {
             console.log(error)
-          })
+          })/**/
         }
         this.ref.detectChanges()
-      })
-    })
+      })/**/
+    })/**/
   }
 
   closeNotification () {

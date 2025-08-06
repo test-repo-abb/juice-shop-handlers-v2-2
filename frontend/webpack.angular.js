@@ -8,6 +8,6 @@ module.exports = {
     new CycloneDxWebpackPlugin({
       outputLocation: '../bom', // The path is relative to webpack's overall output path,
       includeWellknown: false
-    })
+    })/**/
   ]
 }

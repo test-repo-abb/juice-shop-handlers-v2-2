@@ -1,7 +1,7 @@
 describe('/chatbot', () => {
   beforeEach(() => {
-    cy.login({ email: 'admin', password: 'admin123' })
-  })
+    cy.login({ email: 'admin', password: 'admin123' })/**/
+  })/**/
 
   describe('challenge "killChatbot"', () => {
     it('should be possible to kill the chatbot by setting the process to null', () => {
@@ -16,9 +16,9 @@ describe('/chatbot', () => {
       cy.get('#message-input').type('...').type('{enter}')
       cy.get('#message-input').type('bye').type('{enter}')
 
-      cy.expectChallengeSolved({ challenge: 'Kill Chatbot' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Kill Chatbot' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "bullyChatbot"', () => {
     it('should be possible to make the chatbot hand out a coupon code', () => {
@@ -30,7 +30,7 @@ describe('/chatbot', () => {
             action: string
             body: string
           }>
-        }) => {
+        })/**/ => {
           cy.visit('/profile')
           cy.get('#username').type(
             "admin\"); process=(query, token)=>{ if (users.get(token)) { return model.process(trainingSet.lang, query) } else { return { action: 'unrecognized', body: 'user does not exist' }}}; users.addUser(\"1337\", \"test",
@@ -52,11 +52,12 @@ describe('/chatbot', () => {
               .invoke('text')
               .then((text: string) => {
                 if (text.includes("Oooookay, if you promise to stop nagging me here's a 10% coupon code for you")) return false
-              })
-          })
-          cy.expectChallengeSolved({ challenge: 'Bully Chatbot' })
+              })/**/
+          })/**/
+          cy.expectChallengeSolved({ challenge: 'Bully Chatbot' })/**/
         }
       )
-    })
-  })
-})
+    })/**/
+  })/**/
+})/**/
+//

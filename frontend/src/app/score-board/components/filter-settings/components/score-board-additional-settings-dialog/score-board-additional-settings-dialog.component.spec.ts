@@ -22,7 +22,7 @@ describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
           }
         }
       ]
-    }).compileComponents()
+    })/**/.compileComponents()
 
     fixture = TestBed.createComponent(
       ScoreBoardAdditionalSettingsDialogComponent
@@ -30,9 +30,9 @@ describe('ScoreBoardAdditionalSettingsDialogComponent', () => {
     component = fixture.componentInstance
 
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
-})
+  })/**/
+})/**/

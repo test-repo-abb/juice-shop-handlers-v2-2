@@ -12,6 +12,6 @@ module.exports = function retrieveAppVersion () {
   return (_req: Request, res: Response) => {
     res.json({
       version: config.get('application.showVersionNumber') ? utils.version() : ''
-    })
+    })/**/
   }
 }

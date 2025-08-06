@@ -1,7 +1,7 @@
 describe('/dataerasure', () => {
   beforeEach(() => {
-    cy.login({ email: 'admin', password: 'admin123' })
-  })
+    cy.login({ email: 'admin', password: 'admin123' })/**/
+  })/**/
 
   describe('challenge "lfr"', () => {
     it('should be possible to perform local file read attack using the browser', () => {
@@ -17,13 +17,14 @@ describe('/dataerasure', () => {
             Cookie: `token=${localStorage.getItem('token')}`
           },
           body: params
-        })
+        })/**/
         if (response.status === 200) {
           console.log('Success')
         }
-      })
+      })/**/
       cy.visit('/')
-      cy.expectChallengeSolved({ challenge: 'Local File Read' })
-    })
-  })
-})
+      cy.expectChallengeSolved({ challenge: 'Local File Read' })/**/
+    })/**/
+  })/**/
+})/**/
+//

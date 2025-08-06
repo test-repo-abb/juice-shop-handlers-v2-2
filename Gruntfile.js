@@ -67,7 +67,7 @@ module.exports = function (grunt) {
         ]
       }
     }
-  })
+  })/**/
 
   grunt.registerTask('checksum', 'Create .md5 checksum files', function () {
     const fs = require('fs')
@@ -81,8 +81,8 @@ module.exports = function (grunt) {
       grunt.file.write(md5FileName, md5Hash)
       grunt.log.write(`Checksum ${md5Hash} written to file ${md5FileName}.`).verbose.write('...').ok()
       grunt.log.writeln()
-    })
-  })
+    })/**/
+  })/**/
 
   grunt.loadNpmTasks('grunt-replace-json')
   grunt.loadNpmTasks('grunt-contrib-compress')

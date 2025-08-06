@@ -18,7 +18,7 @@ library.add(faTrashAlt, faMinusSquare, faPlusSquare)
   selector: 'app-purchase-basket',
   templateUrl: './purchase-basket.component.html',
   styleUrls: ['./purchase-basket.component.scss']
-})
+})/**/
 export class PurchaseBasketComponent implements OnInit {
   @Input('allowEdit') public allowEdit: boolean = false
   @Input('displayTotal') public displayTotal: boolean = false
@@ -41,7 +41,7 @@ export class PurchaseBasketComponent implements OnInit {
     this.userService.whoAmI().subscribe((data) => {
       this.userEmail = data.email || 'anonymous'
       this.userEmail = '(' + this.userEmail + ')'
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   load () {
@@ -49,7 +49,7 @@ export class PurchaseBasketComponent implements OnInit {
       if (this.isDeluxe()) {
         basket.Products.forEach(product => {
           product.price = product.deluxePrice
-        })
+        })/**/
       }
       this.dataSource = basket.Products
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
@@ -57,14 +57,14 @@ export class PurchaseBasketComponent implements OnInit {
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       this.bonus = basket.Products.reduce((bonusPoints, product) => bonusPoints + Math.round(product.price / 10) * product.BasketItem.quantity, 0)
       this.sendToParent(this.dataSource.length)
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   delete (id) {
     this.basketService.del(id).subscribe(() => {
       this.load()
       this.basketService.updateNumberOfCartItems()
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   inc (id) {
@@ -79,14 +79,14 @@ export class PurchaseBasketComponent implements OnInit {
     this.basketService.get(id).subscribe((basketItem) => {
       // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
       const newQuantity = basketItem.quantity + value
-      this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity }).subscribe(() => {
+      this.basketService.put(id, { quantity: newQuantity < 1 ? 1 : newQuantity })/**/.subscribe(() => {
         this.load()
         this.basketService.updateNumberOfCartItems()
       }, (err) => {
         this.snackBarHelperService.open(err.error?.error, 'errorBar')
         console.log(err)
-      })
-    }, (err) => { console.log(err) })
+      })/**/
+    }, (err) => { console.log(err) })/**/
   }
 
   sendToParent (count) {

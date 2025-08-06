@@ -3,9 +3,9 @@ describe('/#/score-board', () => {
     it('should be possible to access score board', () => {
       cy.visit('/#/score-board')
       cy.url().should('match', /\/score-board/)
-      cy.expectChallengeSolved({ challenge: 'Score Board' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Score Board' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "continueCode"', () => {
     it('should be possible to solve the non-existent challenge #99', () => {
@@ -20,18 +20,18 @@ describe('/#/score-board', () => {
             }
           }
         )
-      })
+      })/**/
       cy.visit('/#/score-board')
-      cy.expectChallengeSolved({ challenge: 'Imaginary Challenge' })
-    })
-  })
-})
+      cy.expectChallengeSolved({ challenge: 'Imaginary Challenge' })/**/
+    })/**/
+  })/**/
+})/**/
 
 xdescribe('/#/score-board-legacy', () => { // TODO Replace with test based on new Score Board
   describe('repeat notification', () => {
     beforeEach(() => {
       cy.visit('/#/score-board-legacy')
-    })
+    })/**/
 
     it('should be possible in both when and when not in CTF mode', () => {
       cy.task('GetFromConfig', 'challenges.showSolvedNotifications').as(
@@ -52,7 +52,7 @@ xdescribe('/#/score-board-legacy', () => { // TODO Replace with test based on ne
                 'not.have.length',
                 alertsBefore
               )
-            })
+            })/**/
           } else {
             cy.get('.challenge-solved-toast').then((arrayOfSolvedToasts) => {
               const alertsBefore = Cypress.$(arrayOfSolvedToasts).length
@@ -62,10 +62,10 @@ xdescribe('/#/score-board-legacy', () => { // TODO Replace with test based on ne
                 'have.length',
                 alertsBefore
               )
-            })
+            })/**/
           }
-        })
-      })
-    })
-  })
-})
+        })/**/
+      })/**/
+    })/**/
+  })/**/
+})/**/

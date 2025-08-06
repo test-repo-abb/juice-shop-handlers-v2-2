@@ -24,7 +24,7 @@ const oauthProviderUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
-})
+})/**/
 
 export class LoginComponent implements OnInit {
   public emailControl = new UntypedFormControl('', [Validators.required])
@@ -64,9 +64,9 @@ export class LoginComponent implements OnInit {
           console.log(this.redirectUri + ' is not an authorized redirect URI for this application.')
         }
       }
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
 
-    this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => { this.login() })
+    this.formSubmitService.attachEnterKeyHandler('login-form', 'loginButton', () => { this.login() })/**/
   }
 
   login () {
@@ -77,12 +77,12 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('token', authentication.token)
       const expires = new Date()
       expires.setHours(expires.getHours() + 8)
-      this.cookieService.put('token', authentication.token, { expires })
+      this.cookieService.put('token', authentication.token, { expires })/**/
       sessionStorage.setItem('bid', authentication.bid)
       this.basketService.updateNumberOfCartItems()
       this.userService.isLoggedIn.next(true)
       this.ngZone.run(async () => await this.router.navigate(['/search']))
-    }, ({ error }) => {
+    }, ({ error })/**/ => {
       if (error.status && error.data && error.status === 'totp_token_required') {
         localStorage.setItem('totp_tmp_token', error.data.tmpToken)
         this.ngZone.run(async () => await this.router.navigate(['/2fa/enter']))
@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
       this.userService.isLoggedIn.next(false)
       this.emailControl.markAsPristine()
       this.passwordControl.markAsPristine()
-    })
+    })/**/
 
     if (this.rememberMe.value) {
       localStorage.setItem('email', this.user.email)

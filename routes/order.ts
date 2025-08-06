@@ -33,7 +33,7 @@ interface Product {
 module.exports = function placeOrder () {
   return (req: Request, res: Response, next: NextFunction) => {
     const id = req.params.id
-    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })
+    BasketModel.findOne({ where: { id }, include: [{ model: ProductModel, paranoid: false, as: 'Products' }] })/**/
       .then(async (basket: BasketModel | null) => {
         if (basket != null) {
           const customer = security.authenticatedUsers.from(req)
@@ -45,37 +45,37 @@ module.exports = function placeOrder () {
           const fileWriter = doc.pipe(fs.createWriteStream(path.join('ftp/', pdfFile)))
 
           fileWriter.on('finish', async () => {
-            void basket.update({ coupon: null })
-            await BasketItemModel.destroy({ where: { BasketId: id } })
-            res.json({ orderConfirmation: orderId })
-          })
+            void basket.update({ coupon: null })/**/
+            await BasketItemModel.destroy({ where: { BasketId: id } })/**/
+            res.json({ orderConfirmation: orderId })/**/
+          })/**/
 
-          doc.font('Times-Roman', 40).text(config.get<string>('application.name'), { align: 'center' })
+          doc.font('Times-Roman', 40).text(config.get<string>('application.name'), { align: 'center' })/**/
           doc.moveTo(70, 115).lineTo(540, 115).stroke()
           doc.moveTo(70, 120).lineTo(540, 120).stroke()
           doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 20).text(req.__('Order Confirmation'), { align: 'center' })
+          doc.font('Times-Roman', 20).text(req.__('Order Confirmation'), { align: 'center' })/**/
           doc.fontSize(20).moveDown()
-          doc.font('Times-Roman', 15).text(`${req.__('Customer')}: ${email}`, { align: 'left' })
-          doc.font('Times-Roman', 15).text(`${req.__('Order')} #: ${orderId}`, { align: 'left' })
+          doc.font('Times-Roman', 15).text(`${req.__('Customer')}: ${email}`, { align: 'left' })/**/
+          doc.font('Times-Roman', 15).text(`${req.__('Order')} #: ${orderId}`, { align: 'left' })/**/
           doc.moveDown()
-          doc.font('Times-Roman', 15).text(`${req.__('Date')}: ${date}`, { align: 'left' })
+          doc.font('Times-Roman', 15).text(`${req.__('Date')}: ${date}`, { align: 'left' })/**/
           doc.moveDown()
           doc.moveDown()
           let totalPrice = 0
           const basketProducts: Product[] = []
           let totalPoints = 0
-          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id }) => {
+          basket.Products?.forEach(({ BasketItem, price, deluxePrice, name, id })/**/ => {
             if (BasketItem != null) {
-              challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })
-              QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } }).then((product: any) => {
+              challengeUtils.solveIf(challenges.christmasSpecialChallenge, () => { return BasketItem.ProductId === products.christmasSpecial.id })/**/
+              QuantityModel.findOne({ where: { ProductId: BasketItem.ProductId } })/**/.then((product: any) => {
                 const newQuantity = product.quantity - BasketItem.quantity
-                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } }).catch((error: unknown) => {
+                QuantityModel.update({ quantity: newQuantity }, { where: { ProductId: BasketItem?.ProductId } })/**/.catch((error: unknown) => {
                   next(error)
-                })
-              }).catch((error: unknown) => {
+                })/**/
+              })/**/.catch((error: unknown) => {
                 next(error)
-              })
+              })/**/
               let itemPrice: number
               if (security.isDeluxe(req)) {
                 itemPrice = deluxePrice
@@ -98,7 +98,7 @@ module.exports = function placeOrder () {
               totalPrice += itemTotal
               totalPoints += itemBonus
             }
-          })
+          })/**/
           doc.moveDown()
           const discount = calculateApplicableDiscount(basket, req)
           let discountAmount = '0'
@@ -114,7 +114,7 @@ module.exports = function placeOrder () {
             eta: 5
           }
           if (req.body.orderDetails?.deliveryMethodId) {
-            const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })
+            const deliveryMethodFromModel = await DeliveryModel.findOne({ where: { id: req.body.orderDetails.deliveryMethodId } })/**/
             if (deliveryMethodFromModel != null) {
               deliveryMethod.deluxePrice = deliveryMethodFromModel.deluxePrice
               deliveryMethod.price = deliveryMethodFromModel.price
@@ -133,22 +133,22 @@ module.exports = function placeOrder () {
           doc.moveDown()
           doc.font('Times-Roman', 15).text(req.__('Thank you for your order!'))
 
-          challengeUtils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })
+          challengeUtils.solveIf(challenges.negativeOrderChallenge, () => { return totalPrice < 0 })/**/
 
           if (req.body.UserId) {
             if (req.body.orderDetails && req.body.orderDetails.paymentId === 'wallet') {
-              const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })
+              const wallet = await WalletModel.findOne({ where: { UserId: req.body.UserId } })/**/
               if ((wallet != null) && wallet.balance >= totalPrice) {
-                WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
+                WalletModel.decrement({ balance: totalPrice }, { where: { UserId: req.body.UserId } })/**/.catch((error: unknown) => {
                   next(error)
-                })
+                })/**/
               } else {
                 next(new Error('Insufficient wallet balance.'))
               }
             }
-            WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } }).catch((error: unknown) => {
+            WalletModel.increment({ balance: totalPoints }, { where: { UserId: req.body.UserId } })/**/.catch((error: unknown) => {
               next(error)
-            })
+            })/**/
           }
 
           db.ordersCollection.insert({
@@ -163,22 +163,22 @@ module.exports = function placeOrder () {
             bonus: totalPoints,
             deliveryPrice: deliveryAmount,
             eta: deliveryMethod.eta.toString()
-          }).then(() => {
+          })/**/.then(() => {
             doc.end()
-          })
+          })/**/
         } else {
           next(new Error(`Basket with id=${id} does not exist.`))
         }
-      }).catch((error: unknown) => {
+      })/**/.catch((error: unknown) => {
         next(error)
-      })
+      })/**/
   }
 }
 
 function calculateApplicableDiscount (basket: BasketModel, req: Request) {
   if (security.discountFromCoupon(basket.coupon)) {
     const discount = security.discountFromCoupon(basket.coupon)
-    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })
+    challengeUtils.solveIf(challenges.forgedCouponChallenge, () => { return discount >= 80 })/**/
     return discount
   } else if (req.body.couponData) {
     const couponData = Buffer.from(req.body.couponData, 'base64').toString().split('-')
@@ -187,7 +187,7 @@ function calculateApplicableDiscount (basket: BasketModel, req: Request) {
     const campaign = campaigns[couponCode as keyof typeof campaigns]
 
     if (campaign && couponDate == campaign.validOn) { // eslint-disable-line eqeqeq
-      challengeUtils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })
+      challengeUtils.solveIf(challenges.manipulateClockChallenge, () => { return campaign.validOn < new Date().getTime() })/**/
       return campaign.discount
     }
   }

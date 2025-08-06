@@ -17,7 +17,7 @@ import {
 const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
-})
+})/**/
 const { ethereum } = window
 const compilerReleases = {
   '0.8.21': 'soljson-v0.8.21+commit.d9974bed.js',
@@ -34,7 +34,7 @@ const compilerReleases = {
   selector: 'app-web3-sandbox',
   templateUrl: './web3-sandbox.component.html',
   styleUrls: ['./web3-sandbox.component.scss']
-})
+})/**/
 export class Web3SandboxComponent {
   constructor (
     private readonly keysService: KeysService,
@@ -158,7 +158,7 @@ contract HelloWorld {
             outputValue: '',
             inputHints
           }
-        })
+        })/**/
 
       console.log(this.contractFunctions)
     } catch (error) {
@@ -200,7 +200,7 @@ contract HelloWorld {
           ? func.inputValues.split(',').map((value, index) => {
             const inputType = func.inputs[index].type
             return this.parseInputValue(value.trim(), inputType)
-          })
+          })/**/
           : []
       const transactionOptions: ethers.PayableOverrides = {}
       if (this.commonGweiValue > 0) {
@@ -265,7 +265,7 @@ contract HelloWorld {
         return
       }
 
-      const provider = await connect({ connector: new InjectedConnector() })
+      const provider = await connect({ connector: new InjectedConnector() })/**/
       this.metamaskAddress = provider.account
       this.userData = {
         address: provider.account,
@@ -287,7 +287,7 @@ contract HelloWorld {
             blockExplorerUrls: ['https://sepolia.etherscan.io/']
           }
         ]
-      })
+      })/**/
       const targetChainId = '11155111'
       const currentChainId = String(provider.chain?.id)
 

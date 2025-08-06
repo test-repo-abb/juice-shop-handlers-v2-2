@@ -45,14 +45,14 @@ describe('ChallengeSolvedNotificationComponent', () => {
     socketIoService = jasmine.createSpyObj('SocketIoService', ['socket'])
     socketIoService.socket.and.returnValue(mockSocket)
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({}))
+    translateService.get.and.returnValue(of({})/**/)
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
     cookieService = jasmine.createSpyObj('CookieService', ['put'])
     challengeService = jasmine.createSpyObj('ChallengeService', ['continueCode'])
     configurationService = jasmine.createSpyObj('ConfigurationService', ['getApplicationConfiguration'])
-    configurationService.getApplicationConfiguration.and.returnValue(of({}))
+    configurationService.getApplicationConfiguration.and.returnValue(of({})/**/)
 
     TestBed.configureTestingModule({
       imports: [
@@ -73,19 +73,19 @@ describe('ChallengeSolvedNotificationComponent', () => {
         { provide: ConfigurationService, useValue: configurationService },
         CountryMappingService
       ]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeSolvedNotificationComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should delete notifictions', () => {
     component.notifications = [
@@ -95,7 +95,7 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.closeNotification(0)
 
     expect(component.notifications).toEqual([{ message: 'bar', flag: '5678', copied: false }])
-  })
+  })/**/
 
   it('should delete all notifications if the shiftKey was pressed', () => {
     component.notifications = [
@@ -105,17 +105,17 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.closeNotification(0, true)
 
     expect(component.notifications).toEqual([])
-  })
+  })/**/
 
   it('should add new notification', fakeAsync(() => {
     translateService.get.and.returnValue(of('CHALLENGE_SOLVED'))
     component.notifications = []
-    component.showNotification({ challenge: 'Test', flag: '1234' })
+    component.showNotification({ challenge: 'Test', flag: '1234' })/**/
     tick()
 
-    expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })
+    expect(translateService.get).toHaveBeenCalledWith('CHALLENGE_SOLVED', { challenge: 'Test' })/**/
     expect(component.notifications).toEqual([{ message: 'CHALLENGE_SOLVED', flag: '1234', copied: false, country: undefined }])
-  }))
+  })/**/)
 
   it('should store retrieved continue code as cookie for 1 year', () => {
     challengeService.continueCode.and.returnValue(of('12345'))
@@ -124,15 +124,15 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.saveProgress()
     expires.setFullYear(expires.getFullYear() + 1)
 
-    expect(cookieService.put).toHaveBeenCalledWith('continueCode', '12345', { expires })
-  })
+    expect(cookieService.put).toHaveBeenCalledWith('continueCode', '12345', { expires })/**/
+  })/**/
 
   it('should throw error when not supplied with a valid continue code', () => {
     challengeService.continueCode.and.returnValue(of(undefined))
     console.log = jasmine.createSpy('log')
 
     expect(component.saveProgress).toThrow()
-  })
+  })/**/
 
   it('should log error from continue code API call directly to browser console', fakeAsync(() => {
     challengeService.continueCode.and.returnValue(throwError('Error'))
@@ -140,41 +140,41 @@ describe('ChallengeSolvedNotificationComponent', () => {
     component.saveProgress()
     fixture.detectChanges()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })/**/)
 
   it('should show CTF flag codes if configured accordingly', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: true } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: true } })/**/)
     component.ngOnInit()
 
     expect(component.showCtfFlagsInNotifications).toBeTrue()
-  })
+  })/**/
 
   it('should hide CTF flag codes if configured accordingly', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: false } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showFlagsInNotifications: false } })/**/)
     component.ngOnInit()
 
     expect(component.showCtfFlagsInNotifications).toBeFalse()
-  })
+  })/**/
 
   it('should hide CTF flag codes by default', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } })/**/)
     component.ngOnInit()
 
     expect(component.showCtfFlagsInNotifications).toBeFalse()
-  })
+  })/**/
 
   it('should hide FBCTF-specific country details by default', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { } })/**/)
     component.ngOnInit()
 
     expect(component.showCtfCountryDetailsInNotifications).toBe('none')
-  })
+  })/**/
 
   it('should not load countries for FBCTF when configured to hide country details', () => {
-    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'none' } }))
+    configurationService.getApplicationConfiguration.and.returnValue(of({ ctf: { showCountryDetailsInNotifications: 'none' } })/**/)
     component.ngOnInit()
 
     expect(component.showCtfCountryDetailsInNotifications).toBe('none')
     expect(component.countryMap).toBeUndefined()
-  })
-})
+  })/**/
+})/**/

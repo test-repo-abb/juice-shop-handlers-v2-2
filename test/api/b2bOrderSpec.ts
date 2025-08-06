@@ -19,12 +19,12 @@ describe('/b2b/v2/orders', () => {
       return frisby.post(API_URL, {
         headers: authHeader,
         body: {
-          orderLinesData: '(function dos() { while(true); })()'
+          orderLinesData: '(function dos() { while(true); })/**/()'
         }
-      })
+      })/**/
         .expect('status', 500)
         .expect('bodyContains', 'Infinite loop detected - reached max iterations')
-    })
+    })/**/
 
     it('POST busy spinning regex attack does not raise an error', () => {
       return frisby.post(API_URL, {
@@ -32,9 +32,9 @@ describe('/b2b/v2/orders', () => {
         body: {
           orderLinesData: '/((a+)+)b/.test("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")'
         }
-      })
+      })/**/
         .expect('status', 503)
-    })
+    })/**/
 
     it('POST sandbox breakout attack in "orderLinesData" will raise error', () => {
       return frisby.post(API_URL, {
@@ -42,15 +42,15 @@ describe('/b2b/v2/orders', () => {
         body: {
           orderLinesData: 'this.constructor.constructor("return process")().exit()'
         }
-      })
+      })/**/
         .expect('status', 500)
-    })
+    })/**/
   }
 
   it('POST new B2B order is forbidden without authorization token', () => {
-    return frisby.post(API_URL, {})
+    return frisby.post(API_URL, {})/**/
       .expect('status', 401)
-  })
+  })/**/
 
   it('POST new B2B order accepts arbitrary valid JSON', () => {
     return frisby.post(API_URL, {
@@ -59,15 +59,15 @@ describe('/b2b/v2/orders', () => {
         foo: 'bar',
         test: 42
       }
-    })
+    })/**/
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
       .expect('jsonTypes', {
         cid: Joi.string(),
         orderNo: Joi.string(),
         paymentDue: Joi.string()
-      })
-  })
+      })/**/
+  })/**/
 
   it('POST new B2B order has passed "cid" in response', () => {
     return frisby.post(API_URL, {
@@ -75,10 +75,12 @@ describe('/b2b/v2/orders', () => {
       body: {
         cid: 'test'
       }
-    })
+    })/**/
       .expect('status', 200)
       .expect('json', {
         cid: 'test'
-      })
-  })
-})
+      })/**/
+  })/**/
+})/**/
+
+//

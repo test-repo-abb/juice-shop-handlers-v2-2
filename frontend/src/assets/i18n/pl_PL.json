@@ -354,7 +354,7 @@
   "COUPON_CODE_HINT": "Kod kuponu  musi mieć 10 znaków.",
   "CHARGED_WALLET": "Portfel zasilony z powodzeniem.",
   "BTN_SHOW_ONLY_TUTORIALS": "Pokaż tylko wskazówki",
-  "INFO_FULL_CHALLENGE_MODE": "Ukończ pozostałe wyzwania samouczka, aby odkryć wszystkie wyzwania ({{num}}) i odblokować zaawansowane filtry tablicy wyników!",
+  "INFO_FULL_CHALLENGE_MODE": "Ukończ pozostałe wyzwania samouczka, aby odkryć wszystkie wyzwania ({{num}})/**/ i odblokować zaawansowane filtry tablicy wyników!",
   "INFO_NEXT_TUTORIAL_TIER": "Ukończ wyzwania samouczka {{tier}}, aby odkryć kolejny poziom trudności!",
   "SHOW_COMMENT": "Pokaż komentarz",
   "INFO_VULNERABILITY_MITIGATION_LINK": "Kliknij, aby dowiedzieć się, jak unikać podobnych luk w zabezpieczeniach lub je łagodzić!",

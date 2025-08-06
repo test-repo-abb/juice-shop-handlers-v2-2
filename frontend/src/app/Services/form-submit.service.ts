@@ -8,7 +8,7 @@ import { DOCUMENT } from '@angular/common'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class FormSubmitService {
   constructor (@Inject(DOCUMENT) private readonly _document: HTMLDocument) { }
 
@@ -22,6 +22,6 @@ export class FormSubmitService {
       if (event.keyCode === 13 && !submitButton.disabled) {
         onSubmit()
       }
-    })
+    })/**/
   }
 }

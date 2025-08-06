@@ -26,9 +26,9 @@ describe('ChallengeStatusBadgeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     challengeService = jasmine.createSpyObj('ChallengeService', ['repeatNotification'])
-    challengeService.repeatNotification.and.returnValue(of({}))
+    challengeService.repeatNotification.and.returnValue(of({})/**/)
     translateService = jasmine.createSpyObj('TranslateService', ['get'])
-    translateService.get.and.returnValue(of({}))
+    translateService.get.and.returnValue(of({})/**/)
     translateService.onLangChange = new EventEmitter()
     translateService.onTranslationChange = new EventEmitter()
     translateService.onDefaultLangChange = new EventEmitter()
@@ -47,28 +47,28 @@ describe('ChallengeStatusBadgeComponent', () => {
         { provide: ChallengeService, useValue: challengeService },
         WindowRefService
       ]
-    })
+    })/**/
       .compileComponents()
 
     windowRefService = TestBed.inject(WindowRefService)
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeStatusBadgeComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should show notification for selected challenge when enabled', () => {
     component.allowRepeatNotifications = true
     component.challenge = { name: 'Challenge #1', solved: true } as Challenge
     component.repeatNotification()
     expect(challengeService.repeatNotification).toHaveBeenCalledWith(encodeURIComponent('Challenge #1'))
-  })
+  })/**/
 
   it('should scroll to top of screen when notification is repeated', () => {
     component.allowRepeatNotifications = true
@@ -76,7 +76,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     spyOn(windowRefService.nativeWindow, 'scrollTo')
     component.repeatNotification()
     expect(windowRefService.nativeWindow.scrollTo).toHaveBeenCalledWith(0, 0)
-  })
+  })/**/
 
   it('should log the error from backend on failing to repeat notification', fakeAsync(() => {
     component.allowRepeatNotifications = true
@@ -85,7 +85,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     console.log = jasmine.createSpy('log')
     component.repeatNotification()
     expect(console.log).toHaveBeenCalledWith('Error')
-  }))
+  })/**/)
 
   it('should happen when challenge has a hint URL', () => {
     component.showChallengeHints = true
@@ -93,7 +93,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     spyOn(windowRefService.nativeWindow, 'open')
     component.openHint()
     expect(windowRefService.nativeWindow.open).toHaveBeenCalledWith('hint://c1.test', '_blank')
-  })
+  })/**/
 
   it('should not happen when challenge has no hint URL', () => {
     component.showChallengeHints = true
@@ -101,7 +101,7 @@ describe('ChallengeStatusBadgeComponent', () => {
     spyOn(windowRefService.nativeWindow, 'open')
     component.openHint()
     expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
-  })
+  })/**/
 
   it('should not happen when hints are not turned on in configuration', () => {
     component.showChallengeHints = false
@@ -109,5 +109,5 @@ describe('ChallengeStatusBadgeComponent', () => {
     spyOn(windowRefService.nativeWindow, 'open')
     component.openHint()
     expect(windowRefService.nativeWindow.open).not.toHaveBeenCalled()
-  })
-})
+  })/**/
+})/**/

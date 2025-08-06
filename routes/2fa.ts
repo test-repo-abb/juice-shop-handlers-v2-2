@@ -42,16 +42,16 @@ async function verify (req: Request, res: Response) {
     if (!isValid) {
       return res.status(401).send()
     }
-    challengeUtils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get<string>('application.domain') })
+    challengeUtils.solveIf(challenges.twoFactorAuthUnsafeSecretStorageChallenge, () => { return user.email === 'wurstbrot@' + config.get<string>('application.domain') })/**/
 
-    const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })
+    const [basket] = await BasketModel.findOrCreate({ where: { UserId: userId } })/**/
 
     const token = security.authorize(plainUser)
     // @ts-expect-error FIXME set new property for original basket
     plainUser.bid = basket.id // keep track of original basket for challenge solution check
     security.authenticatedUsers.put(token, plainUser)
 
-    res.json({ authentication: { token, bid: basket.id, umail: user.email } })
+    res.json({ authentication: { token, bid: basket.id, umail: user.email } })/**/
   } catch (error) {
     res.status(401).send()
   }
@@ -80,12 +80,12 @@ async function status (req: Request, res: Response) {
         setupToken: security.authorize({
           secret,
           type: 'totp_setup_secret'
-        })
-      })
+        })/**/
+      })/**/
     } else {
       res.json({
         setup: true
-      })
+      })/**/
     }
   } catch (error) {
     res.status(401).send()

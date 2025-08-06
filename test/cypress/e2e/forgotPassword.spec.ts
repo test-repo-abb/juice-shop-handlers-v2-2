@@ -4,9 +4,9 @@ describe('/#/forgot-password', () => {
       if ($body.find('#logout').length) {
         cy.get('#logout').click()
       }
-    })
+    })/**/
     cy.visit('/#/forgot-password')
-  })
+  })/**/
 
   describe('as Jim', () => {
     it('should be able to reset password with his security answer', () => {
@@ -21,9 +21,9 @@ describe('/#/forgot-password', () => {
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
-      cy.expectChallengeSolved({ challenge: "Reset Jim's Password" })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: "Reset Jim's Password" })/**/
+    })/**/
+  })/**/
 
   describe('as Bender', () => {
     it('should be able to reset password with his security answer', () => {
@@ -38,10 +38,10 @@ describe('/#/forgot-password', () => {
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
-      cy.expectChallengeSolved({ challenge: "Reset Bender's Password" })
-    })
-  })
-
+      cy.expectChallengeSolved({ challenge: "Reset Bender's Password" })/**/
+    })/**/
+  })/**/
+//
   describe('as Bjoern', () => {
     describe('for his internal account', () => {
       it('should be able to reset password with his security answer', () => {
@@ -56,9 +56,9 @@ describe('/#/forgot-password', () => {
         cy.get('#resetButton').click()
 
         cy.get('.confirmation').should('not.be.hidden')
-        cy.expectChallengeSolved({ challenge: "Reset Bjoern's Password" })
-      })
-    })
+        cy.expectChallengeSolved({ challenge: "Reset Bjoern's Password" })/**/
+      })/**/
+    })/**/
 
     describe('for his OWASP account', () => {
       it('should be able to reset password with his security answer', () => {
@@ -69,10 +69,10 @@ describe('/#/forgot-password', () => {
         cy.get('#resetButton').click()
 
         cy.get('.confirmation').should('not.be.hidden')
-        cy.expectChallengeSolved({ challenge: "Bjoern's Favorite Pet" })
-      })
-    })
-  })
+        cy.expectChallengeSolved({ challenge: "Bjoern's Favorite Pet" })/**/
+      })/**/
+    })/**/
+  })/**/
 
   describe('as Morty', () => {
     it('should be able to reset password with his security answer', () => {
@@ -87,9 +87,9 @@ describe('/#/forgot-password', () => {
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
-      cy.expectChallengeSolved({ challenge: "Reset Morty's Password" })
-    })
-  })
+      cy.expectChallengeSolved({ challenge: "Reset Morty's Password" })/**/
+    })/**/
+  })/**/
 
   describe('as Uvogin', () => {
     it('should be able to reset password with his security answer', () => {
@@ -104,7 +104,7 @@ describe('/#/forgot-password', () => {
       cy.get('#resetButton').click()
 
       cy.get('.confirmation').should('not.be.hidden')
-      cy.expectChallengeSolved({ challenge: "Reset Uvogin's Password" })
-    })
-  })
-})
+      cy.expectChallengeSolved({ challenge: "Reset Uvogin's Password" })/**/
+    })/**/
+  })/**/
+})/**/

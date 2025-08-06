@@ -24,9 +24,9 @@ describe('ProductReviewEditComponent', () => {
 
   beforeEach(waitForAsync(() => {
     productReviewService = jasmine.createSpyObj('ProductReviewService', ['patch'])
-    productReviewService.patch.and.returnValue(of({}))
+    productReviewService.patch.and.returnValue(of({})/**/)
     dialogRef = jasmine.createSpyObj('MatDialogRef', ['close'])
-    dialogRef.close.and.returnValue({})
+    dialogRef.close.and.returnValue({})/**/
 
     TestBed.configureTestingModule({
       imports: [
@@ -45,26 +45,26 @@ describe('ProductReviewEditComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: { productData: {} } },
         { provide: MatDialogRef, useValue: dialogRef }
       ]
-    })
+    })/**/
       .compileComponents()
-  }))
+  })/**/)
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductReviewEditComponent)
     component = fixture.componentInstance
     component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
+  })/**/
 
   it('should be initialized with data from the passed review', () => {
     component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     component.ngOnInit()
     expect(component.editReviewControl.value).toBe('Review')
-  })
+  })/**/
 
   it('should update review through backend API', () => {
     component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
@@ -72,16 +72,16 @@ describe('ProductReviewEditComponent', () => {
     component.editReviewControl.setValue('Another Review')
     component.editReview()
     expect(productReviewService.patch.calls.count()).toBe(1)
-    expect(productReviewService.patch.calls.argsFor(0)[0]).toEqual({ id: '42', message: 'Another Review' })
-  })
+    expect(productReviewService.patch.calls.argsFor(0)[0]).toEqual({ id: '42', message: 'Another Review' })/**/
+  })/**/
 
   it('should close the dialog on submitting the edited review', () => {
-    productReviewService.patch.and.returnValue(of({}))
+    productReviewService.patch.and.returnValue(of({})/**/)
     component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
     component.ngOnInit()
     component.editReview()
     expect(dialogRef.close).toHaveBeenCalled()
-  })
+  })/**/
 
   it('should log errors directly to browser console', fakeAsync(() => {
     component.data = { reviewData: { _id: '42', message: 'Review', author: 'Horst' } }
@@ -92,5 +92,5 @@ describe('ProductReviewEditComponent', () => {
     expect(console.log).toHaveBeenCalledWith('Error')
     fixture.destroy()
     flush()
-  }))
-})
+  })/**/)
+})/**/

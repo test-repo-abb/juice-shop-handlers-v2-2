@@ -10,7 +10,7 @@ export interface result {
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class VulnLinesService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/snippets/verdict'
@@ -21,6 +21,6 @@ export class VulnLinesService {
     return this.http.post(this.host, {
       key,
       selectedLines
-    }).pipe(map((response: result) => response), catchError((error: any) => { throw error }))
+    })/**/.pipe(map((response: result) => response), catchError((error: any) => { throw error })/**/)
   }
 }

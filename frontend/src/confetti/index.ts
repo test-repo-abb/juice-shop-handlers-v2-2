@@ -3,7 +3,7 @@ import confetti from 'canvas-confetti'
 const timeout = (ms: number) => {
     return new Promise((resolve,reject) => {
         setTimeout(resolve,ms)
-    })
+    })/**/
 }
 export const shootConfetti = () => {
     const canvas = document.createElement('canvas')
@@ -19,14 +19,14 @@ export const shootConfetti = () => {
 
     const shoot = confetti.create(canvas,{
         resize: true
-    })
+    })/**/
     shoot({
         origin:{
             x:1,
             y:1
         },
         particleCount: 225
-    })
+    })/**/
 
     shoot({
         origin:{
@@ -34,9 +34,9 @@ export const shootConfetti = () => {
             x:0
         },
         particleCount: 225
-    })
+    })/**/
 
     timeout(6000).then(() => {
         canvas.remove()
-    })
+    })/**/
 }

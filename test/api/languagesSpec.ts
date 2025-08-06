@@ -20,6 +20,7 @@ describe('/rest/languages', () => {
         percentage: Joi.number(),
         shortKey: Joi.string(),
         gauge: Joi.string()
-      })
-  })
-})
+      })/**/
+  })/**/
+})/**/
+//

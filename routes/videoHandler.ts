@@ -26,7 +26,7 @@ exports.getVideo = () => {
       const start = parseInt(parts[0], 10)
       const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1
       const chunksize = (end - start) + 1
-      const file = fs.createReadStream(path, { start, end })
+      const file = fs.createReadStream(path, { start, end })/**/
       const head = {
         'Content-Range': `bytes ${start}-${end}/${fileSize}`,
         'Accept-Ranges': 'bytes',
@@ -54,7 +54,7 @@ exports.promotionVideo = () => {
       let template = buf.toString()
       const subs = getSubsFromFile()
 
-      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })
+      challengeUtils.solveIf(challenges.videoXssChallenge, () => { return utils.contains(subs, '</script><script>alert(`xss`)</script>') })/**/
 
       const theme = themes[config.get<string>('application.theme')]
       template = template.replace(/_title_/g, entities.encode(config.get<string>('application.name')))
@@ -68,7 +68,7 @@ exports.promotionVideo = () => {
       let compiledTemplate = fn()
       compiledTemplate = compiledTemplate.replace('<script id="subtitle"></script>', '<script id="subtitle" type="text/vtt" data-label="English" data-lang="en">' + subs + '</script>')
       res.send(compiledTemplate)
-    })
+    })/**/
   }
   function favicon () {
     return utils.extractFilename(config.get('application.favicon'))

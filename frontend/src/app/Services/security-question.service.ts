@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class SecurityQuestionService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/SecurityQuestions'
@@ -18,13 +18,13 @@ export class SecurityQuestionService {
   constructor (private readonly http: HttpClient) { }
 
   find (params: any) {
-    return this.http.get(this.host + '/', { params }).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host + '/', { params })/**/.pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
   }
 
   findBy (email: string) {
     return this.http.get(this.hostServer + '/' + 'rest/user/security-question?email=' + email).pipe(
       map((response: any) => response.question),
-      catchError((error) => { throw error })
+      catchError((error) => { throw error })/**/
     )
   }
 }

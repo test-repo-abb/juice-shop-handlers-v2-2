@@ -11,7 +11,7 @@ describe('TutorialModeWarningComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [TutorialModeWarningComponent]
-    }).compileComponents()
+    })/**/.compileComponents()
 
     fixture = TestBed.createComponent(TutorialModeWarningComponent)
     component = fixture.componentInstance
@@ -39,12 +39,12 @@ describe('TutorialModeWarningComponent', () => {
     } as any
 
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should show warning when there are configured and unsolved tutorial challenges exist', () => {
     component.ngOnChanges()
     expect(component.tutorialModeActive).toBe(true)
-  })
+  })/**/
 
   it('not show if tutorial is not configured', () => {
     component.applicationConfig = {
@@ -54,7 +54,7 @@ describe('TutorialModeWarningComponent', () => {
     } as any
     component.ngOnChanges()
     expect(component.tutorialModeActive).toBe(false)
-  })
+  })/**/
 
   it('should not show warning when all tutorial mode challenges are solved', () => {
     component.allChallenges = [
@@ -74,5 +74,5 @@ describe('TutorialModeWarningComponent', () => {
     ] as any
     component.ngOnChanges()
     expect(component.tutorialModeActive).toBe(false)
-  })
-})
+  })/**/
+})/**/

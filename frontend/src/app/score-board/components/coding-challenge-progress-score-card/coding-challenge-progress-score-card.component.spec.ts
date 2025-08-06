@@ -15,15 +15,15 @@ describe('CodingChallengeProgressScoreCardComponent', () => {
         CodingChallengeProgressScoreCardComponent
       ],
       imports: [TranslateModule.forRoot()]
-    })
+    })/**/
       .compileComponents()
 
     fixture = TestBed.createComponent(CodingChallengeProgressScoreCardComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should create', () => {
     expect(component).toBeTruthy()
-  })
-})
+  })/**/
+})/**/

@@ -36,7 +36,7 @@ export interface RandomFixes {
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
   host: { class: 'code-snippet' }
-})
+})/**/
 export class CodeSnippetComponent implements OnInit {
   public snippet: CodeSnippet = null
   public fixes: string [] = null
@@ -56,7 +56,7 @@ export class CodeSnippetComponent implements OnInit {
   ngOnInit () {
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       this.showFeedbackButtons = config.challenges.showFeedbackButtons
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
 
     this.codeSnippetService.get(this.dialogData.key).subscribe((snippet) => {
       this.snippet = snippet
@@ -68,7 +68,7 @@ export class CodeSnippetComponent implements OnInit {
       }
     }, (err) => {
       this.snippet = { snippet: err.error }
-    })
+    })/**/
     this.codeFixesService.get(this.dialogData.key).subscribe((fixes) => {
       this.fixes = fixes.fixes
       if (this.fixes) {
@@ -77,7 +77,7 @@ export class CodeSnippetComponent implements OnInit {
       this.solved.fixIt = this.dialogData.codingChallengeStatus >= 2
     }, () => {
       this.fixes = null
-    })
+    })/**/
   }
 
   addLine = (lines: number[]) => {
@@ -108,14 +108,14 @@ export class CodeSnippetComponent implements OnInit {
     this.codeFixesService.check(this.dialogData.key, this.randomFixes[this.selectedFix].index).subscribe((verdict) => {
       this.setVerdict(verdict.verdict)
       this.explanation = verdict.explanation
-    })
+    })/**/
   }
 
   checkLines = () => {
     this.vulnLinesService.check(this.dialogData.key, this.selectedLines).subscribe((verdict: result) => {
       this.setVerdict(verdict.verdict)
       this.hint = verdict.hint
-    })
+    })/**/
   }
 
   lockIcon (): string {
@@ -143,9 +143,9 @@ export class CodeSnippetComponent implements OnInit {
 
   shuffle () {
     this.randomFixes = this.fixes
-      .map((fix, index) => ({ fix, index, sort: Math.random() }))
+      .map((fix, index) => ({ fix, index, sort: Math.random() })/**/)
       .sort((a, b) => a.sort - b.sort)
-      .map(({ fix, index }) => ({ fix, index }))
+      .map(({ fix, index })/**/ => ({ fix, index })/**/)
   }
 
   setVerdict = (verdict: boolean) => {
@@ -159,8 +159,8 @@ export class CodeSnippetComponent implements OnInit {
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
-          this.cookieService.put('continueCodeFindIt', continueCode, { expires })
-        }, (err) => { console.log(err) })
+          this.cookieService.put('continueCodeFindIt', continueCode, { expires })/**/
+        }, (err) => { console.log(err) })/**/
       } else {
         this.solved.fixIt = true
         this.challengeService.continueCodeFixIt().subscribe((continueCode) => {
@@ -169,17 +169,17 @@ export class CodeSnippetComponent implements OnInit {
           }
           const expires = new Date()
           expires.setFullYear(expires.getFullYear() + 1)
-          this.cookieService.put('continueCodeFixIt', continueCode, { expires })
-        }, (err) => { console.log(err) })
+          this.cookieService.put('continueCodeFixIt', continueCode, { expires })/**/
+        }, (err) => { console.log(err) })/**/
       }
       this.result = ResultState.Right
       this.lock = ResultState.Right
       import('../../confetti').then(module => {
         module.shootConfetti()
-      })
+      })/**/
         .then(() => {
           if (this.tab.value === 0 && this.fixes !== null) this.toggleTab(1)
-        })
+        })/**/
     } else {
       this.result = ResultState.Wrong
     }

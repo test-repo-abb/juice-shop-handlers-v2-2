@@ -18,15 +18,15 @@ describe('SnackBarHelperService', () => {
             provide: TranslateLoader,
             useClass: TranslateFakeLoader
           }
-        }),
+        })/**/,
         MatSnackBarModule
       ],
       providers: [TranslateService]
-    })
+    })/**/
   )
 
   it('should be created', () => {
     const service: SnackBarHelperService = TestBed.inject(SnackBarHelperService)
     expect(service).toBeTruthy()
-  })
-})
+  })/**/
+})/**/

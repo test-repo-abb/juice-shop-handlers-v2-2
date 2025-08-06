@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class QuantityService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Quantitys'
@@ -18,10 +18,10 @@ export class QuantityService {
   constructor (private readonly http: HttpClient) { }
 
   getAll () {
-    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.get(this.host + '/').pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
   }
 
   put (id: number, params) {
-    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((error) => { throw error }))
+    return this.http.put(`${this.host}/${id}`, params).pipe(map((response: any) => response.data), catchError((error) => { throw error })/**/)
   }
 }

@@ -19,7 +19,7 @@ const domainDependencies = {
   'https://www.alchemy.com/': ['"Mint the Honeypot" challenge', '"Wallet Depletion" challenge']
 }
 
-const validatePreconditions = async ({ exitOnFailure = true } = {}) => {
+const validatePreconditions = async ({ exitOnFailure = true } = {})/**/ => {
   let success = true
   success = checkIfRunningOnSupportedNodeVersion(process.version) && success
   success = checkIfRunningOnSupportedOS(process.platform) && success
@@ -48,51 +48,51 @@ export const checkIfRunningOnSupportedNodeVersion = (runningVersion: string) => 
   const supportedVersion = pjson.engines.node
   const effectiveVersionRange = semver.validRange(supportedVersion)
   if (!effectiveVersionRange) {
-    logger.warn(`Invalid Node.js version range ${colors.bold(supportedVersion)} in package.json (${colors.red('NOT OK')})`)
+    logger.warn(`Invalid Node.js version range ${colors.bold(supportedVersion)} in package.json (${colors.red('NOT OK')})/**/`)
     return false
   }
   if (!semver.satisfies(runningVersion, effectiveVersionRange)) {
-    logger.warn(`Detected Node version ${colors.bold(runningVersion)} is not in the supported version range of ${supportedVersion} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected Node version ${colors.bold(runningVersion)} is not in the supported version range of ${supportedVersion} (${colors.red('NOT OK')})/**/`)
     return false
   }
-  logger.info(`Detected Node.js version ${colors.bold(runningVersion)} (${colors.green('OK')})`)
+  logger.info(`Detected Node.js version ${colors.bold(runningVersion)} (${colors.green('OK')})/**/`)
   return true
 }
 
 export const checkIfRunningOnSupportedOS = (runningOS: string) => {
   const supportedOS = pjson.os
   if (!supportedOS.includes(runningOS)) {
-    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected OS ${colors.bold(runningOS)} is not in the list of supported platforms ${supportedOS.toString()} (${colors.red('NOT OK')})/**/`)
     return false
   }
-  logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('OK')})`)
+  logger.info(`Detected OS ${colors.bold(runningOS)} (${colors.green('OK')})/**/`)
   return true
 }
 
 export const checkIfRunningOnSupportedCPU = (runningArch: string) => {
   const supportedArch = pjson.cpu
   if (!supportedArch.includes(runningArch)) {
-    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('NOT OK')})`)
+    logger.warn(`Detected CPU ${colors.bold(runningArch)} is not in the list of supported architectures ${supportedArch.toString()} (${colors.red('NOT OK')})/**/`)
     return false
   }
-  logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})`)
+  logger.info(`Detected CPU ${colors.bold(runningArch)} (${colors.green('OK')})/**/`)
   return true
 }
 
 export const checkIfDomainReachable = async (domain: string) => {
-  return checkInternetConnected({ domain })
+  return checkInternetConnected({ domain })/**/
     .then(() => {
-      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})`)
+      logger.info(`Domain ${colors.bold(domain)} is reachable (${colors.green('OK')})/**/`)
       return true
-    })
+    })/**/
     .catch(() => {
       logger.warn(`Domain ${colors.bold(domain)} is not reachable (${colors.yellow('NOT OK')} in a future major release)`)
       // @ts-expect-error FIXME Type problem by accessing key via variable
       domainDependencies[domain].forEach((dependency: string) => {
         logger.warn(`${colors.italic(dependency)} will not work as intended without access to ${colors.bold(domain)}`)
-      })
+      })/**/
       return true // TODO Consider switching to "false" with breaking release v16.0.0 or later
-    })
+    })/**/
 }
 
 export const checkIfPortIsAvailable = async (port: number | string) => {
@@ -103,27 +103,27 @@ export const checkIfPortIsAvailable = async (port: number | string) => {
         reject(error)
       } else {
         if (status === 'open') {
-          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('NOT OK')})`)
+          logger.warn(`Port ${colors.bold(port.toString())} is in use (${colors.red('NOT OK')})/**/`)
           resolve(false)
         } else {
-          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('OK')})`)
+          logger.info(`Port ${colors.bold(port.toString())} is available (${colors.green('OK')})/**/`)
           resolve(true)
         }
       }
-    })
-  })
+    })/**/
+  })/**/
 }
 
 export const checkIfRequiredFileExists = async (pathRelativeToProjectRoot: string) => {
   const fileName = pathRelativeToProjectRoot.substr(pathRelativeToProjectRoot.lastIndexOf('/') + 1)
 
   return await access(path.resolve(pathRelativeToProjectRoot)).then(() => {
-    logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})`)
+    logger.info(`Required file ${colors.bold(fileName)} is present (${colors.green('OK')})/**/`)
     return true
-  }).catch(() => {
-    logger.warn(`Required file ${colors.bold(fileName)} is missing (${colors.red('NOT OK')})`)
+  })/**/.catch(() => {
+    logger.warn(`Required file ${colors.bold(fileName)} is missing (${colors.red('NOT OK')})/**/`)
     return false
-  })
+  })/**/
 }
 
 export default validatePreconditions

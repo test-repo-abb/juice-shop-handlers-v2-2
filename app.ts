@@ -14,4 +14,4 @@ async function app () {
 app()
   .catch(err => {
     throw err
-  })
+  })/**/

@@ -32,35 +32,35 @@ module.exports = function resetPassword () {
           model: UserModel,
           where: { email }
         }]
-      }).then((data: SecurityAnswerModel | null) => {
+      })/**/.then((data: SecurityAnswerModel | null) => {
         if ((data != null) && security.hmac(answer) === data.answer) {
           UserModel.findByPk(data.UserId).then((user: UserModel | null) => {
-            user?.update({ password: newPassword }).then((user: UserModel) => {
+            user?.update({ password: newPassword })/**/.then((user: UserModel) => {
               verifySecurityAnswerChallenges(user, answer)
-              res.json({ user })
-            }).catch((error: unknown) => {
+              res.json({ user })/**/
+            })/**/.catch((error: unknown) => {
               next(error)
-            })
-          }).catch((error: unknown) => {
+            })/**/
+          })/**/.catch((error: unknown) => {
             next(error)
-          })
+          })/**/
         } else {
           res.status(401).send(res.__('Wrong answer to security question.'))
         }
-      }).catch((error: unknown) => {
+      })/**/.catch((error: unknown) => {
         next(error)
-      })
+      })/**/
     }
   }
 }
 
 function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
-  challengeUtils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })
-  challengeUtils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })
-  challengeUtils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })
-  challengeUtils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })
-  challengeUtils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })
-  challengeUtils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })
+  challengeUtils.solveIf(challenges.resetPasswordJimChallenge, () => { return user.id === users.jim.id && answer === 'Samuel' })/**/
+  challengeUtils.solveIf(challenges.resetPasswordBenderChallenge, () => { return user.id === users.bender.id && answer === 'Stop\'n\'Drop' })/**/
+  challengeUtils.solveIf(challenges.resetPasswordBjoernChallenge, () => { return user.id === users.bjoern.id && answer === 'West-2082' })/**/
+  challengeUtils.solveIf(challenges.resetPasswordMortyChallenge, () => { return user.id === users.morty.id && answer === '5N0wb41L' })/**/
+  challengeUtils.solveIf(challenges.resetPasswordBjoernOwaspChallenge, () => { return user.id === users.bjoernOwasp.id && answer === 'Zaya' })/**/
+  challengeUtils.solveIf(challenges.resetPasswordUvoginChallenge, () => { return user.id === users.uvogin.id && answer === 'Silence of the Lambs' })/**/
   challengeUtils.solveIf(challenges.geoStalkingMetaChallenge, () => {
     const securityAnswer = ((() => {
       const memories = config.get<MemoryConfig[]>('memories')
@@ -69,9 +69,9 @@ function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
           return memories[i].geoStalkingMetaSecurityAnswer
         }
       }
-    })())
+    })/**/())
     return user.id === users.john.id && answer === securityAnswer
-  })
+  })/**/
   challengeUtils.solveIf(challenges.geoStalkingVisualChallenge, () => {
     const securityAnswer = ((() => {
       const memories = config.get<MemoryConfig[]>('memories')
@@ -80,7 +80,7 @@ function verifySecurityAnswerChallenges (user: UserModel, answer: string) {
           return memories[i].geoStalkingVisualSecurityAnswer
         }
       }
-    })())
+    })/**/())
     return user.id === users.emma.id && answer === securityAnswer
-  })
+  })/**/
 }

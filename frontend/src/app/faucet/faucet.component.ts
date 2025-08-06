@@ -20,7 +20,7 @@ import {
 const client = createClient({
   autoConnect: true,
   provider: getDefaultProvider()
-})
+})/**/
 const { ethereum } = window
 
 const nftAddress = '0x41427790c94E7a592B17ad694eD9c06A02bb9C39'
@@ -31,7 +31,7 @@ const BeeFaucetAddress = '0x860e3616aD0E0dEDc23352891f3E10C4131EA5BC'
   selector: 'app-faucet',
   templateUrl: './faucet.component.html',
   styleUrls: ['./faucet.component.scss']
-})
+})/**/
 export class FaucetComponent {
   constructor (
     private readonly keysService: KeysService,
@@ -56,7 +56,7 @@ export class FaucetComponent {
   ngOnInit (): void {
     this.translateService.get('NFT_MINT_TEXT_INTRO').subscribe((translatedString: string) => {
       this.nftMintText = translatedString
-    })
+    })/**/
     this.handleAuth()
     this.checkNftMinted()
     this.nftMintListener()
@@ -83,7 +83,7 @@ export class FaucetComponent {
         if (challengeSolvedStatus) {
           this.translateService.get('NFT_MINT_TEXT_SUCCESS').subscribe((translatedString: string) => {
             this.nftMintText = translatedString
-          })
+          })/**/
         }
       },
       (error) => {
@@ -154,7 +154,7 @@ export class FaucetComponent {
         return
       }
 
-      const provider = await connect({ connector: new InjectedConnector() })
+      const provider = await connect({ connector: new InjectedConnector() })/**/
       this.metamaskAddress = provider.account
       this.userData = {
         address: provider.account,
@@ -176,7 +176,7 @@ export class FaucetComponent {
             blockExplorerUrls: ['https://sepolia.etherscan.io/']
           }
         ]
-      })
+      })/**/
       const targetChainId = '11155111'
       const currentChainId = String(provider.chain?.id)
 
@@ -239,7 +239,7 @@ export class FaucetComponent {
     }
     this.translateService.get('NFT_MINT_TEXT_AWAITING_APPROVAL').subscribe((translatedString: string) => {
       this.nftMintText = translatedString
-    })
+    })/**/
     try {
       const provider = new ethers.providers.Web3Provider(window.ethereum)
       const signer = provider.getSigner()
@@ -257,7 +257,7 @@ export class FaucetComponent {
       await approvalTx.wait()
       this.translateService.get('NFT_MINT_TEXT_CONFIRM').subscribe((translatedString: string) => {
         this.nftMintText = translatedString
-      })
+      })/**/
 
       const contract = new ethers.Contract(nftAddress, nftABI, signer)
 
@@ -265,14 +265,14 @@ export class FaucetComponent {
       console.log(transaction)
       this.translateService.get('NFT_MINT_TEXT_IN_PROGRESS').subscribe((translatedString: string) => {
         this.nftMintText = translatedString
-      })
+      })/**/
 
       const mintConfirmation = await transaction.wait()
       console.log(mintConfirmation)
       if (mintConfirmation) {
         this.translateService.get('NFT_MINT_TEXT_SUCCESS').subscribe((translatedString: string) => {
           this.nftMintText = translatedString
-        })
+        })/**/
         setTimeout(() => {
           this.keysService.verifyNFTWallet(this.metamaskAddress).subscribe(
             (response) => {

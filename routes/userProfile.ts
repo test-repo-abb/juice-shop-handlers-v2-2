@@ -56,20 +56,20 @@ module.exports = function getUserProfile () {
           const fn = pug.compile(template)
           const CSP = `img-src 'self' ${user?.profileImage}; script-src 'self' 'unsafe-eval' https://code.getmdl.io http://ajax.googleapis.com`
           // @ts-expect-error FIXME type issue with string vs. undefined for username
-          challengeUtils.solveIf(challenges.usernameXssChallenge, () => { return user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>') })
+          challengeUtils.solveIf(challenges.usernameXssChallenge, () => { return user?.profileImage.match(/;[ ]*script-src(.)*'unsafe-inline'/g) !== null && utils.contains(username, '<script>alert(`xss`)</script>') })/**/
 
           res.set({
             'Content-Security-Policy': CSP
-          })
+          })/**/
 
           res.send(fn(user))
-        }).catch((error: Error) => {
+        })/**/.catch((error: Error) => {
           next(error)
-        })
+        })/**/
       } else {
         next(new Error('Blocked illegal activity by ' + req.socket.remoteAddress))
       }
-    })
+    })/**/
   }
 
   function favicon () {

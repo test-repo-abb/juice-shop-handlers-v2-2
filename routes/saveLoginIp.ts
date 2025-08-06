@@ -18,7 +18,7 @@ module.exports = function saveLoginIp () {
     if (loggedInUser !== undefined) {
       let lastLoginIp = req.headers['true-client-ip']
       if (utils.isChallengeEnabled(challenges.httpHeaderXssChallenge)) {
-        challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })
+        challengeUtils.solveIf(challenges.httpHeaderXssChallenge, () => { return lastLoginIp === '<iframe src="javascript:alert(`xss`)">' })/**/
       } else {
         lastLoginIp = security.sanitizeSecure(lastLoginIp)
       }
@@ -27,14 +27,14 @@ module.exports = function saveLoginIp () {
         lastLoginIp = utils.toSimpleIpAddress(req.socket.remoteAddress)
       }
       UserModel.findByPk(loggedInUser.data.id).then((user: UserModel | null) => {
-        user?.update({ lastLoginIp: lastLoginIp?.toString() }).then((user: UserModel) => {
+        user?.update({ lastLoginIp: lastLoginIp?.toString() })/**/.then((user: UserModel) => {
           res.json(user)
-        }).catch((error: Error) => {
+        })/**/.catch((error: Error) => {
           next(error)
-        })
-      }).catch((error: Error) => {
+        })/**/
+      })/**/.catch((error: Error) => {
         next(error)
-      })
+      })/**/
     } else {
       res.sendStatus(401)
     }

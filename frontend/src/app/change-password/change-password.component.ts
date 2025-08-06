@@ -18,7 +18,7 @@ library.add(faSave, faEdit)
   selector: 'app-change-password',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
-})
+})/**/
 export class ChangePasswordComponent {
   public passwordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required])
   public newPasswordControl: UntypedFormControl = new UntypedFormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)])
@@ -29,7 +29,7 @@ export class ChangePasswordComponent {
   constructor (private readonly userService: UserService, private readonly formSubmitService: FormSubmitService, private readonly translate: TranslateService) { }
 
   ngOnInit () {
-    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })
+    this.formSubmitService.attachEnterKeyHandler('password-form', 'changeButton', () => { this.changePassword() })/**/
   }
 
   changePassword () {
@@ -40,20 +40,20 @@ export class ChangePasswordComponent {
       current: this.passwordControl.value,
       new: this.newPasswordControl.value,
       repeat: this.repeatNewPasswordControl.value
-    }).subscribe((response: any) => {
+    })/**/.subscribe((response: any) => {
       this.error = undefined
       this.translate.get('PASSWORD_SUCCESSFULLY_CHANGED').subscribe((passwordSuccessfullyChanged) => {
         this.confirmation = passwordSuccessfullyChanged
       }, (translationId) => {
         this.confirmation = { error: translationId }
-      })
+      })/**/
       this.resetForm()
     }, (error) => {
       console.log(error)
       this.error = error
       this.confirmation = undefined
       this.resetPasswords()
-    })
+    })/**/
   }
 
   resetForm () {

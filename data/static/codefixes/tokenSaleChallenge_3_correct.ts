@@ -13,7 +13,7 @@
   }
 ]
 
-export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })
+export const Routing = RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: 'legacy' })/**/
 
 export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   if (url.length === 0) {
@@ -21,7 +21,7 @@ export function oauthMatcher (url: UrlSegment[]): UrlMatchResult {
   }
   const path = window.location.href
   if (path.includes('#access_token=')) {
-    return ({ consumed: url })
+    return ({ consumed: url })/**/
   }
 
   return null as unknown as UrlMatchResult

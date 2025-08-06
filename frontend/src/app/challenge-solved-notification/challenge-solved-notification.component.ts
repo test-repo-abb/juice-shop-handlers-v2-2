@@ -30,7 +30,7 @@ interface ChallengeSolvedNotification {
   selector: 'app-challenge-solved-notification',
   templateUrl: './challenge-solved-notification.component.html',
   styleUrls: ['./challenge-solved-notification.component.scss']
-})
+})/**/
 export class ChallengeSolvedNotificationComponent implements OnInit {
   public notifications: ChallengeSolvedNotification[] = []
   public showCtfFlagsInNotifications: boolean = false
@@ -52,13 +52,13 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
             if (!data.hidden) {
               import('../../confetti').then(module => {
                 module.shootConfetti()
-              })
+              })/**/
             }
           }
           this.io.socket().emit('notification received', data.flag)
         }
-      })
-    })
+      })/**/
+    })/**/
 
     this.configurationService.getApplicationConfiguration().subscribe((config) => {
       if (config?.ctf) {
@@ -74,20 +74,20 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
           if (config.ctf.showCountryDetailsInNotifications !== 'none') {
             this.countryMappingService.getCountryMapping().subscribe((countryMap: any) => {
               this.countryMap = countryMap
-            }, (err) => { console.log(err) })
+            }, (err) => { console.log(err) })/**/
           }
         } else {
           this.showCtfCountryDetailsInNotifications = 'none'
         }
       }
-    })
+    })/**/
   }
 
   closeNotification (index: number, shiftKey: boolean = false) {
     if (shiftKey) {
       this.ngZone.runOutsideAngular(() => {
         this.io.socket().emit('verifyCloseNotificationsChallenge', this.notifications)
-      })
+      })/**/
       this.notifications = []
     } else {
       this.notifications.splice(index, 1)
@@ -96,7 +96,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
   }
 
   showNotification (challenge: ChallengeSolvedMessage) {
-    this.translate.get('CHALLENGE_SOLVED', { challenge: challenge.challenge }).toPromise().then((challengeSolved) => challengeSolved,
+    this.translate.get('CHALLENGE_SOLVED', { challenge: challenge.challenge })/**/.toPromise().then((challengeSolved) => challengeSolved,
       (translationId) => translationId).then((message) => {
       let country
       if (this.showCtfCountryDetailsInNotifications && this.showCtfCountryDetailsInNotifications !== 'none') {
@@ -107,9 +107,9 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
         flag: challenge.flag,
         country,
         copied: false
-      })
+      })/**/
       this.ref.detectChanges()
-    })
+    })/**/
   }
 
   saveProgress () {
@@ -119,7 +119,7 @@ export class ChallengeSolvedNotificationComponent implements OnInit {
       }
       const expires = new Date()
       expires.setFullYear(expires.getFullYear() + 1)
-      this.cookieService.put('continueCode', continueCode, { expires })
-    }, (err) => { console.log(err) })
+      this.cookieService.put('continueCode', continueCode, { expires })/**/
+    }, (err) => { console.log(err) })/**/
   }
 }

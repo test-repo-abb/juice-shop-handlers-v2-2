@@ -15,14 +15,14 @@ export class RequestInterceptor implements HttpInterceptor {
         setHeaders: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
-      })
+      })/**/
     }
     if (localStorage.getItem('email')) {
       req = req.clone({
         setHeaders: {
           'X-User-Email': String(localStorage.getItem('email'))
         }
-      })
+      })/**/
     }
     return next.handle(req)
   }

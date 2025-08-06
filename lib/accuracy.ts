@@ -45,7 +45,7 @@ function totalAccuracy (phase: Phase) {
       sumAccuracy += 1 / value.attempts[phase]
       totalSolved++
     }
-  })
+  })/**/
   return sumAccuracy / totalSolved
 }
 

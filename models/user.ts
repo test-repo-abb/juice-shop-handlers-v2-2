@@ -64,7 +64,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
                 email,
                 '<iframe src="javascript:alert(`xss`)">'
               )
-            })
+            })/**/
           } else {
             email = security.sanitizeSecure(email)
           }
@@ -138,7 +138,7 @@ const UserModelInit = (sequelize: Sequelize) => { // vuln-code-snippet start wea
         )
       )
     }
-  })
+  })/**/
 }
 
 export { User as UserModel, UserModelInit }

@@ -42,13 +42,13 @@ exports.serveCodeSnippet = () => async (req: Request<SnippetRequestBody, Record<
   try {
     const snippetData = await retrieveCodeSnippet(req.params.challenge)
     if (snippetData == null) {
-      res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${req.params.challenge}` })
+      res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${req.params.challenge}` })/**/
       return
     }
-    res.status(200).json({ snippet: snippetData.snippet })
+    res.status(200).json({ snippet: snippetData.snippet })/**/
   } catch (error) {
     const statusCode = setStatusCode(error)
-    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
+    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })/**/
   }
 }
 
@@ -59,7 +59,7 @@ export const retrieveChallengesWithCodeSnippet = async () => {
 
 exports.serveChallengesWithCodeSnippet = () => async (req: Request, res: Response, next: NextFunction) => {
   const codingChallenges = await retrieveChallengesWithCodeSnippet()
-  res.json({ challenges: codingChallenges })
+  res.json({ challenges: codingChallenges })/**/
 }
 
 export const getVerdict = (vulnLines: number[], neutralLines: number[], selectedLines: number[]) => {
@@ -77,12 +77,12 @@ exports.checkVulnLines = () => async (req: Request<Record<string, unknown>, Reco
   try {
     snippetData = await retrieveCodeSnippet(key)
     if (snippetData == null) {
-      res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${key}` })
+      res.status(404).json({ status: 'error', error: `No code challenge for challenge key: ${key}` })/**/
       return
     }
   } catch (error) {
     const statusCode = setStatusCode(error)
-    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })
+    res.status(statusCode).json({ status: 'error', error: utils.getErrorMessage(error) })/**/
     return
   }
   const vulnLines: number[] = snippetData.vulnLines
@@ -95,9 +95,9 @@ exports.checkVulnLines = () => async (req: Request<Record<string, unknown>, Reco
     if (codingChallengeInfos?.hints) {
       if (accuracy.getFindItAttempts(key) > codingChallengeInfos.hints.length) {
         if (vulnLines.length === 1) {
-          hint = res.__('Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.', { vulnLine: vulnLines[0].toString() })
+          hint = res.__('Line {{vulnLine}} is responsible for this vulnerability or security flaw. Select it and submit to proceed.', { vulnLine: vulnLines[0].toString() })/**/
         } else {
-          hint = res.__('Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.', { vulnLines: vulnLines.toString() })
+          hint = res.__('Lines {{vulnLines}} are responsible for this vulnerability or security flaw. Select them and submit to proceed.', { vulnLines: vulnLines.toString() })/**/
         }
       } else {
         const nextHint = codingChallengeInfos.hints[accuracy.getFindItAttempts(key) - 1] // -1 prevents after first attempt
@@ -109,12 +109,12 @@ exports.checkVulnLines = () => async (req: Request<Record<string, unknown>, Reco
     await challengeUtils.solveFindIt(key)
     res.status(200).json({
       verdict: true
-    })
+    })/**/
   } else {
     accuracy.storeFindItVerdict(key, false)
     res.status(200).json({
       verdict: false,
       hint
-    })
+    })/**/
   }
 }

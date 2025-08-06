@@ -10,7 +10,7 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class AdministrationService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/rest/admin'
@@ -20,7 +20,7 @@ export class AdministrationService {
   getApplicationVersion () {
     return this.http.get(this.host + '/application-version').pipe(
       map((response: any) => response.version),
-      catchError((error: Error) => { throw error })
+      catchError((error: Error) => { throw error })/**/
     )
   }
 }

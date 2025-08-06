@@ -16,20 +16,20 @@ module.exports = function applyCoupon () {
     coupon = discount ? coupon : null
     BasketModel.findByPk(id).then((basket: BasketModel | null) => {
       if (basket != null) {
-        basket.update({ coupon: coupon?.toString() }).then(() => {
+        basket.update({ coupon: coupon?.toString() })/**/.then(() => {
           if (discount) {
-            res.json({ discount })
+            res.json({ discount })/**/
           } else {
             res.status(404).send('Invalid coupon.')
           }
-        }).catch((error: Error) => {
+        })/**/.catch((error: Error) => {
           next(error)
-        })
+        })/**/
       } else {
         next(new Error('Basket with id=' + id + ' does not exist.'))
       }
-    }).catch((error: Error) => {
+    })/**/.catch((error: Error) => {
       next(error)
-    })
+    })/**/
   }
 }

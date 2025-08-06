@@ -19,13 +19,13 @@ describe('/api/Feedbacks', () => {
   it('GET all feedback', () => {
     return frisby.get(API_URL + '/Feedbacks')
       .expect('status', 200)
-  })
+  })/**/
 
   it('POST sanitizes unsafe HTML from comment', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -34,20 +34,20 @@ describe('/api/Feedbacks', () => {
             captchaId: json.captchaId,
             captcha: json.answer
           }
-        })
+        })/**/
           .expect('status', 201)
           .expect('json', 'data', {
             comment: 'I am a harmless comment.'
-          })
-      })
-  })
-
+          })/**/
+      })/**/
+  })/**/
+//
   if (utils.isChallengeEnabled(challenges.persistedXssFeedbackChallenge)) {
     it('POST fails to sanitize masked XSS-attack by not applying sanitization recursively', () => {
       return frisby.get(REST_URL + '/captcha')
         .expect('status', 200)
         .expect('header', 'content-type', /application\/json/)
-        .then(({ json }) => {
+        .then(({ json })/**/ => {
           return frisby.post(API_URL + '/Feedbacks', {
             headers: jsonHeader,
             body: {
@@ -56,20 +56,20 @@ describe('/api/Feedbacks', () => {
               captchaId: json.captchaId,
               captcha: json.answer
             }
-          })
+          })/**/
             .expect('status', 201)
             .expect('json', 'data', {
               comment: 'The sanitize-html module up to at least version 1.4.2 has this issue: <iframe src="javascript:alert(`xss`)">'
-            })
-        })
-    })
+            })/**/
+        })/**/
+    })/**/
   }
 
   it('POST feedback in another users name as anonymous user', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -79,20 +79,20 @@ describe('/api/Feedbacks', () => {
             captchaId: json.captchaId,
             captcha: json.answer
           }
-        })
+        })/**/
           .expect('status', 201)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'data', {
             UserId: 3
-          })
-      })
-  })
+          })/**/
+      })/**/
+  })/**/
 
   it('POST feedback in a non-existing users name as anonymous user fails with constraint error', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -102,14 +102,14 @@ describe('/api/Feedbacks', () => {
             captchaId: json.captchaId,
             captcha: json.answer
           }
-        })
+        })/**/
           .expect('status', 500)
           .expect('header', 'content-type', /application\/json/)
-          .then(({ json }) => {
+          .then(({ json })/**/ => {
             expect(json.errors).toContain('SQLITE_CONSTRAINT: FOREIGN KEY constraint failed')
-          })
-      })
-  })
+          })/**/
+      })/**/
+  })/**/
 
   it('POST feedback is associated with current user', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -118,13 +118,13 @@ describe('/api/Feedbacks', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.get(REST_URL + '/captcha')
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .then(({ json }) => {
+          .then(({ json })/**/ => {
             return frisby.post(API_URL + '/Feedbacks', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
@@ -134,15 +134,15 @@ describe('/api/Feedbacks', () => {
                 captchaId: json.captchaId,
                 captcha: json.answer
               }
-            })
+            })/**/
               .expect('status', 201)
               .expect('header', 'content-type', /application\/json/)
               .expect('json', 'data', {
                 UserId: 4
-              })
-          })
-      })
-  })
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('POST feedback is associated with any passed user ID', () => {
     return frisby.post(REST_URL + '/user/login', {
@@ -151,13 +151,13 @@ describe('/api/Feedbacks', () => {
         email: 'bjoern.kimminich@gmail.com',
         password: 'bW9jLmxpYW1nQGhjaW5pbW1pay5ucmVvamI='
       }
-    })
+    })/**/
       .expect('status', 200)
-      .then(({ json: jsonLogin }) => {
+      .then(({ json: jsonLogin })/**/ => {
         return frisby.get(REST_URL + '/captcha')
           .expect('status', 200)
           .expect('header', 'content-type', /application\/json/)
-          .then(({ json }) => {
+          .then(({ json })/**/ => {
             return frisby.post(API_URL + '/Feedbacks', {
               headers: { Authorization: 'Bearer ' + jsonLogin.authentication.token, 'content-type': 'application/json' },
               body: {
@@ -167,21 +167,21 @@ describe('/api/Feedbacks', () => {
                 captchaId: json.captchaId,
                 captcha: json.answer
               }
-            })
+            })/**/
               .expect('status', 201)
               .expect('header', 'content-type', /application\/json/)
               .expect('json', 'data', {
                 UserId: 3
-              })
-          })
-      })
-  })
+              })/**/
+          })/**/
+      })/**/
+  })/**/
 
   it('POST feedback can be created without actually supplying comment', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -189,44 +189,44 @@ describe('/api/Feedbacks', () => {
             captchaId: json.captchaId,
             captcha: json.answer
           }
-        })
+        })/**/
           .expect('status', 201)
           .expect('header', 'content-type', /application\/json/)
           .expect('json', 'data', {
             comment: null,
             rating: 1
-          })
-      })
-  })
+          })/**/
+      })/**/
+  })/**/
 
   it('POST feedback cannot be created without actually supplying rating', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
             captchaId: json.captchaId,
             captcha: json.answer
           }
-        })
+        })/**/
           .expect('status', 400)
           .expect('header', 'content-type', /application\/json/)
           .expect('jsonTypes', {
             message: Joi.string()
-          })
-          .then(({ json }) => {
+          })/**/
+          .then(({ json })/**/ => {
             expect(json.message.match(/notNull Violation: (Feedback\.)?rating cannot be null/))
-          })
-      })
-  })
+          })/**/
+      })/**/
+  })/**/
 
   it('POST feedback cannot be created with wrong CAPTCHA answer', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -234,16 +234,16 @@ describe('/api/Feedbacks', () => {
             captchaId: json.captchaId,
             captcha: (json.answer + 1)
           }
-        })
+        })/**/
           .expect('status', 401)
-      })
-  })
+      })/**/
+  })/**/
 
   it('POST feedback cannot be created with invalid CAPTCHA id', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -251,22 +251,22 @@ describe('/api/Feedbacks', () => {
             captchaId: 999999,
             captcha: 42
           }
-        })
+        })/**/
           .expect('status', 401)
-      })
-  })
-})
+      })/**/
+  })/**/
+})/**/
 
 describe('/api/Feedbacks/:id', () => {
   it('GET existing feedback by id is forbidden via public API', () => {
     return frisby.get(API_URL + '/Feedbacks/1')
       .expect('status', 401)
-  })
+  })/**/
 
   it('GET existing feedback by id', () => {
-    return frisby.get(API_URL + '/Feedbacks/1', { headers: authHeader })
+    return frisby.get(API_URL + '/Feedbacks/1', { headers: authHeader })/**/
       .expect('status', 200)
-  })
+  })/**/
 
   it('PUT update existing feedback is forbidden via public API', () => {
     return frisby.put(API_URL + '/Feedbacks/1', {
@@ -275,9 +275,9 @@ describe('/api/Feedbacks/:id', () => {
         comment: 'This sucks like nothing has ever sucked before',
         rating: 1
       }
-    })
+    })/**/
       .expect('status', 401)
-  })
+  })/**/
 
   it('PUT update existing feedback', () => {
     return frisby.put(API_URL + '/Feedbacks/2', {
@@ -285,20 +285,20 @@ describe('/api/Feedbacks/:id', () => {
       body: {
         rating: 0
       }
-    })
+    })/**/
       .expect('status', 401)
-  })
+  })/**/
 
   it('DELETE existing feedback is forbidden via public API', () => {
     return frisby.del(API_URL + '/Feedbacks/1')
       .expect('status', 401)
-  })
+  })/**/
 
   it('DELETE existing feedback', () => {
     return frisby.get(REST_URL + '/captcha')
       .expect('status', 200)
       .expect('header', 'content-type', /application\/json/)
-      .then(({ json }) => {
+      .then(({ json })/**/ => {
         return frisby.post(API_URL + '/Feedbacks', {
           headers: jsonHeader,
           body: {
@@ -307,14 +307,14 @@ describe('/api/Feedbacks/:id', () => {
             captchaId: json.captchaId,
             captcha: json.answer
           }
-        })
+        })/**/
           .expect('status', 201)
-          .expect('jsonTypes', 'data', { id: Joi.number() })
-          .then(({ json }) => {
-            return frisby.del(API_URL + '/Feedbacks/' + json.data.id, { headers: authHeader })
+          .expect('jsonTypes', 'data', { id: Joi.number() })/**/
+          .then(({ json })/**/ => {
+            return frisby.del(API_URL + '/Feedbacks/' + json.data.id, { headers: authHeader })/**/
               .expect('status', 200)
           }
           )
-      })
-  })
-})
+      })/**/
+  })/**/
+})/**/

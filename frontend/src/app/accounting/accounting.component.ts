@@ -27,16 +27,16 @@ interface Order {
   selector: 'app-accounting',
   templateUrl: './accounting.component.html',
   styleUrls: ['./accounting.component.scss']
-})
+})/**/
 export class AccountingComponent implements AfterViewInit, OnDestroy {
   public orderHistoryColumns = ['OrderId', 'Price', 'Status', 'StatusButton']
-  @ViewChild('paginatorOrderHistory', { static: true }) paginatorOrderHistory: MatPaginator
+  @ViewChild('paginatorOrderHistory', { static: true })/**/ paginatorOrderHistory: MatPaginator
   public orderData: Order[]
   public orderSource
   public displayedColumns = ['Product', 'Price', 'Quantity']
   public tableData: any[]
   public dataSource
-  @ViewChild('paginator', { static: true }) paginator: MatPaginator
+  @ViewChild('paginator', { static: true })/**/ paginator: MatPaginator
   private productSubscription: Subscription
   private quantitySubscription: Subscription
   public quantityMap: any
@@ -56,8 +56,8 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
           id: item.id,
           quantity: item.quantity
         }
-      })
-    }, (err) => { console.log(err) })
+      })/**/
+    }, (err) => { console.log(err) })/**/
   }
 
   loadProducts () {
@@ -65,7 +65,7 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
       this.tableData = tableData
       this.dataSource = new MatTableDataSource<Element>(this.tableData)
       this.dataSource.paginator = this.paginator
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   loadOrders () {
@@ -77,11 +77,11 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
           orderId: order.orderId,
           totalPrice: order.totalPrice,
           delivered: order.delivered
-        })
+        })/**/
       }
       this.orderSource = new MatTableDataSource<Order>(this.orderData)
       this.orderSource.paginator = this.paginatorOrderHistory
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   ngOnDestroy () {
@@ -94,36 +94,36 @@ export class AccountingComponent implements AfterViewInit, OnDestroy {
   }
 
   modifyQuantity (id, value) {
-    this.quantityService.put(id, { quantity: value < 0 ? 0 : value }).subscribe((quantity) => {
+    this.quantityService.put(id, { quantity: value < 0 ? 0 : value })/**/.subscribe((quantity) => {
       const product = this.tableData.find((product) => {
         return product.id === quantity.ProductId
-      })
+      })/**/
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       this.snackBarHelperService.open(`Quantity for ${product.name} has been updated.`, 'confirmBar')
       this.loadQuantity()
     }, (err) => {
       this.snackBarHelperService.open(err.error, 'errorBar')
       console.log(err)
-    })
+    })/**/
   }
 
   modifyPrice (id, value) {
-    this.productService.put(id, { price: value < 0 ? 0 : value }).subscribe((product) => {
+    this.productService.put(id, { price: value < 0 ? 0 : value })/**/.subscribe((product) => {
       // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       this.snackBarHelperService.open(`Price for ${product.name} has been updated.`, 'confirmBar')
       this.loadProducts()
     }, (err) => {
       this.snackBarHelperService.open(err.error, 'errorBar')
       console.log(err)
-    })
+    })/**/
   }
 
   changeDeliveryStatus (deliveryStatus, orderId) {
-    this.orderHistoryService.toggleDeliveryStatus(orderId, { deliveryStatus }).subscribe(() => {
+    this.orderHistoryService.toggleDeliveryStatus(orderId, { deliveryStatus })/**/.subscribe(() => {
       this.loadOrders()
     }, (err) => {
       this.snackBarHelperService.open(err, 'errorBar')
       console.log(err)
-    })
+    })/**/
   }
 }

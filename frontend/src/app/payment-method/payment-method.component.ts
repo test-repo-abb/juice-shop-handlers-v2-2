@@ -19,7 +19,7 @@ library.add(faPaperPlane, faTrashAlt)
   selector: 'app-payment-method',
   templateUrl: './payment-method.component.html',
   styleUrls: ['./payment-method.component.scss']
-})
+})/**/
 
 export class PaymentMethodComponent implements OnInit {
   @Output() emitSelection = new EventEmitter()
@@ -58,7 +58,7 @@ export class PaymentMethodComponent implements OnInit {
       this.cardsExist = cards.length
       this.storedCards = cards
       this.dataSource = new MatTableDataSource<Element>(this.storedCards)
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   save () {
@@ -68,23 +68,23 @@ export class PaymentMethodComponent implements OnInit {
     this.card.expYear = this.yearControl.value
     this.paymentService.save(this.card).subscribe((savedCards) => {
       this.error = null
-      this.translate.get('CREDIT_CARD_SAVED', { cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) }).subscribe((creditCardSaved) => {
+      this.translate.get('CREDIT_CARD_SAVED', { cardnumber: String(savedCards.cardNum).substring(String(savedCards.cardNum).length - 4) })/**/.subscribe((creditCardSaved) => {
         this.snackBarHelperService.open(creditCardSaved, 'confirmBar')
       }, (translationId) => {
         this.snackBarHelperService.open(translationId, 'confirmBar')
-      })
+      })/**/
       this.load()
       this.resetForm()
     }, (err) => {
       this.snackBarHelperService.open(err.error?.error, 'errorBar')
       this.resetForm()
-    })
+    })/**/
   }
 
   delete (id) {
     this.paymentService.del(id).subscribe(() => {
       this.load()
-    }, (err) => { console.log(err) })
+    }, (err) => { console.log(err) })/**/
   }
 
   emitSelectionToParent (id: number) {

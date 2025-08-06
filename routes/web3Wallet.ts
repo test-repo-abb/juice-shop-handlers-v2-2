@@ -21,10 +21,10 @@ module.exports.contractExploitListener = function contractExploitListener () {
             walletsConnected.delete(exploiter)
             challengeUtils.solveIf(challenges.web3WalletChallenge, () => true)
           }
-        })
+        })/**/
         isEventListenerCreated = true
       }
-      res.status(200).json({ success: true, message: 'Event Listener Created' })
+      res.status(200).json({ success: true, message: 'Event Listener Created' })/**/
     } catch (error) {
       res.status(500).json(utils.getErrorMessage(error))
     }

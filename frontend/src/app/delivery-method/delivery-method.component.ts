@@ -20,7 +20,7 @@ library.add(faRocket, faShippingFast, faTruck)
   selector: 'app-delivery-method',
   templateUrl: './delivery-method.component.html',
   styleUrls: ['./delivery-method.component.scss']
-})
+})/**/
 export class DeliveryMethodComponent implements OnInit {
   public displayedColumns = ['Selection', 'Name', 'Price', 'ETA']
   public methods: DeliveryMethod[]
@@ -35,13 +35,13 @@ export class DeliveryMethodComponent implements OnInit {
   ngOnInit () {
     this.addressService.getById(sessionStorage.getItem('addressId')).subscribe((address) => {
       this.address = address
-    }, (error) => { console.log(error) })
+    }, (error) => { console.log(error) })/**/
 
     this.deliverySerivce.get().subscribe((methods) => {
       console.log(methods)
       this.methods = methods
       this.dataSource = new MatTableDataSource<DeliveryMethod>(this.methods)
-    }, (error) => { console.log(error) })
+    }, (error) => { console.log(error) })/**/
   }
 
   selectMethod (id) {

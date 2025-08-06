@@ -19,13 +19,13 @@ const INITIAL_SUMMARIES: Readonly<DifficultySummaries> = Object.freeze({
   4: { difficulty: 4, availableChallenges: 0, solvedChallenges: 0 },
   5: { difficulty: 5, availableChallenges: 0, solvedChallenges: 0 },
   6: { difficulty: 6, availableChallenges: 0, solvedChallenges: 0 }
-})
+})/**/
 
 @Component({
   selector: 'difficulty-overview-score-card',
   templateUrl: './difficulty-overview-score-card.component.html',
   styleUrls: ['./difficulty-overview-score-card.component.scss']
-})
+})/**/
 export class DifficultyOverviewScoreCardComponent implements OnInit, OnChanges {
   @Input()
   public allChallenges: EnrichedChallenge[] = []

@@ -81,7 +81,7 @@ describe('ScoreBoardComponent', () => {
         { provide: CodeSnippetService, useValue: codeSnippetService },
         { provide: ConfigurationService, useValue: configService }
       ]
-    }).compileComponents()
+    })/**/.compileComponents()
 
     challengeService.find.and.returnValue(
       of([
@@ -91,7 +91,7 @@ describe('ScoreBoardComponent', () => {
           category: 'category-blue',
           difficulty: 1,
           solved: true
-        }),
+        })/**/,
         createChallenge({
           name: 'Challenge 2',
           key: 'challenge-2',
@@ -100,7 +100,7 @@ describe('ScoreBoardComponent', () => {
           solved: false,
           hasSnippet: true,
           codingChallengeStatus: 1
-        }),
+        })/**/,
         createChallenge({
           name: 'Challenge 3',
           key: 'challenge-3',
@@ -108,7 +108,7 @@ describe('ScoreBoardComponent', () => {
           difficulty: 3,
           hasSnippet: true,
           solved: false
-        })
+        })/**/
       ])
     )
     codeSnippetService.challenges.and.returnValue(of(['challenge-2']))
@@ -120,17 +120,17 @@ describe('ScoreBoardComponent', () => {
           showHints: true,
           showMitigations: true
         }
-      })
+      })/**/
     )
 
     fixture = TestBed.createComponent(ScoreBoardComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should not filter any challenges on default settings', (): void => {
     expect(component.filteredChallenges).toHaveSize(3)
-  })
+  })/**/
 
   it('should properly identify that a challenge has a associated coding challenge', (): void => {
     expect(
@@ -138,7 +138,7 @@ describe('ScoreBoardComponent', () => {
         (challenge) => challenge.key === 'challenge-2'
       ).hasCodingChallenge
     ).toBe(true)
-  })
+  })/**/
 
   it('should mark challenges as solved on "challenge solved" websocket', (): void => {
     expect(
@@ -154,14 +154,14 @@ describe('ScoreBoardComponent', () => {
       flag: '',
       hidden: false,
       isRestore: false
-    })
+    })/**/
 
     expect(
       component.filteredChallenges.find(
         (challenge) => challenge.key === 'challenge-3'
       ).solved
     ).toBeTrue()
-  })
+  })/**/
 
   it('should mark find it code challenges as solved on "code challenge solved" websocket', (): void => {
     expect(
@@ -173,14 +173,14 @@ describe('ScoreBoardComponent', () => {
     component.onCodeChallengeSolvedWebsocket({
       key: 'challenge-3',
       codingChallengeStatus: 1
-    })
+    })/**/
 
     expect(
       component.filteredChallenges.find(
         (challenge) => challenge.key === 'challenge-3'
       ).codingChallengeStatus
     ).toBe(1)
-  })
+  })/**/
 
   it('should mark fix it code challenges as solved on "code challenge solved" websocket', (): void => {
     expect(
@@ -192,12 +192,12 @@ describe('ScoreBoardComponent', () => {
     component.onCodeChallengeSolvedWebsocket({
       key: 'challenge-2',
       codingChallengeStatus: 2
-    })
+    })/**/
 
     expect(
       component.filteredChallenges.find(
         (challenge) => challenge.key === 'challenge-2'
       ).codingChallengeStatus
     ).toBe(2)
-  })
-})
+  })/**/
+})/**/

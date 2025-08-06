@@ -27,7 +27,7 @@ describe('chatBotValidation', () => {
       }
 
       expect(checkIntentWithFunctionHandlerExists(trainingData, 'queries.test', 'testHandler')).to.equal(true)
-    })
+    })/**/
 
     it('should fail if the training data lacks the expected intent', () => {
       const trainingData = {
@@ -39,7 +39,7 @@ describe('chatBotValidation', () => {
       }
 
       expect(checkIntentWithFunctionHandlerExists(trainingData, 'queries.test', 'testFunction')).to.equal(false)
-    })
+    })/**/
 
     it('should fail if the training data lacks the expected handler for the given intent', () => {
       const trainingData = {
@@ -57,14 +57,14 @@ describe('chatBotValidation', () => {
       }
 
       expect(checkIntentWithFunctionHandlerExists(trainingData, 'queries.test', 'testHandler')).to.equal(false)
-    })
-  })
+    })/**/
+  })/**/
 
   it('should accept the default chatbot training data', () => {
     expect(validateChatBot(require('../../data/static/botDefaultTrainingData.json'))).to.equal(true)
-  })
+  })/**/
 
   it('should fail if the chatbot training data is empty', () => {
     expect(validateChatBot({ data: [] }, false)).to.equal(false)
-  })
-})
+  })/**/
+})/**/

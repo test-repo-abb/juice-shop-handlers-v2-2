@@ -10,7 +10,7 @@ filterTable () {
         } else {
           this.emptyState = false
         }
-      })
+      })/**/
     } else {
       this.dataSource.filter = ''
       this.searchValue = undefined

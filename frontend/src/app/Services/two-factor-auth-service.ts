@@ -28,7 +28,7 @@ interface TwoFactorAuthStatusPayload {
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class TwoFactorAuthService {
   constructor (private readonly http: HttpClient) {}
 
@@ -36,12 +36,12 @@ export class TwoFactorAuthService {
     return this.http.post<TwoFactorVerifyResponse>(`${environment.hostServer}/rest/2fa/verify`, {
       tmpToken: localStorage.getItem('totp_tmp_token'),
       totpToken
-    }).pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError((error) => { throw error }))
+    })/**/.pipe(map((response: TwoFactorVerifyResponse) => response.authentication), catchError((error) => { throw error })/**/)
   }
 
   status (): Observable<TwoFactorAuthStatusPayload> {
     return this.http.get<TwoFactorAuthStatusPayload>(`${environment.hostServer}/rest/2fa/status`)
-      .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error }))
+      .pipe(map((response: TwoFactorAuthStatusPayload) => response), catchError((error) => { throw error })/**/)
   }
 
   setup (password: string, initialToken: string, setupToken?: string): Observable<void> {
@@ -49,11 +49,11 @@ export class TwoFactorAuthService {
       password,
       setupToken,
       initialToken
-    }).pipe(map(() => undefined), catchError((error) => { throw error }))
+    })/**/.pipe(map(() => undefined), catchError((error) => { throw error })/**/)
   }
 
   disable (password: string): Observable<void> {
-    return this.http.post(`${environment.hostServer}/rest/2fa/disable`, { password })
-      .pipe(map(() => undefined), catchError((error) => { throw error }))
+    return this.http.post(`${environment.hostServer}/rest/2fa/disable`, { password })/**/
+      .pipe(map(() => undefined), catchError((error) => { throw error })/**/)
   }
 }

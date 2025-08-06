@@ -49,7 +49,7 @@ const ProductModelInit = (sequelize: Sequelize) => {
                 description,
                 '<iframe src="javascript:alert(`xss`)">'
               )
-            })
+            })/**/
           } else {
             description = security.sanitizeSecure(description)
           }

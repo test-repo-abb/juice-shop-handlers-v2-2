@@ -10,13 +10,13 @@ import { catchError, map } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
-})
+})/**/
 export class ComplaintService {
   private readonly hostServer = environment.hostServer
   private readonly host = this.hostServer + '/api/Complaints'
   constructor (private readonly http: HttpClient) { }
 
   save (params: any) {
-    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err }))
+    return this.http.post(this.host + '/', params).pipe(map((response: any) => response.data), catchError((err) => { throw err })/**/)
   }
 }

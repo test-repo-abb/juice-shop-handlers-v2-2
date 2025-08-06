@@ -23,8 +23,8 @@ describe('redirect', () => {
     next = sinon.spy()
     save = () => ({
       then () { }
-    })
-  })
+    })/**/
+  })/**/
 
   describe('should be performed for all allowlisted URLs', () => {
     for (const url of require('../../lib/insecurity').redirectAllowlist) {
@@ -34,9 +34,9 @@ describe('redirect', () => {
         performRedirect()(req, res, next)
 
         expect(res.redirect).to.have.been.calledWith(url)
-      })
+      })/**/
     }
-  })
+  })/**/
 
   it('should raise error for URL not on allowlist', () => {
     req.query.to = 'http://kimminich.de'
@@ -45,7 +45,7 @@ describe('redirect', () => {
 
     expect(res.redirect).to.have.not.been.calledWith(sinon.match.any)
     expect(next).to.have.been.calledWith(sinon.match.instanceOf(Error))
-  })
+  })/**/
 
   it('redirecting to https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://blockchain.info/address/1AbKfgvw9psQ41NbLi8kufDQTezwG8DRZm'
@@ -54,7 +54,7 @@ describe('redirect', () => {
     performRedirect()(req, res)
 
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
-  })
+  })/**/
 
   it('redirecting to https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://explorer.dash.org/address/Xr556RzuwX6hg5EGpkybbv5RanJoZN17kW'
@@ -63,7 +63,7 @@ describe('redirect', () => {
     performRedirect()(req, res)
 
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
-  })
+  })/**/
 
   it('redirecting to https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6 should solve the "redirectCryptoCurrencyChallenge"', () => {
     req.query.to = 'https://etherscan.io/address/0x0f933ab9fcaaa782d0279c300d73750e1311eae6'
@@ -72,7 +72,7 @@ describe('redirect', () => {
     performRedirect()(req, res)
 
     expect(challenges.redirectCryptoCurrencyChallenge.solved).to.equal(true)
-  })
+  })/**/
 
   it('tricking the allowlist should solve "redirectChallenge"', () => {
     req.query.to = 'http://kimminich.de?to=https://github.com/juice-shop/juice-shop'
@@ -81,5 +81,5 @@ describe('redirect', () => {
     performRedirect()(req, res)
 
     expect(challenges.redirectChallenge.solved).to.equal(true)
-  })
-})
+  })/**/
+})/**/

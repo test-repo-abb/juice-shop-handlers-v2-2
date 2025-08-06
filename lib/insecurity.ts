@@ -51,9 +51,9 @@ export const cutOffPoisonNullByte = (str: string) => {
   return str
 }
 
-export const isAuthorized = () => expressJwt(({ secret: publicKey }) as any)
+export const isAuthorized = () => expressJwt(({ secret: publicKey })/**/ as any)
 export const denyAll = () => expressJwt({ secret: '' + Math.random() } as any)
-export const authorize = (user = {}) => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })
+export const authorize = (user = {})/**/ => jwt.sign(user, privateKey, { expiresIn: '6h', algorithm: 'RS256' })/**/
 export const verify = (token: string) => token ? (jws.verify as ((token: string, secret: string) => boolean))(token, publicKey) : false
 export const decode = (token: string) => { return jws.decode(token)?.payload }
 
@@ -159,7 +159,7 @@ export const isAccounting = () => {
     if (decodedToken?.data?.role === roles.accounting) {
       next()
     } else {
-      res.status(403).json({ error: 'Malicious activity detected' })
+      res.status(403).json({ error: 'Malicious activity detected' })/**/
     }
   }
 }
@@ -180,7 +180,7 @@ export const appendUserId = () => {
       req.body.UserId = authenticatedUsers.tokenMap[utils.jwtFrom(req)].data.id
       next()
     } catch (error: any) {
-      res.status(401).json({ status: 'error', message: error })
+      res.status(401).json({ status: 'error', message: error })/**/
     }
   }
 }
@@ -195,7 +195,7 @@ export const updateAuthenticatedUsers = () => (req: Request, res: Response, next
           res.cookie('token', token)
         }
       }
-    })
+    })/**/
   }
   next()
 }

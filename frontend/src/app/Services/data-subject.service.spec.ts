@@ -12,17 +12,17 @@ describe('DataSubjectService', () => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [DataSubjectService]
-    })
-  })
+    })/**/
+  })/**/
 
   it('should be created', inject([DataSubjectService], (service: DataSubjectService) => {
     expect(service).toBeTruthy()
-  }))
+  })/**/)
 
   it('should pass the erasure request directly to the rest API', inject([DataSubjectService, HttpTestingController],
     fakeAsync((service: DataSubjectService, httpMock: HttpTestingController) => {
       let res: any
-      service.erase({}).subscribe((data) => (res = data))
+      service.erase({})/**/.subscribe((data) => (res = data))
       const req = httpMock.expectOne('http://localhost:3000/rest/user/erasure-request')
       req.flush('apiResponse')
 
@@ -31,7 +31,7 @@ describe('DataSubjectService', () => {
       expect(req.request.method).toBe('POST')
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })
+    })/**/
   ))
 
   it('should request data export directly from the rest api', inject([DataSubjectService, HttpTestingController],
@@ -46,6 +46,6 @@ describe('DataSubjectService', () => {
       expect(req.request.body).toBe(1)
       expect(res).toBe('apiResponse')
       httpMock.verify()
-    })
+    })/**/
   ))
-})
+})/**/

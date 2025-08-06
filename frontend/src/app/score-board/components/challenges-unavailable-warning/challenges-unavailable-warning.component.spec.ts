@@ -12,7 +12,7 @@ describe('ChallengesUnavailableWarningComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       declarations: [ChallengesUnavailableWarningComponent]
-    })
+    })/**/
       .compileComponents()
 
     fixture = TestBed.createComponent(ChallengesUnavailableWarningComponent)
@@ -42,12 +42,12 @@ describe('ChallengesUnavailableWarningComponent', () => {
     component.filterSetting = structuredClone(DEFAULT_FILTER_SETTING)
 
     fixture.detectChanges()
-  })
+  })/**/
 
   it('should properly calculate number of disabled challenges', () => {
     component.ngOnChanges()
 
     expect(component.numberOfDisabledChallenges).toBe(1)
     expect(component.disabledBecauseOfEnv).toBe('Docker')
-  })
-})
+  })/**/
+})/**/
